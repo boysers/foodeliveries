@@ -13,6 +13,16 @@
   }
 }
 
+body {
+  background-color: #252525;
+  color: white;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.6rem;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
