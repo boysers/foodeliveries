@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
 import { Product } from '../../types/product.type'
-import { MemoizedProductCard } from '../product-card/product-card.component'
-import { FilterName } from '../filterable-product/filterable-product.component'
+import { MemoizedProductCard } from './product-card.component'
+import { FilterName } from './products-filterable.component'
 import styled from 'styled-components'
 
-type PropsProductList = { products?: Product[]; filterName: FilterName }
+type PropsProductList = { products: Product[]; filterName: FilterName }
 
 const Grid = styled.div`
   max-width: 1300px;
@@ -19,9 +19,8 @@ const Grid = styled.div`
 `
 
 export const ProductList: FC<PropsProductList> = ({ products, filterName }) => {
-  if (!products) return null
-
   const newProducts: JSX.Element[] = []
+
   products.forEach((product) => {
     const { title } = product
 

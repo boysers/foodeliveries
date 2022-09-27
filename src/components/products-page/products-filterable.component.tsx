@@ -1,20 +1,15 @@
 import React, { FC, useCallback, useState } from 'react'
-import styled from 'styled-components'
 import { Product } from '../../types/product.type'
 import { HandleChange } from '../../types/handle-change.type'
 import { SearchBar } from '../search-bar/search-bar.component'
-import { ProductList } from '../product-list/product-list.component'
+import { ProductList } from './product-list.component'
 
-type PropsProductList = { products: Product[] }
 export type FilterName = string
+type PropsProductsFilterable = { products: Product[] }
 
-const Title = styled.h2`
-  text-align: center;
-  font-size: 40px;
-  margin: 50px 0;
-`
-
-export const FilterableProduct: FC<PropsProductList> = ({ products }) => {
+export const ProductsFilterable: FC<PropsProductsFilterable> = ({
+  products
+}) => {
   const [filterName, setFilterName] = useState<FilterName>('')
 
   const onHandleChange: HandleChange = useCallback((e) => {
@@ -24,8 +19,12 @@ export const FilterableProduct: FC<PropsProductList> = ({ products }) => {
 
   return (
     <>
-      <Title>Product List</Title>
-      <SearchBar filterName={filterName} onChange={onHandleChange} />
+      <SearchBar
+        value={filterName}
+        onChange={onHandleChange}
+        id="search"
+        label="Search"
+      />
       <ProductList products={products} filterName={filterName} />
     </>
   )

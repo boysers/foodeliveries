@@ -15,7 +15,7 @@ export const ErrorFallback: FC<PropsErrorFallback> = ({ children }) => {
   return (
     <Container>
       <Stack spacing={2}>
-        <Alert variant="outlined" severity="error" style={{ color: '#ef5350' }}>
+        <Alert variant="outlined" severity="error" sx={{ color: '#ef5350' }}>
           {children}
         </Alert>
       </Stack>
