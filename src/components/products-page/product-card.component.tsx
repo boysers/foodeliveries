@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react'
+import React, { FC } from 'react'
 import { Product } from '../../types/product.type'
 import Card from '@mui/material/Card'
 import CardMedia from '@mui/material/CardMedia'
@@ -15,7 +15,7 @@ type PropsProductCard = { product: Product }
 const NameStyled = styled.span`
   &:hover {
     cursor: ${(props: { checked: boolean }) =>
-      props.checked ? 'pointer' : 'initial'};
+      props.checked ? 'pointer' : 'auto'};
   }
 `
 
@@ -24,8 +24,12 @@ export const ProductCard: FC<PropsProductCard> = ({ product }) => {
 
   const [name, isName, setIsName] = useSlice(title, 16)
 
-  const onHandleClick = () => {
+  const onHandleClickFullName = () => {
     setIsName(false)
+  }
+
+  const onHandleClickModal = () => {
+    console.log('open modal!')
   }
 
   return (
@@ -36,10 +40,11 @@ export const ProductCard: FC<PropsProductCard> = ({ product }) => {
         src={image}
         alt={title}
         sx={{ minHeight: 270, ':hover': { cursor: 'pointer' } }}
+        onClick={onHandleClickModal}
       />
       <CardContent>
         <Typography gutterBottom variant="h6" component="div">
-          <NameStyled checked={isName} onClick={onHandleClick}>
+          <NameStyled checked={isName} onClick={onHandleClickFullName}>
             {name}
           </NameStyled>
         </Typography>
@@ -56,5 +61,3 @@ export const ProductCard: FC<PropsProductCard> = ({ product }) => {
     </Card>
   )
 }
-
-export const MemoizedProductCard = memo(ProductCard)

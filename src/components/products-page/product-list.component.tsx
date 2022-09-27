@@ -1,6 +1,6 @@
-import React, { FC } from 'react'
+import React, { FC, memo } from 'react'
 import { Product } from '../../types/product.type'
-import { MemoizedProductCard } from './product-card.component'
+import { ProductCard } from './product-card.component'
 import { FilterName } from './products-filterable.component'
 import styled from 'styled-components'
 
@@ -18,16 +18,18 @@ const Grid = styled.div`
   grid-gap: 1rem;
 `
 
+const MemoizedProductCard = memo(ProductCard)
+
 export const ProductList: FC<PropsProductList> = ({ products, filterName }) => {
-  const newProducts: JSX.Element[] = []
+  const cards: JSX.Element[] = []
 
   products.forEach((product) => {
     const { title } = product
 
     if (!title.toLowerCase().includes(filterName)) return
 
-    newProducts.push(<MemoizedProductCard key={product.id} product={product} />)
+    cards.push(<MemoizedProductCard key={product.id} product={product} />)
   })
 
-  return <Grid className="grille">{newProducts}</Grid>
+  return <Grid>{cards}</Grid>
 }

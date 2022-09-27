@@ -1,10 +1,10 @@
-import React, { FC } from 'react'
+import React, { FC, useContext } from 'react'
 import styled from 'styled-components'
-import { Product } from '../../types/product.type'
-import { ErrorFallback } from '../error-fallback/error-fallback.component'
+import { ProductsContext } from '../../contexts/products.context'
+import { Loader } from '../loader/loader.component'
 import { ProductsFilterable } from './products-filterable.component'
 
-type PropsProductsPage = { products?: Product[]; error?: Error }
+type PropsProductsPage = {}
 
 const Main = styled.div`
   padding-top: 64px;
@@ -15,15 +15,13 @@ const Title = styled.h2`
   margin: 40px 0;
 `
 
-export const ProductsPage: FC<PropsProductsPage> = ({ products, error }) => {
+export const ProductsPage: FC<PropsProductsPage> = () => {
+  const { loading } = useContext(ProductsContext)
+
   return (
     <Main>
       <Title>Product List</Title>
-      {products ? (
-        <ProductsFilterable products={products} />
-      ) : (
-        <ErrorFallback>{error?.message || 'product unavailable'}</ErrorFallback>
-      )}
+      {loading ? <Loader /> : <ProductsFilterable />}
     </Main>
   )
 }

@@ -1,15 +1,16 @@
-import React, { FC, useCallback, useState } from 'react'
-import { Product } from '../../types/product.type'
+import React, { FC, useCallback, useContext, useState } from 'react'
 import { HandleChange } from '../../types/handle-change.type'
 import { SearchBar } from '../search-bar/search-bar.component'
 import { ProductList } from './product-list.component'
+import { ProductsContext } from '../../contexts/products.context'
+import { ErrorFallback } from '../error-fallback/error-fallback.component'
 
 export type FilterName = string
-type PropsProductsFilterable = { products: Product[] }
+type PropsProductsFilterable = {}
 
-export const ProductsFilterable: FC<PropsProductsFilterable> = ({
-  products
-}) => {
+export const ProductsFilterable: FC<PropsProductsFilterable> = () => {
+  const { error, products } = useContext(ProductsContext)
+
   const [filterName, setFilterName] = useState<FilterName>('')
 
   const onHandleChange: HandleChange = useCallback((e) => {
@@ -25,7 +26,13 @@ export const ProductsFilterable: FC<PropsProductsFilterable> = ({
         id="search"
         label="Search"
       />
-      <ProductList products={products} filterName={filterName} />
+      {error ? (
+        <ErrorFallback>{error.message}</ErrorFallback>
+      ) : products ? (
+        <ProductList products={products} filterName={filterName} />
+      ) : (
+        <ErrorFallback>products unavailable</ErrorFallback>
+      )}
     </>
   )
 }
