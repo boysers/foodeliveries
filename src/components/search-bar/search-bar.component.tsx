@@ -26,11 +26,11 @@ export const SearchBar: FC<PropsSearchBar> = ({
       <TextField
         onChange={onChange}
         value={value}
-        id="search"
-        label="Search"
+        label={label}
+        id={id}
         variant="filled"
-        color="info"
-        focused
+        color="primary"
+        sx={{ width: 270 }}
       />
     </SearchBarStyled>
   )

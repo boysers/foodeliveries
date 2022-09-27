@@ -11,7 +11,7 @@ export const useFetch = <D = unknown>(url: string) => {
     const getProductList = async () => {
       try {
         const res = await fetch(url)
-        if (!res.ok) throw new Error(`${res.status} : Error`)
+        if (!res.ok) throw new Error(`${res.status} Error`)
         const resData = (await res.json()) as D
         setData(resData)
       } catch (err) {

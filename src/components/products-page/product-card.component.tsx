@@ -7,42 +7,51 @@ import Typography from '@mui/material/Typography'
 import CardActions from '@mui/material/CardActions'
 import Button from '@mui/material/Button'
 import Rating from '@mui/material/Rating'
+import styled from 'styled-components'
+import { useSlice } from '../../hooks/use-slice'
 
 type PropsProductCard = { product: Product }
 
+const NameStyled = styled.span`
+  &:hover {
+    cursor: ${(props: { checked: boolean }) =>
+      props.checked ? 'pointer' : 'initial'};
+  }
+`
+
 export const ProductCard: FC<PropsProductCard> = ({ product }) => {
   const { image, title, category, rating, price } = product
+
+  const [name, isName, setIsName] = useSlice(title, 16)
+
+  const onHandleClick = () => {
+    setIsName(false)
+  }
+
   return (
-    <Card
-      sx={{
-        maxWidth: 300,
-        backgroundColor: '#2c2c2c',
-        color: '#fff'
-      }}
-      className="grid-item"
-    >
+    <Card className="grid-item">
       <CardMedia
         component="img"
         height="140"
         src={image}
         alt={title}
-        sx={{ maxHeight: 300 }}
+        sx={{ minHeight: 270, ':hover': { cursor: 'pointer' } }}
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {title.substring(0, 10)}...
+        <Typography gutterBottom variant="h6" component="div">
+          <NameStyled checked={isName} onClick={onHandleClick}>
+            {name}
+          </NameStyled>
         </Typography>
-        <Typography
-          variant="body1"
-          color="text.secondary"
-          sx={{ color: '#ffffffb3' }}
-        >
+        <Typography variant="body1" color="text.secondary">
           {category}
         </Typography>
         <Rating name="read-only" value={rating.rate} readOnly />
       </CardContent>
       <CardActions>
-        <Button size="large">${price}</Button>
+        <Button size="large" color="success">
+          ${price}
+        </Button>
       </CardActions>
     </Card>
   )

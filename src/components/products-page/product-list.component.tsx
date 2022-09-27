@@ -13,7 +13,7 @@ const Grid = styled.div`
   margin: 30px auto;
 
   display: grid;
-  grid-template-columns: repeat(auto-fill, 160px);
+  grid-template-columns: repeat(auto-fill, 270px);
   justify-content: center;
   grid-gap: 1rem;
 `
