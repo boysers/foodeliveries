@@ -5,24 +5,20 @@ import { Product } from '../types/product.type'
 type DefaultValueProductsContext = {
   loading: boolean
   products?: Product[]
-  error?: Error
 }
 type PropsColorModeProvider = PropsWithChildren
 
-const defaultValue = { products: [], error: undefined, loading: true }
+const defaultValue = { products: [], loading: true }
 
 export const ProductsContext =
   createContext<DefaultValueProductsContext>(defaultValue)
 
 export const ProductsProvider: FC<PropsColorModeProvider> = ({ children }) => {
-  const [loading, products, error] = useFetch<Product[]>(
+  const [loading, products] = useFetch<Product[]>(
     'https://fakestoreapi.com/products'
   )
 
-  const value = useMemo(
-    () => ({ loading, products, error }),
-    [error, loading, products]
-  )
+  const value = useMemo(() => ({ loading, products }), [loading, products])
 
   return (
     <ProductsContext.Provider value={value}>

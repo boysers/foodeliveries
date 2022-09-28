@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { ProductsContext } from '../../contexts/products.context'
 import { Loader } from '../loader/loader.component'
 import { ProductsFilterable } from './products-filterable.component'
+import { ErrorBoundary } from 'react-error-boundary'
+import { ErrorFallback } from '../error-fallback/error-fallback.component'
 
 type PropsProductsPage = {}
 
@@ -19,9 +21,17 @@ export const ProductsPage: FC<PropsProductsPage> = () => {
   const { loading } = useContext(ProductsContext)
 
   return (
-    <Main>
-      <Title>Product List</Title>
-      {loading ? <Loader /> : <ProductsFilterable />}
-    </Main>
+    <>
+      {loading ? (
+        <Loader />
+      ) : (
+        <Main>
+          <Title>Product List</Title>
+          <ErrorBoundary FallbackComponent={ErrorFallback}>
+            <ProductsFilterable />
+          </ErrorBoundary>
+        </Main>
+      )}
+    </>
   )
 }

@@ -1,26 +1,23 @@
-import React, { FC, PropsWithChildren } from 'react'
+import React, { FC } from 'react'
 import Alert from '@mui/material/Alert'
 import { Stack } from '@mui/system'
 import styled from 'styled-components'
+import { FallbackProps } from 'react-error-boundary'
 
-type PropsErrorFallback = PropsWithChildren
+type PropsErrorFallback = FallbackProps
 
 const Container = styled.div`
-  margin: 30px auto;
   display: flex;
   justify-content: center;
+  align-items: center;
 `
 
-export const ErrorFallback: FC<PropsErrorFallback> = ({ children }) => {
+export const ErrorFallback: FC<PropsErrorFallback> = ({ error }) => {
   return (
     <Container>
-      <Stack spacing={2}>
-        <Alert
-          variant="outlined"
-          severity="error"
-          sx={{ color: '#ef5350', width: 270 }}
-        >
-          {children}
+      <Stack>
+        <Alert severity="error" sx={{ width: 270 }}>
+          {error.message}
         </Alert>
       </Stack>
     </Container>
