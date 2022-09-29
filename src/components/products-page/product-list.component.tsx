@@ -7,11 +7,10 @@ import styled from 'styled-components'
 type PropsProductList = { products: Product[]; filterName: FilterName }
 
 const Grid = styled.div`
-  max-width: 1300px;
+  max-width: 1600px;
   width: 80%;
   height: auto;
   margin: 30px auto;
-
   display: grid;
   grid-template-columns: repeat(auto-fill, 270px);
   justify-content: center;
