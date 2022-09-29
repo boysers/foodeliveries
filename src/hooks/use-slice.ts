@@ -15,4 +15,3 @@ export const useSlice = (str: string, end: number, isSlice = true) => {
 
   return [sentence, slice, setIsSlice] as const
 }
-//

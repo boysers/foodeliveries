@@ -14,15 +14,18 @@ type DefaultValueColorModeContext = {
   mode: TypeUseMode
 }
 type PropsColorModeProvider = PropsWithChildren
-type TypeUseMode = 'light' | 'dark'
+export type TypeUseMode = 'light' | 'dark'
+
+// Default theme
+const defaultTheme: TypeUseMode = 'light'
 
 export const ColorModeContext = createContext<DefaultValueColorModeContext>({
   toggleColorMode: () => {},
-  mode: 'dark'
+  mode: defaultTheme
 })
 
 export const ColorModeProvider: FC<PropsColorModeProvider> = ({ children }) => {
-  const [mode, setMode] = useState<TypeUseMode>('dark')
+  const [mode, setMode] = useState<TypeUseMode>(defaultTheme)
 
   const colorMode = useMemo(
     () => ({
@@ -36,9 +39,12 @@ export const ColorModeProvider: FC<PropsColorModeProvider> = ({ children }) => {
   const theme = useMemo(() => createTheme({ palette: { mode } }), [mode])
 
   useEffect(() => {
-    if (localStorage.getItem('theme') === 'light') {
-      localStorage.setItem('theme', 'light')
-      setMode('light')
+    const reverseThemed = defaultTheme === 'light' ? 'dark' : 'light'
+
+    if (localStorage.getItem('theme') === reverseThemed) {
+      localStorage.setItem('theme', reverseThemed)
+      setMode(reverseThemed)
+      console.log(localStorage.getItem('theme'))
     }
   }, [])
 
