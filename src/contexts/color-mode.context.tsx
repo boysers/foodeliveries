@@ -44,7 +44,6 @@ export const ColorModeProvider: FC<PropsColorModeProvider> = ({ children }) => {
     if (localStorage.getItem('theme') === reverseThemed) {
       localStorage.setItem('theme', reverseThemed)
       setMode(reverseThemed)
-      console.log(localStorage.getItem('theme'))
     }
   }, [])
 

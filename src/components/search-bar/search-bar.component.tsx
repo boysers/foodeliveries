@@ -1,37 +1,31 @@
 import React, { FC } from 'react'
 import TextField from '@mui/material/TextField'
 import { HandleChange } from '../../types/handle-change.type'
-import styled from 'styled-components'
 
 type PropsSearchBar = Partial<{
   onChange: HandleChange
   value: string
   id: string
   label: string
+  width?: number
 }>
-
-const SearchBarStyled = styled.div`
-  display: flex;
-  justify-content: center;
-`
 
 export const SearchBar: FC<PropsSearchBar> = ({
   value,
   onChange,
   label,
-  id
+  id,
+  width = 270
 }) => {
   return (
-    <SearchBarStyled>
-      <TextField
-        onChange={onChange}
-        value={value}
-        label={label}
-        id={id}
-        variant="filled"
-        color="primary"
-        sx={{ width: 270 }}
-      />
-    </SearchBarStyled>
+    <TextField
+      onChange={onChange}
+      value={value}
+      label={label}
+      id={id}
+      variant="filled"
+      color="primary"
+      sx={{ width }}
+    />
   )
 }

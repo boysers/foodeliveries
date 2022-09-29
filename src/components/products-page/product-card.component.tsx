@@ -12,6 +12,8 @@ import {
 } from '../../contexts/color-mode.context'
 import { ProductSingleModal } from '../modal-image/modal-image.component'
 import { SliceSentence } from '../slice-sentence/slice-sentence.component'
+import { Button, CardActions } from '@mui/material'
+import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined'
 
 type PropsProductCard = { product: Product }
 
@@ -25,7 +27,8 @@ const TitleStyled = styled.div`
 const CardStyled = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: space-between;
+  align-items: flex-end;
   height: 100%;
 `
 const RatingStyled = styled.div`
@@ -46,39 +49,50 @@ export const ProductCard: FC<PropsProductCard> = ({ product }) => {
   return (
     <Card className="grid-item">
       <CardStyled>
-        <CardMedia
-          component="img"
-          height="160"
-          src={image}
-          alt={title}
-          sx={{ minHeight: 270, ':hover': { cursor: 'pointer' } }}
-          onClick={onHandleOpen}
-        />
-        <CardContent>
-          <Typography variant="h6">
-            <TitleStyled theme={theme}>
-              <SliceSentence sentence={title} end={16} onClick={onHandleOpen} />
-            </TitleStyled>
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            {category}
-          </Typography>
-          <RatingStyled>
-            <Rating
-              name="read-only"
-              value={rating.rate}
-              precision={0.5}
-              readOnly
-            />
-            <Typography sx={{ paddingLeft: 0.5 }}>
-              {rating.count} evaluation
+        <div>
+          <CardMedia
+            component="img"
+            height="160"
+            src={image}
+            alt={title}
+            sx={{ minHeight: 270, ':hover': { cursor: 'pointer' } }}
+            onClick={onHandleOpen}
+          />
+          <CardContent>
+            <Typography variant="h6">
+              <TitleStyled theme={theme} onClick={onHandleOpen}>
+                {title}
+              </TitleStyled>
             </Typography>
-          </RatingStyled>
-          <Typography variant="h5">${price}</Typography>
-          <Typography variant="body2">
-            <SliceSentence sentence={description} end={64} />
-          </Typography>
-        </CardContent>
+            <Typography variant="body1" color="text.secondary">
+              {category}
+            </Typography>
+            <RatingStyled>
+              <Rating
+                name="read-only"
+                value={rating.rate}
+                precision={0.5}
+                readOnly
+              />
+              <Typography sx={{ paddingLeft: 0.5 }}>
+                {rating.count} evaluation
+              </Typography>
+            </RatingStyled>
+            <Typography variant="h5">${price}</Typography>
+            <Typography variant="body2">
+              <SliceSentence sentence={description} end={64} />
+            </Typography>
+          </CardContent>
+        </div>
+        <CardActions>
+          <Button
+            size="large"
+            color="info"
+            startIcon={<AddShoppingCartOutlinedIcon />}
+          >
+            Add
+          </Button>
+        </CardActions>
       </CardStyled>
       <ProductSingleModal
         isOpen={isOpen}
