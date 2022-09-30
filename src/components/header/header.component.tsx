@@ -11,13 +11,15 @@ const MemoizedThemeSwitcher = memo(ThemeSwitcher)
 export const Header: FC = () => {
   const colorMode = useContext(ColorModeContext)
 
-  const onHandleChange: HandleChange = useCallback(() => {
-    colorMode.toggleColorMode()
-  }, [colorMode])
+  const onHandleChange: HandleChange = useCallback(
+    () => colorMode.toggleColorMode(),
+    [colorMode]
+  )
 
-  const value = useMemo(() => {
-    return { checked: colorMode.mode === 'dark', onHandleChange }
-  }, [colorMode.mode, onHandleChange])
+  const value = useMemo(
+    () => ({ checked: colorMode.mode === 'dark', onHandleChange }),
+    [colorMode.mode, onHandleChange]
+  )
 
   return (
     <AppBar position="fixed">

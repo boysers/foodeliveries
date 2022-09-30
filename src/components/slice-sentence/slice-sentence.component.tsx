@@ -12,12 +12,6 @@ type PropsSliceSentence = {
   onClick?: () => void
 }
 
-const SliceStyled = styled.span`
-  &:hover {
-    /* cursor: ${(props: { checked: boolean }) =>
-      props.checked ? 'pointer' : 'current'}; */
-  }
-`
 const ShowStyled = styled.span`
   &:hover {
     cursor: pointer;
@@ -44,11 +38,11 @@ export const SliceSentence: FC<PropsSliceSentence> = ({
   }
 
   return (
-    <SliceStyled checked={isStr}>
+    <span>
       {str}{' '}
       <ShowStyled theme={theme} onClick={onHandleClick}>
         {isStr ? 'show' : 'hide'}
       </ShowStyled>
-    </SliceStyled>
+    </span>
   )
 }

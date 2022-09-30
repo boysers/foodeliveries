@@ -18,30 +18,30 @@ const SearchBarStyled = styled.div`
 
 export const ProductsFilterable: FC<PropsProductsFilterable> = () => {
   const { products } = useContext(ProductsContext)
-
-  if (!products?.length) throw new Error('products unavailable')
-
+  const [categories, setCategories] = useState<string[]>([])
   const [filterName, setFilterName] = useState<FilterName>('')
   const [filterCategorie, setFilterCategorie] = useState<FilterCategorie>('')
 
-  const [categories, setCategories] = useState<string[]>([])
+  const onHandleChangeName: HandleChange = useCallback(
+    (e) => setFilterName(e.target.value.toLowerCase()),
+    []
+  )
 
-  const onHandleChangeName: HandleChange = useCallback((e) => {
-    const { value } = e.target
-    setFilterName(value.toLowerCase())
-  }, [])
+  const onHandleChangeCategorie = useCallback(
+    (e: SelectChangeEvent) => setFilterCategorie(e.target.value),
+    []
+  )
 
-  const onHandleChangeCategorie = useCallback((e: SelectChangeEvent) => {
-    setFilterCategorie(e.target.value)
-  }, [])
+  if (!products?.length) throw new Error('products unavailable')
 
   useEffect(() => {
-    const categories = products.reduce<string[]>(
-      (acc, product) =>
-        acc.includes(product.category) ? acc : acc.concat(product.category),
-      []
+    setCategories(
+      products.reduce<string[]>(
+        (acc, product) =>
+          acc.includes(product.category) ? acc : acc.concat(product.category),
+        []
+      )
     )
-    setCategories(categories)
   }, [products])
 
   return (

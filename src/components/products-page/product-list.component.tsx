@@ -33,8 +33,11 @@ export const ProductList: FC<PropsProductList> = ({
   products.forEach((product) => {
     const { title, category } = product
 
-    if (filterCategorie && category !== filterCategorie) return
-    if (!title.toLowerCase().includes(filterName)) return
+    if (
+      (filterCategorie && category !== filterCategorie) ||
+      !title.toLowerCase().includes(filterName)
+    )
+      return
 
     cards.push(<MemoizedProductCard key={product.id} product={product} />)
   })
