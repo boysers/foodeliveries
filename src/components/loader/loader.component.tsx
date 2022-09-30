@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
-import LoadingGif from '../../assets/loading.gif'
 import styled from 'styled-components'
+import CircularProgress from '@mui/material/CircularProgress';
 
 const LoadingStyled = styled.div`
   font-size: 1.6rem;
@@ -12,18 +12,11 @@ const LoadingStyled = styled.div`
 
   overflow: hidden;
 `
-const Img = styled.img`
-  max-width: 100px;
-`
-const Paragraph = styled.p`
-  margin: 0;
-`
 
 export const Loader: FC = () => {
   return (
     <LoadingStyled>
-      <Img src={LoadingGif} alt="Loading" />
-      <Paragraph>Loading...</Paragraph>
+      <CircularProgress color="info" size={112}/>
     </LoadingStyled>
   )
 }
