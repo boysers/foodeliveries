@@ -7,7 +7,7 @@ export const ShoppingCard: FC = () => {
 
   return (
     <IconButton>
-      <Badge badgeContent={badgeContent} color="primary" showZero max={9}>
+      <Badge badgeContent={badgeContent} color="error" showZero max={9}>
         <ShoppingCartIcon sx={{ fontSize: { xs: '1.5rem', md: '1.8rem' } }} />
       </Badge>
     </IconButton>

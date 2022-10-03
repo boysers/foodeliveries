@@ -78,14 +78,11 @@ export const Header: FC<PropsHeader> = ({ pages }) => {
           </TitleLink>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                component={Link}
-                to={page}
-                onClick={onHandleCloseNavMenu}
-              >
-                {page.charAt(0).toUpperCase() + page.slice(1)}
-              </Button>
+              <MenuItem key={page} component={Link} to={page}>
+                <Typography textAlign="center">
+                  {page.charAt(0).toUpperCase() + page.slice(1)}
+                </Typography>
+              </MenuItem>
             ))}
           </Box>
 
