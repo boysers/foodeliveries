@@ -1,14 +1,5 @@
-import React, {
-  FC,
-  useCallback,
-  useContext,
-  useMemo,
-  useState,
-  MouseEvent
-} from 'react'
-import { FuncHandleChange } from '../../types'
+import React, { FC, useState, MouseEvent } from 'react'
 import { ThemeSwitcher } from '../theme-switcher/theme-switcher.component'
-import { ColorModeContext } from '../../contexts'
 import { Link } from 'react-router-dom'
 import {
   AppBar,
@@ -26,28 +17,6 @@ import { TitleLink } from './typographies-custom.component'
 import { ShoppingCard } from '../shopping-card/shopping-card.component'
 
 type PropsHeader = { pages: string[] }
-
-/* const toto = (
-  <Toolbar>
-    <Typography
-      component={Link}
-      to="/"
-      variant="h5"
-      sx={{
-        flexGrow: 1,
-        textDecoration: 'none',
-        color: 'inherit',
-        letterSpacing: '0.25rem'
-      }}
-    >
-      SHOP
-    </Typography>
-
-    
-
-    <ThemeSwitcher value={value} />
-  </Toolbar>
-) */
 
 export const Header: FC<PropsHeader> = ({ pages }) => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
