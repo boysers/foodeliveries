@@ -1,7 +1,6 @@
 {
   "name": "shop-react",
   "version": "0.1.0",
-  "homepage": "https://boysers.github.com/shop-react",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.4",
