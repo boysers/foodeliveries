@@ -12,9 +12,7 @@ const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
   left: '50%',
-  transform: 'translate(-50%, -50%)',
-  maxWidth: '90vh',
-  outline: 'none'
+  transform: 'translate(-50%, -50%)'
 }
 
 export const ProductSingleModal: FC<PropsProductSingleModal> = ({
@@ -24,16 +22,9 @@ export const ProductSingleModal: FC<PropsProductSingleModal> = ({
   alt
 }) => {
   return (
-    <Modal open={isOpen} onClose={onHandleClose}>
+    <Modal open={isOpen} onClose={onHandleClose} disableAutoFocus>
       <Box sx={style}>
-        <CardMedia
-          component="img"
-          src={src}
-          alt={alt}
-          sx={{
-            height: '100%'
-          }}
-        />
+        <CardMedia component="img" src={src} alt={alt} />
       </Box>
     </Modal>
   )

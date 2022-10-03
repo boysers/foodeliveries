@@ -1,9 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import { RouterProvider } from 'react-router-dom'
-import { router } from './app/routes'
 import reportWebVitals from './reportWebVitals'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { rootRoutes } from './app/routing-app'
+
+const router = createBrowserRouter(rootRoutes)
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
