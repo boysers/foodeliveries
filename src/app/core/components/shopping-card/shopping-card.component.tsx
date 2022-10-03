@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
 import { Badge, IconButton } from '@mui/material'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
-import styled from 'styled-components'
 
 export const ShoppingCard: FC = () => {
   let badgeContent = 0
