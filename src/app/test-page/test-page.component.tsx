@@ -2,6 +2,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
+import { CheckboxSearchBar } from '../core/components'
 import { ShoppingCard } from '../core/components/shopping-card/shopping-card.component'
 
 const ContainerStyled = styled.div`
@@ -27,6 +28,7 @@ export const TestPage = () => {
   return (
     <ContainerStyled>
       <TitleStyled>Test Page</TitleStyled>
+      <CheckboxSearchBar label='test' />
       <ShoppingCard />
     </ContainerStyled>
   )
