@@ -9,8 +9,7 @@ import {
   MenuItem,
   IconButton,
   Container,
-  Menu,
-  Button
+  Menu
 } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import { TitleLink } from './typographies-custom.component'
