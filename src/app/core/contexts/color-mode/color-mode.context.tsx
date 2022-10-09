@@ -2,7 +2,6 @@ import React, {
   createContext,
   FC,
   PropsWithChildren,
-  useCallback,
   useEffect,
   useMemo,
   useState
@@ -18,17 +17,19 @@ type DefaultValueColorModeContext = {
 }
 type PropsColorModeProvider = PropsWithChildren
 
+const getInitValueState = () => {
+  const theme = localStorage.getItem('theme')
+  if (theme) return theme === ThemeType.DARK ? ThemeType.DARK : ThemeType.LIGHT
+  else return defaultTheme
+}
+
 export const ColorModeContext = createContext<DefaultValueColorModeContext>({
   toggleColorMode: () => {},
   mode: defaultTheme
 })
 
 export const ColorModeProvider: FC<PropsColorModeProvider> = ({ children }) => {
-  const [mode, setMode] = useState<ThemeType>(defaultTheme)
-
-  const reverseTheme = useCallback((prev: ThemeType) => {
-    return prev === ThemeType.LIGHT ? ThemeType.DARK : ThemeType.LIGHT
-  }, [])
+  const [mode, setMode] = useState<ThemeType>(getInitValueState)
 
   const colorMode = useMemo(
     () => ({
@@ -42,15 +43,6 @@ export const ColorModeProvider: FC<PropsColorModeProvider> = ({ children }) => {
   )
 
   const theme = useMemo(() => createTheme({ palette: { mode } }), [mode])
-
-  useEffect(() => {
-    const theme = reverseTheme(defaultTheme)
-
-    if (localStorage.getItem('theme') === theme) {
-      localStorage.setItem('theme', theme)
-      setMode(theme)
-    }
-  }, [reverseTheme])
 
   useEffect(() => {
     localStorage.setItem('theme', mode)

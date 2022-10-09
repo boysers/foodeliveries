@@ -1,6 +1,7 @@
-import React, { FC, memo, useContext, useState } from 'react'
+import React, { FC, useContext } from 'react'
 import styled from 'styled-components'
-
+import { VariantType, useSnackbar } from 'notistack'
+import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined'
 import {
   Card,
   CardMedia,
@@ -8,13 +9,16 @@ import {
   Typography,
   Rating,
   Button,
-  CardActions
+  CardActions,
+  Tooltip
 } from '@mui/material'
-import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined'
-import { Product } from '../../core/contexts/products/product.interface'
-import { ColorModeContext } from '../../core/contexts/color-mode/color-mode.context'
-import { ImageModal, SliceSentence } from '../../core/components'
-import { ThemeType } from '../../core/contexts/color-mode/ThemeType.enum'
+import {
+  Product,
+  ColorModeContext,
+  ThemeType,
+  CartActionTypes,
+  useShoppingCartContext
+} from '../../core/contexts'
 
 type PropsProductCard = { product: Product }
 
@@ -29,78 +33,86 @@ const CardStyled = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   height: 100%;
+  width: 100%;
 `
 const RatingStyled = styled.div`
   display: flex;
   margin: 5px 0;
 `
 
-const MemoizedSliceSentence = memo(SliceSentence)
-
 export const ProductCard: FC<PropsProductCard> = ({ product }) => {
-  const { image, title, category, rating, price, description } = product
+  const { image, title, category, rating, price, id } = product
 
   const { mode: theme } = useContext(ColorModeContext)
+  const { dispatch } = useShoppingCartContext()
+  const { enqueueSnackbar } = useSnackbar()
 
-  // for ProductSingleModal
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-  const onHandleOpen = () => setIsOpen(true)
-  const onHandleClose = () => setIsOpen(false)
+  const newTitle =
+    title.length <= 20 ? title : title.slice(0, 20).trim() + '...'
+
+  const onHandleClickAddProduct = (
+    title: string,
+    variant: VariantType = 'success'
+  ) => {
+    enqueueSnackbar(`This is add cart : ${title}`, { variant })
+  }
 
   return (
-    <Card className="grid-item">
+    <Card className="grid-item" variant="outlined">
       <CardStyled>
         <div>
           <CardMedia
             component="img"
-            height="160"
             src={image}
             alt={title}
-            sx={{ minHeight: 270, ':hover': { cursor: 'pointer' } }}
-            onClick={onHandleOpen}
+            sx={{
+              ':hover': { cursor: 'pointer' },
+              maxWidth: 250,
+              maxHeight: 250,
+              width: 'auto',
+              margin: '0 auto'
+            }}
           />
-          <CardContent>
-            <Typography variant="h6">
-              <TitleStyled theme={theme} onClick={onHandleOpen}>
-                {title}
-              </TitleStyled>
-            </Typography>
+          <CardContent sx={{ paddingBottom: "0!important" }}>
             <Typography variant="body1" color="text.secondary">
               {category}
             </Typography>
+            <Tooltip title={title}>
+              <Typography component="h5" variant="h6">
+                <TitleStyled theme={theme}>{newTitle}</TitleStyled>
+              </Typography>
+            </Tooltip>
             <RatingStyled>
               <Rating
                 name="read-only"
                 value={rating.rate}
                 precision={0.5}
+                size="small"
                 readOnly
               />
-              <Typography sx={{ paddingLeft: 0.5 }}>
+              <Typography sx={{ paddingLeft: 0.5, textAlign: 'center' }}>
                 {rating.count} evaluation
               </Typography>
             </RatingStyled>
-            <Typography variant="h5">${price}</Typography>
-            <Typography variant="body2">
-              <MemoizedSliceSentence sentence={description} end={64} />
+            <Typography variant="h5" sx={{ textAlign: 'center', marginTop: 2 }}>
+              ${price}
             </Typography>
           </CardContent>
         </div>
         <CardActions>
           <Button
-            size="large"
-            color="info"
-            startIcon={<AddShoppingCartOutlinedIcon />}
-          />
+            endIcon={<AddShoppingCartOutlinedIcon />}
+            onClick={() => {
+              dispatch({ payload: id, type: CartActionTypes.ADD })
+              onHandleClickAddProduct(newTitle)
+            }}
+          >
+            Add to Cart
+          </Button>
         </CardActions>
       </CardStyled>
-      <ImageModal
-        isOpen={isOpen}
-        onHandleClose={onHandleClose}
-        src={image}
-        alt={`modal-${title}`}
-      />
     </Card>
   )
 }

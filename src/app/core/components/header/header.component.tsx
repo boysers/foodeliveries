@@ -13,12 +13,24 @@ import {
 } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import { TitleLink } from './typographies-custom.component'
-import { ShoppingCard } from '../shopping-card/shopping-card.component'
+import { ShoppingCart } from '../icon-shopping-cart/icon-shopping-cart.component'
+import { CartTemporaryDrawer } from '../cart-temporary-drawer/cart-temporary-drawer.component'
+import styled from 'styled-components'
 
 type PropsHeader = { pages: string[] }
 
+const StyledCart = styled.div`
+  display: flex;
+  align-items: center;
+  &:hover {
+    cursor: pointer;
+  }
+`
+
 export const Header: FC<PropsHeader> = ({ pages }) => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
+
+  const title = 'Shopping'
 
   const onHandleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget)
@@ -32,8 +44,11 @@ export const Header: FC<PropsHeader> = ({ pages }) => {
     <AppBar position="fixed">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <TitleLink to="/" sx={{ display: { xs: 'none', md: 'flex' } }}>
-            Shop
+          <TitleLink
+            to="/"
+            sx={{ display: { xs: 'none', md: 'flex' }, textAlign: 'center' }}
+          >
+            {title}
           </TitleLink>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -73,7 +88,7 @@ export const Header: FC<PropsHeader> = ({ pages }) => {
           </Box>
 
           <TitleLink to="/" sx={{ display: { xs: 'flex', md: 'none' } }}>
-            Shop
+            {title}
           </TitleLink>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
@@ -87,7 +102,12 @@ export const Header: FC<PropsHeader> = ({ pages }) => {
 
           <ThemeSwitcher />
 
-          <ShoppingCard />
+          <CartTemporaryDrawer>
+            <StyledCart>
+              <span>Your Cart </span>
+              <ShoppingCart />
+            </StyledCart>
+          </CartTemporaryDrawer>
         </Toolbar>
       </Container>
     </AppBar>

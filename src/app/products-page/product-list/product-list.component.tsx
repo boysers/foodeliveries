@@ -14,8 +14,6 @@ type PropsProductList = {
 }
 
 const Grid = styled.div`
-  max-width: 1600px;
-  width: 80%;
   height: auto;
   margin: 30px auto;
   display: grid;

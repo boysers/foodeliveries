@@ -1,9 +1,10 @@
 import React, { lazy, Suspense } from 'react'
 import { Navigate, RouteObject } from 'react-router-dom'
 import { App } from './App'
-import { routingProducts } from './products-page/routing-products'
+import { CartPage } from './cart-page/cart-page.component'
+import { routingProductsPage } from './products-page/routing-products'
 
-const pages = ['products', 'test']
+const pages = ['products', 'cart', 'test']
 
 const TestPage = lazy(() =>
   import('./test-page/test-page.component').then((module) => ({
@@ -11,7 +12,7 @@ const TestPage = lazy(() =>
   }))
 )
 
-export const rootRoutes: RouteObject[] = [
+export const routingApp: RouteObject[] = [
   {
     path: '/',
     element: <App pages={pages} />,
@@ -22,7 +23,11 @@ export const rootRoutes: RouteObject[] = [
       },
       {
         path: 'products',
-        children: routingProducts
+        children: routingProductsPage
+      },
+      {
+        path: 'cart',
+        element: <CartPage />
       },
       {
         path: 'test',

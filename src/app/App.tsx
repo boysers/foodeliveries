@@ -1,24 +1,26 @@
 import React, { FC } from 'react'
 import { Outlet } from 'react-router-dom'
-import { ColorModeProvider } from './core/contexts/color-mode'
+import Container from '@mui/material/Container'
+import { SnackbarProvider } from 'notistack'
+import {
+  ColorModeProvider,
+  ProductsProvider,
+  ShoppingCartProvider
+} from './core/contexts'
 import { Header } from './core/components'
-import { ProductsProvider } from './core/contexts/products'
-import styled from 'styled-components'
 
-type PropsApp = { pages: string[] }
-
-const Container = styled.div`
-  padding-top: 64px;
-`
-
-export const App: FC<PropsApp> = ({ pages }) => {
+export const App: FC<{ pages: string[] }> = ({ pages }) => {
   return (
     <ColorModeProvider>
       <ProductsProvider>
-        <Container>
-          <Header pages={pages} />
-          <Outlet />
-        </Container>
+        <ShoppingCartProvider>
+          <SnackbarProvider maxSnack={3}>
+            <Header pages={pages} />
+            <Container maxWidth="xl">
+              <Outlet />
+            </Container>
+          </SnackbarProvider>
+        </ShoppingCartProvider>
       </ProductsProvider>
     </ColorModeProvider>
   )
