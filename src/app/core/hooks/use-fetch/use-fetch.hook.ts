@@ -13,19 +13,19 @@ export const useFetch = <D = unknown>(url: string) => {
       const res = await fetch(url, { signal: controller.signal })
 
       if (!res.ok) {
-        setLoading(false)
         throw new Error(`${res.status} Error`)
       }
 
       const resData = (await res.json()) as D
 
       setData(resData)
-      setLoading(false)
     }
     getProductList()
+    setLoading(false)
 
     return () => {
       controller.abort()
+      setLoading(false)
     }
   }, [url])
 
