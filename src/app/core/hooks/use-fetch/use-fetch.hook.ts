@@ -1,27 +1,30 @@
 import { useEffect, useState } from 'react'
 
-type Loading = boolean
-
 export const useFetch = <D = unknown>(url: string) => {
-  const [loading, setLoading] = useState<Loading>(true)
+  const [loading, setLoading] = useState<boolean>(true)
   const [data, setData] = useState<D>()
 
   useEffect(() => {
     const controller = new AbortController()
 
     const getProductList = async () => {
-      const res = await fetch(url, { signal: controller.signal })
+      try {
+        const res = await fetch(url, { signal: controller.signal })
 
-      if (!res.ok) {
-        throw new Error(`${res.status} Error`)
+        if (!res.ok) throw new Error(`${res.status} Error`)
+
+        const resData = (await res.json()) as D
+
+        setData(resData)
+        setLoading(false)
+      } catch (error) {
+        if (error instanceof Error) {
+          console.error(error.message)
+        }
+        setLoading(false)
       }
-
-      const resData = (await res.json()) as D
-
-      setData(resData)
     }
     getProductList()
-    setLoading(false)
 
     return () => {
       controller.abort()
