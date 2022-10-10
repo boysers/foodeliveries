@@ -1,7 +1,7 @@
 import React, { FC, useContext } from 'react'
 import styled from 'styled-components'
 import { ColorModeContext } from '../../contexts/color-mode/color-mode.context'
-import { ThemeType } from '../../contexts/color-mode/ThemeType.enum'
+import { ThemeTypes } from '../../contexts/color-mode/ThemeType.enum'
 import { useSlice } from '../../hooks'
 
 type PropsSliceSentence = {
@@ -13,8 +13,8 @@ const ShowStyled = styled.span`
   &:hover {
     cursor: pointer;
   }
-  color: ${(props: { theme: ThemeType }) =>
-    props.theme === ThemeType.DARK ? '#29b6f6' : '#0288d1'};
+  color: ${(props: { theme: ThemeTypes }) =>
+    props.theme === ThemeTypes.DARK ? '#29b6f6' : '#0288d1'};
 `
 
 export const SliceSentence: FC<PropsSliceSentence> = ({ sentence, end }) => {

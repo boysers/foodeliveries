@@ -5,20 +5,23 @@ import { SnackbarProvider } from 'notistack'
 import {
   ColorModeProvider,
   ProductsProvider,
-  ShoppingCartProvider
+  ShoppingCartProvider,
+  ResearchProvider
 } from './core/contexts'
 import { Header } from './core/components'
 
-export const App: FC<{ pages: string[] }> = ({ pages }) => {
+export const App: FC = () => {
   return (
     <ColorModeProvider>
       <ProductsProvider>
         <ShoppingCartProvider>
           <SnackbarProvider maxSnack={3}>
-            <Header pages={pages} />
-            <Container maxWidth="xl">
-              <Outlet />
-            </Container>
+            <ResearchProvider>
+              <Header />
+              <Container maxWidth="xl">
+                <Outlet />
+              </Container>
+            </ResearchProvider>
           </SnackbarProvider>
         </ShoppingCartProvider>
       </ProductsProvider>

@@ -11,7 +11,7 @@ import { CartActionTypes } from './cart-action-types.enum'
 import { cartReducer } from './cart-reducer'
 
 // Product Type
-type ProductId = Pick<Product, 'id'> & { quantity: number }
+export type ProductId = Pick<Product, 'id'> & { quantity: number }
 
 export type State = {
   productIds: ProductId[]
@@ -25,7 +25,7 @@ export type DefaultValue = {
 }
 
 // Fixed limit quantity cart and single product limit
-export const MAX_QUANTITY_CART = 99
+export const MAX_QUANTITY_CART = 20
 export const MAX_QUANTITY_SINGLE_PRODUCT = 10
 
 export const initValue: State = {

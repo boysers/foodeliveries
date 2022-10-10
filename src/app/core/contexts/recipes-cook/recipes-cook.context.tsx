@@ -7,16 +7,17 @@ import React, {
   useState,
   useEffect
 } from 'react'
+import listFood from '../../../../assets/json/list-food.json'
 import { RecipeCook } from './recipe-cook.type'
-import listRecipeCook from '../../../../assets/json/list-recipe-cook.json'
 
 type DefaultValueRecipesCookContext = {
   loading: boolean
-  recipesCook: RecipeCook[]
+  products: RecipeCook[]
+  categories: string[]
 }
 type PropsRecipesCookProvider = PropsWithChildren
 
-const fetchFakeTimer: number = 500
+const fetchFakeTimer: number = 100
 
 const RecipesCookContext = createContext<DefaultValueRecipesCookContext | null>(
   null
@@ -28,7 +29,15 @@ export const RecipesCookProvider: FC<PropsRecipesCookProvider> = ({
   const [loading, setLoading] = useState<boolean>(true)
 
   const value = useMemo(
-    () => ({ loading, recipesCook: listRecipeCook }),
+    () => ({
+      loading,
+      products: listFood,
+      categories: listFood.reduce<string[]>(
+        (acc, product) =>
+          acc.includes(product.category) ? acc : acc.concat(product.category),
+        []
+      )
+    }),
     [loading]
   )
 

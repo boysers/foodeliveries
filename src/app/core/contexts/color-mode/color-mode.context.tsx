@@ -6,20 +6,20 @@ import React, {
   useMemo,
   useState
 } from 'react'
-import { ThemeProvider, createTheme } from '@mui/material/styles'
-import CssBaseline from '@mui/material/CssBaseline'
+import { ThemeProvider, createTheme, CssBaseline } from '@mui/material'
 import defaultTheme from './defaultTheme'
-import { ThemeType } from './ThemeType.enum'
+import { ThemeTypes } from './ThemeType.enum'
 
 type DefaultValueColorModeContext = {
   toggleColorMode: () => void
-  mode: ThemeType
+  mode: ThemeTypes
 }
 type PropsColorModeProvider = PropsWithChildren
 
 const getInitValueState = () => {
   const theme = localStorage.getItem('theme')
-  if (theme) return theme === ThemeType.DARK ? ThemeType.DARK : ThemeType.LIGHT
+  if (theme)
+    return theme === ThemeTypes.DARK ? ThemeTypes.DARK : ThemeTypes.LIGHT
   else return defaultTheme
 }
 
@@ -29,13 +29,13 @@ export const ColorModeContext = createContext<DefaultValueColorModeContext>({
 })
 
 export const ColorModeProvider: FC<PropsColorModeProvider> = ({ children }) => {
-  const [mode, setMode] = useState<ThemeType>(getInitValueState)
+  const [mode, setMode] = useState<ThemeTypes>(getInitValueState)
 
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () =>
         setMode((prev) =>
-          prev === ThemeType.LIGHT ? ThemeType.DARK : ThemeType.LIGHT
+          prev === ThemeTypes.LIGHT ? ThemeTypes.DARK : ThemeTypes.LIGHT
         ),
       mode
     }),

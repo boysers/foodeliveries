@@ -1,5 +1,5 @@
-import { ThemeType } from './ThemeType.enum'
+import { ThemeTypes } from './ThemeType.enum'
 
-const defaultTheme = ThemeType.LIGHT
+const defaultTheme = ThemeTypes.LIGHT
 
 export default defaultTheme

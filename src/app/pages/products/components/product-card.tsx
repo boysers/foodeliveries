@@ -1,7 +1,7 @@
 import React, { FC, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { VariantType, useSnackbar } from 'notistack'
-import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined'
 import {
   Card,
   CardMedia,
@@ -12,13 +12,16 @@ import {
   CardActions,
   Tooltip
 } from '@mui/material'
+import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined'
 import {
   Product,
   ColorModeContext,
   ThemeType,
   CartActionTypes,
-  useShoppingCartContext
-} from '../../core/contexts'
+  useShoppingCartContext,
+  MAX_QUANTITY_CART
+} from '../../../core/contexts'
+import { CheckCartProduct } from '../../../core/components'
 
 type PropsProductCard = { product: Product }
 
@@ -38,25 +41,30 @@ const CardStyled = styled.div`
   width: 100%;
 `
 const RatingStyled = styled.div`
-  display: flex;
   margin: 5px 0;
+  display: flex;
+  justify-content: center;
 `
 
 export const ProductCard: FC<PropsProductCard> = ({ product }) => {
   const { image, title, category, rating, price, id } = product
 
   const { mode: theme } = useContext(ColorModeContext)
-  const { dispatch } = useShoppingCartContext()
+  const { dispatch, state } = useShoppingCartContext()
   const { enqueueSnackbar } = useSnackbar()
+  const navigate = useNavigate()
 
-  const newTitle =
-    title.length <= 20 ? title : title.slice(0, 20).trim() + '...'
+  const onHandleClickNavigate = () => navigate(`/products/${id}`)
 
   const onHandleClickAddProduct = (
     title: string,
     variant: VariantType = 'success'
   ) => {
-    enqueueSnackbar(`This is add cart : ${title}`, { variant })
+    if (variant === 'success') {
+      enqueueSnackbar(`This food add in cart : ${title}`, { variant })
+    } else if (variant === 'error') {
+      enqueueSnackbar(`Shopping Cart is full`, { variant })
+    }
   }
 
   return (
@@ -69,21 +77,28 @@ export const ProductCard: FC<PropsProductCard> = ({ product }) => {
             alt={title}
             sx={{
               ':hover': { cursor: 'pointer' },
-              maxWidth: 250,
-              maxHeight: 250,
+              maxWidth: 270,
+              maxHeight: 270,
               width: 'auto',
               margin: '0 auto'
             }}
+            onClick={onHandleClickNavigate}
           />
-          <CardContent sx={{ paddingBottom: "0!important" }}>
+          <CardContent
+            sx={{ paddingBottom: '0!important', textAlign: 'center' }}
+          >
+            <Tooltip title={title}>
+              <Typography
+                component="h5"
+                variant="h6"
+                onClick={onHandleClickNavigate}
+              >
+                <TitleStyled theme={theme}>{title}</TitleStyled>
+              </Typography>
+            </Tooltip>
             <Typography variant="body1" color="text.secondary">
               {category}
             </Typography>
-            <Tooltip title={title}>
-              <Typography component="h5" variant="h6">
-                <TitleStyled theme={theme}>{newTitle}</TitleStyled>
-              </Typography>
-            </Tooltip>
             <RatingStyled>
               <Rating
                 name="read-only"
@@ -92,7 +107,7 @@ export const ProductCard: FC<PropsProductCard> = ({ product }) => {
                 size="small"
                 readOnly
               />
-              <Typography sx={{ paddingLeft: 0.5, textAlign: 'center' }}>
+              <Typography sx={{ paddingLeft: 0.5 }}>
                 {rating.count} evaluation
               </Typography>
             </RatingStyled>
@@ -102,15 +117,21 @@ export const ProductCard: FC<PropsProductCard> = ({ product }) => {
           </CardContent>
         </div>
         <CardActions>
-          <Button
-            endIcon={<AddShoppingCartOutlinedIcon />}
-            onClick={() => {
-              dispatch({ payload: id, type: CartActionTypes.ADD })
-              onHandleClickAddProduct(newTitle)
-            }}
-          >
-            Add to Cart
-          </Button>
+          <CheckCartProduct productId={id}>
+            <Button
+              endIcon={<AddShoppingCartOutlinedIcon />}
+              onClick={() => {
+                dispatch({ payload: id, type: CartActionTypes.ADD })
+                if (state.quantityInCart === MAX_QUANTITY_CART) {
+                  onHandleClickAddProduct(title, 'error')
+                } else {
+                  onHandleClickAddProduct(title)
+                }
+              }}
+            >
+              Add to Cart
+            </Button>
+          </CheckCartProduct>
         </CardActions>
       </CardStyled>
     </Card>

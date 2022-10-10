@@ -3,7 +3,7 @@ import { Switch, FormGroup, FormControlLabel } from '@mui/material'
 import { ColorModeContext, ThemeType } from '../../contexts'
 
 export const ThemeSwitcher: FC = () => {
-  const { mode , toggleColorMode } = useContext(ColorModeContext)
+  const { mode, toggleColorMode } = useContext(ColorModeContext)
 
   const checked = mode === ThemeType.DARK
 

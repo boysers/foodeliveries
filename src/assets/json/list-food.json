@@ -1,0 +1,290 @@
+[
+  {
+    "id": 0,
+    "title": "pavlova à la fraise",
+    "price": 12.5,
+    "category": "dessert",
+    "description": "meringue blanche, fraises fraiches compotée et chantilly avec décor billes décoratives",
+    "image": "https://i.goopics.net/pj3g4m.jpg",
+    "rating": {
+      "rate": 4.6,
+      "count": 172
+    }
+  },
+  {
+    "id": 1,
+    "title": "burger de boeuf et frites",
+    "price": 15,
+    "category": "plat",
+    "description": "burger composé d'un pain brioché aux graines de sésames, tomate, salade sauce BBQ, steack haché grillé et confit oignons accompagné de frites",
+    "image": "https://i.goopics.net/fx353h.jpg",
+    "rating": {
+      "rate": 4.9,
+      "count": 375
+    }
+  },
+  {
+    "id": 2,
+    "title": "churros sauce caramel beurre salé pour 2 personnes",
+    "price": 12,
+    "category": "pâtisserie",
+    "description": "patisserie originaire d'espagne et du portugal composé d'une pate frit dans l'huile sous forme d'un gros spaghetti . la sauce caramel beurre salé se compose d'un caramel émulsionné au beurre salé de bretagne",
+    "image": "https://i.goopics.net/71xok3.jpg",
+    "rating": {
+      "rate": 4.4,
+      "count": 1001
+    }
+  },
+  {
+    "id": 3,
+    "title": "brioche",
+    "price": 25,
+    "category": "boulangerie",
+    "description": "brioche composé de farine, sucre, oeufs, levure, aromes, lait, beurre, poolish à partager",
+    "image": "https://i.goopics.net/xirk6u.jpg",
+    "rating": {
+      "rate": 4.9,
+      "count": 572
+    }
+  },
+  {
+    "id": 4,
+    "title": "gateau au citron",
+    "price": 19,
+    "category": "dessert",
+    "description": "composé d'un biscuit moelleux au citron à partager",
+    "image": "https://i.goopics.net/ijn9fr.jpg",
+    "rating": {
+      "rate": 3.6,
+      "count": 260
+    }
+  },
+  {
+    "id": 5,
+    "title": "Côte de boeuf angus-salers et purée maison",
+    "price": 45,
+    "category": "plat",
+    "description": "côte de boeuf angus-salers braisé sauce vin rouge et purée en accompagnement",
+    "image": "https://i.goopics.net/gd7k6n.jpg",
+    "rating": {
+      "rate": 4.9,
+      "count": 486
+    }
+  },
+  {
+    "id": 6,
+    "title": "Paris-Brest",
+    "price": 13.5,
+    "category": "pâtisserie",
+    "description": "gâteau composé d'une pate à choux et d'une crème parlinée soupoudrée de sucre glace",
+    "image": "https://i.goopics.net/1q87oq.jpg",
+    "rating": {
+      "rate": 4.8,
+      "count": 476
+    }
+  },
+  {
+    "id": 7,
+    "title": "langue de chat",
+    "price": 7.6,
+    "category": "biscuit sec",
+    "description": "biscuit composée de farine, de beurre et d'oeufs, aromatisée à la vanille",
+    "image": "https://i.goopics.net/45dfi8.jpg",
+    "rating": {
+      "rate": 3.4,
+      "count": 915
+    }
+  },
+  {
+    "id": 8,
+    "title": "pizza",
+    "price": 15,
+    "category": "plat",
+    "description": "composé d'une pate à pizza maison, tomates fraiche (coeur de boeuf), mozzarella et fromage",
+    "image": "https://i.goopics.net/o81rut.jpg",
+    "rating": {
+      "rate": 3.4,
+      "count": 171
+    }
+  },
+  {
+    "id": 9,
+    "title": "tartelette au citron meringuée",
+    "price": 8.6,
+    "category": "pâtisserie",
+    "description": "composé d'une pate sucré, une crème au citron, une meringue vanille flambée au chalumeau",
+    "image": "https://i.goopics.net/kh63dl.jpg",
+    "rating": {
+      "rate": 4.85,
+      "count": 342
+    }
+  },
+  {
+    "id": 10,
+    "title": "truffes au chocolat",
+    "price": 25,
+    "category": "biscuit sec",
+    "description": "composé d'une ganache au chocolat enrobé de chocolat non sucré en poudre",
+    "image": "https://i.goopics.net/xaivx7.jpg",
+    "rating": {
+      "rate": 4.9,
+      "count": 534
+    }
+  },
+  {
+    "id": 11,
+    "title": "crèpes au chocolat",
+    "price": 18,
+    "category": "pâtisserie",
+    "description": "composé d'une pate à crèpe aromatisée à la vanille fourée d'une ganache au chocolat",
+    "image": "https://i.goopics.net/5t5cdn.jpg",
+    "rating": {
+      "rate": 3.8,
+      "count": 225
+    }
+  },
+  {
+    "id": 12,
+    "title": "cookies aux fruits sec",
+    "price": 55,
+    "category": "biscuit sec",
+    "description": "plateau composé de 50 biscuits façon cookies de 4 parfums différents (chocolat, amandes, noisettes, pistaches",
+    "image": "https://i.goopics.net/81x1fx.jpg",
+    "rating": {
+      "rate": 4.85,
+      "count": 957
+    }
+  },
+  {
+    "id": 13,
+    "title": "pannacotta aux fruits rouge",
+    "price": 7.35,
+    "category": "dessert",
+    "description": "La pannacotta est une spécialité culinaire italienne servie en dessert, composé de lait, crème, gélatine, sucre et fruits rouges (fraises, framboise et grenade)",
+    "image": "https://i.goopics.net/9offtx.jpg",
+    "rating": {
+      "rate": 3.4,
+      "count": 195
+    }
+  },
+  {
+    "id": 14,
+    "title": "moules sauce curry",
+    "price": 25,
+    "category": "plat",
+    "description": "composé de moules fraiche cuit à la marinière accompagné d'une sauce au curry",
+    "image": "https://i.goopics.net/vpysxf.jpg",
+    "rating": {
+      "rate": 4.73,
+      "count": 316
+    }
+  },
+  {
+    "id": 15,
+    "title": "encornet farcie sauce madère accompagné d'un riz basmati",
+    "price": 29,
+    "category": "plat",
+    "description": "composé d'encornet facie avec une farce maison mijoté dans une sauce au madère tomaté accompagné d'un riz basmati",
+    "image": "https://i.goopics.net/sgp9a2.jpg",
+    "rating": {
+      "rate": 4.5,
+      "count": 941
+    }
+  },
+  {
+    "id": 16,
+    "title": "nems au légumes vegan",
+    "price": 5,
+    "category": "plat",
+    "description": "nems composé d'une farce aux légumes de saison, vendu par 2",
+    "image": "https://i.goopics.net/m7kc1e.jpg",
+    "rating": {
+      "rate": 2.4,
+      "count": 267
+    }
+  },
+  {
+    "id": 17,
+    "title": "melon à l'italienne",
+    "price": 14.5,
+    "category": "entrée",
+    "description": "composé d'un demi melon de cavaillon en billes et d'une chiffonnade de charcuterie italienne coupé finement",
+    "image": "https://i.goopics.net/vrq6ob.jpg",
+    "rating": {
+      "rate": 4.7,
+      "count": 105
+    }
+  },
+  {
+    "id": 18,
+    "title": "pain burger aux graines de sésame",
+    "price": 3.75,
+    "category": "boulangerie",
+    "description": "composé de farine, eau, sel, sucre, levure et graines de sésame pour réalisation de burger maison",
+    "image": "https://i.goopics.net/u7hbby.jpg",
+    "rating": {
+      "rate": 4.99,
+      "count": 176
+    }
+  },
+  {
+    "id": 19,
+    "title": "financier à la pistache",
+    "price": 13.5,
+    "category": "biscuit",
+    "description": "composé de blanc d'oeuf, pistache en poudre, sucre, levure, vanille liquide",
+    "image": "https://i.goopics.net/tjiros.jpg",
+    "rating": {
+      "rate": 4.95,
+      "count": 192
+    }
+  },
+  {
+    "id": 20,
+    "title": "velouté de courgette aux gratons",
+    "price": 5.95,
+    "category": "entrée",
+    "description": "composé de cougette, oignons, sel et poivre, eau croutons de pain grillé aux gratons mijoté et mixé au mixeur plongeant avec une pointe de crème fraiche",
+    "image": "https://i.goopics.net/auafqt.jpg",
+    "rating": {
+      "rate": 3.85,
+      "count": 154
+    }
+  },
+  {
+    "id": 21,
+    "title": "vol au vent aux légumes de saison",
+    "price": 3.3,
+    "category": "entrée",
+    "description": "composé d'une pate feuilleté cuit à blanc en forme de vol au vent farcie de légumes de saison (courgettes, oignons, aubergines)",
+    "image": "https://i.goopics.net/lea7wl.jpg",
+    "rating": {
+      "rate": 1.62,
+      "count": 102
+    }
+  },
+  {
+    "id": 22,
+    "title": "pavé de lieu noir au lentilles corail",
+    "price": 19.95,
+    "category": "plat",
+    "description": "composé d'un pavé de lieu noir braisé au beurre à la poele et lentilles corail en accompagnement",
+    "image": "https://i.goopics.net/sayjcd.jpg",
+    "rating": {
+      "rate": 4.32,
+      "count": 578
+    }
+  },
+  {
+    "id": 23,
+    "title": "macaron au chocolat",
+    "price": 15,
+    "category": "biscuit sec",
+    "description": "composé de blanc d'oeuf poudre d'amandes et sucre glace, sucre chocolat en poudre et ganache au chocolat au lait",
+    "image": "https://i.goopics.net/1tiduq.jpg",
+    "rating": {
+      "rate": 4.99,
+      "count": 583
+    }
+  }
+]

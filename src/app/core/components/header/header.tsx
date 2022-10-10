@@ -1,23 +1,21 @@
-import React, { FC, useState, MouseEvent } from 'react'
-import { ThemeSwitcher } from '../theme-switcher/theme-switcher.component'
-import { Link } from 'react-router-dom'
+import React, { FC, useState, MouseEvent, useCallback } from 'react'
+import styled from 'styled-components'
 import {
   AppBar,
   Toolbar,
-  Typography,
   Box,
-  MenuItem,
   IconButton,
   Container,
   Menu
 } from '@mui/material'
-import MenuIcon from '@mui/icons-material/Menu'
-import { TitleLink } from './typographies-custom.component'
-import { ShoppingCart } from '../icon-shopping-cart/icon-shopping-cart.component'
-import { CartTemporaryDrawer } from '../cart-temporary-drawer/cart-temporary-drawer.component'
-import styled from 'styled-components'
-
-type PropsHeader = { pages: string[] }
+import SearchIcon from '@mui/icons-material/Search'
+import { useResearchContext } from '../../contexts'
+import { FuncHandleChange } from '../../types'
+import { ThemeSwitcher } from '../theme-switcher/theme-switcher'
+import { ShoppingCart } from '../icon-shopping-cart/icon-shopping-cart'
+import { CartTemporaryDrawer } from '../cart-temporary-drawer/cart-temporary-drawer'
+import { SearchBar } from '../search-bar/search-bar'
+import { TitleLink } from './title-link'
 
 const StyledCart = styled.div`
   display: flex;
@@ -27,10 +25,16 @@ const StyledCart = styled.div`
   }
 `
 
-export const Header: FC<PropsHeader> = ({ pages }) => {
+export const Header: FC = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
+  const { state, dispatch } = useResearchContext()
 
   const title = 'Shopping'
+
+  const onHandleChangeSearch: FuncHandleChange = useCallback(
+    (e) => dispatch.setSearch(e.target.value.toLowerCase()),
+    [dispatch]
+  )
 
   const onHandleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget)
@@ -57,8 +61,9 @@ export const Header: FC<PropsHeader> = ({ pages }) => {
               color="inherit"
               aria-controls="menu-appbar"
             >
-              <MenuIcon />
+              <SearchIcon />
             </IconButton>
+
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -72,18 +77,12 @@ export const Header: FC<PropsHeader> = ({ pages }) => {
               onClose={onHandleCloseNavMenu}
               sx={{ display: { xs: 'block', md: 'none' } }}
             >
-              {pages.map((page) => (
-                <MenuItem
-                  key={page}
-                  component={Link}
-                  to={page}
-                  onClick={onHandleCloseNavMenu}
-                >
-                  <Typography textAlign="center">
-                    {page.charAt(0).toUpperCase() + page.slice(1)}
-                  </Typography>
-                </MenuItem>
-              ))}
+              <SearchBar
+                value={state.search}
+                onChange={onHandleChangeSearch}
+                id="search"
+                label="Search"
+              />
             </Menu>
           </Box>
 
@@ -91,13 +90,12 @@ export const Header: FC<PropsHeader> = ({ pages }) => {
             {title}
           </TitleLink>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <MenuItem key={page} component={Link} to={page}>
-                <Typography textAlign="center">
-                  {page.charAt(0).toUpperCase() + page.slice(1)}
-                </Typography>
-              </MenuItem>
-            ))}
+            <SearchBar
+              value={state.search}
+              onChange={onHandleChangeSearch}
+              id="search"
+              label="Search"
+            />
           </Box>
 
           <ThemeSwitcher />

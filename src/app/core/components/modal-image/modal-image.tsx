@@ -15,7 +15,7 @@ const style = {
   transform: 'translate(-50%, -50%)'
 }
 
-export const ProductSingleModal: FC<PropsProductSingleModal> = ({
+export const ModalImage: FC<PropsProductSingleModal> = ({
   isOpen,
   onHandleClose,
   src,

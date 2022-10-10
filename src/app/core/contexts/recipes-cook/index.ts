@@ -1,4 +1,4 @@
-export type { RecipeCook } from './recipe-cook.type'
+export { type RecipeCook } from './recipe-cook.type'
 export {
   RecipesCookProvider,
   useRecipesCookContext
