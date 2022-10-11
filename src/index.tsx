@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import reportWebVitals from './reportWebVitals'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { appRouting } from './app/app-routing'
+import { routes } from './routes'
 
-const router = createBrowserRouter(appRouting)
+const router = createBrowserRouter(routes)
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(<RouterProvider router={router} />)
