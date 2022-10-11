@@ -21,7 +21,7 @@ import {
   useShoppingCartContext,
   MAX_QUANTITY_CART
 } from '../../../contexts'
-import { CheckCartProduct } from '../../../components'
+import { CheckCartProduct } from '@components'
 
 type PropsProductCard = { product: Product }
 
