@@ -1,7 +1,6 @@
 import React, { FC, PropsWithChildren, useEffect, useState } from 'react'
-import { Box } from '@mui/material'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import { useShoppingCartContext } from '../../contexts'
+import { CheckCircleIcon, Box } from '@lib/mui'
+import { useShoppingCartContext } from '@context'
 
 type CheckCartProductProps = PropsWithChildren<{
   productId: number

@@ -7,22 +7,14 @@ import React, {
   useContext
 } from 'react'
 import { Link } from 'react-router-dom'
-import {
-  Box,
-  Button,
-  Drawer,
-  Grid,
-  Paper,
-  Typography,
-  styled
-} from '@mui/material'
+import { Box, Button, Drawer, Grid, Paper, Typography, styled } from '@lib/mui'
 import {
   useShoppingCartContext,
   CartActionTypes,
   useProductsContext,
   ColorModeContext,
   ThemeType
-} from '../../contexts'
+} from '@context'
 
 export const CartTemporaryDrawer: FC<PropsWithChildren> = ({ children }) => {
   const { products } = useProductsContext()

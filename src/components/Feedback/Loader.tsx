@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import styled from 'styled-components'
-import { CircularProgress } from '@mui/material'
+import { CircularProgress } from '@lib/mui'
 
 const LoadingStyled = styled.div`
   font-size: 1.6rem;

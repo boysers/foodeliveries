@@ -10,9 +10,9 @@ import {
   Rating,
   Button,
   CardActions,
-  Tooltip
-} from '@mui/material'
-import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined'
+  Tooltip,
+  AddShoppingCartOutlinedIcon
+} from '@lib/mui'
 import {
   Product,
   ColorModeContext,
@@ -20,7 +20,7 @@ import {
   CartActionTypes,
   useShoppingCartContext,
   MAX_QUANTITY_CART
-} from '../../../contexts'
+} from '@context'
 import { CheckCartProduct } from '@components'
 
 type PropsProductCard = { product: Product }

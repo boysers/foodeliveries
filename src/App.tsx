@@ -7,7 +7,7 @@ import {
   ProductsProvider,
   ShoppingCartProvider,
   ResearchProvider
-} from './contexts'
+} from './context'
 import { Header } from './components'
 
 export const App: FC = () => {

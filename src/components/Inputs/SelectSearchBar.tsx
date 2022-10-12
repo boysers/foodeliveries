@@ -5,7 +5,7 @@ import {
   Select,
   SelectChangeEvent,
   MenuItem
-} from '@mui/material'
+} from '@lib/mui'
 
 type PropsSelectSearchBar = PropsWithChildren<{
   words: string[]

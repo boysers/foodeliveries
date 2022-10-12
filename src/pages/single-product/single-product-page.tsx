@@ -1,18 +1,41 @@
 import React, { FC } from 'react'
 import { useParams } from 'react-router-dom'
-import { Box, Button, Rating, Typography } from '@mui/material'
+import styled from 'styled-components'
+import { Box, Button, Rating, Typography } from '@lib/mui'
 import {
   CartActionTypes,
   useShoppingCartContext,
   useProductsContext
-} from '../../contexts'
-import { Loader, NotFound, CheckCartProduct } from '../../components'
-import {
-  BuyBox,
-  ImageProduct,
-  RatingStyled,
-  TitleProduct
-} from './components/product-styled-component'
+} from '@context'
+import { Loader, NotFound, CheckCartProduct } from '@components'
+
+const RatingStyled = styled.div`
+  display: flex;
+  margin: 5px 0;
+`
+
+const TitleProduct = styled.span`
+  font-size: 24px;
+  font-weight: 400;
+  word-break: break-word;
+  line-height: 32px;
+`
+
+const ImageProduct = styled.img`
+  max-width: 400px;
+`
+
+const BuyBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 200px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(0, 0, 0, 0.56);
+  padding: 15px 10px;
+  border-radius: 7px;
+`
 
 export const SingleProductPage: FC = () => {
   let { id } = useParams()

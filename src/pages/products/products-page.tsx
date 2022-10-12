@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
-import { Typography } from '@mui/material'
+import { Typography } from '@lib/mui'
+import { useProductsContext } from '@context'
+import { Loader, ErrorFallback } from '@components'
 import { ProductsFilterable } from './components/products-filterable'
-import { useProductsContext } from '../../contexts'
-import { Loader, ErrorFallback } from '../../components'
 
 export const ProductsPage: FC = () => {
   const { loading, products } = useProductsContext()

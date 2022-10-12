@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Modal, Box, CardMedia } from '@mui/material'
+import { Modal, Box, CardMedia } from '@lib/mui'
 
 type PropsProductSingleModal = {
   isOpen: boolean

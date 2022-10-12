@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { FormControlLabel, Checkbox, Box, Typography } from '@mui/material'
+import { FormControlLabel, Checkbox, Box, Typography } from '@lib/mui'
 
 type PropsCheckboxSearchBar = {
   label: string

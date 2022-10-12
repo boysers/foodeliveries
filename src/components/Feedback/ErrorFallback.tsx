@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
-import styled from 'styled-components'
 import { FallbackProps } from 'react-error-boundary'
-import { Alert, Stack } from '@mui/material'
+import styled from 'styled-components'
+import { Alert, Stack } from '@lib/mui'
 
 const Container = styled.div`
   display: flex;

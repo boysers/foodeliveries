@@ -1,5 +1,5 @@
 import React, { FC, ChangeEventHandler } from 'react'
-import { TextField } from '@mui/material'
+import { TextField } from '@lib/mui'
 
 type PropsSearchBar = Partial<{
   onChange: ChangeEventHandler<HTMLInputElement>

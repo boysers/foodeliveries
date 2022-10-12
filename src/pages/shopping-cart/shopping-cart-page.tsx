@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react'
 import { Box, Button, Divider } from '@mui/material'
-import { useProductsContext, useShoppingCartContext } from '../../contexts'
-import { Loader } from '../../components'
+import { useProductsContext, useShoppingCartContext } from '@context'
+import { Loader } from '@components'
 import { CartProductItem } from './components/cart-product-item'
 
 export const ShoppingCartPage: FC = () => {

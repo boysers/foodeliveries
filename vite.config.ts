@@ -6,7 +6,9 @@ import path from 'node:path'
 export default defineConfig({
   resolve: {
     alias: {
-      '@components': path.resolve(__dirname, './src/components')
+      '@context': path.resolve(__dirname, './src/context'),
+      '@components': path.resolve(__dirname, './src/components'),
+      '@lib': path.resolve(__dirname, './src/lib')
     }
   },
   plugins: [react()]

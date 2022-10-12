@@ -1,12 +1,8 @@
 import React, { FC, useCallback, useState } from 'react'
 import styled from 'styled-components'
-import { SelectChangeEvent } from '@mui/material/Select'
-import {
-  Product,
-  useResearchContext,
-  useProductsContext
-} from '../../../contexts'
-import { CheckboxSearchBar, SelectSearchBar } from '../../../components'
+import { SelectChangeEvent } from '@lib/mui'
+import { Product, useResearchContext, useProductsContext } from '@context'
+import { CheckboxSearchBar, SelectSearchBar } from '@components'
 import { ProductList } from './product-list'
 
 type PropsProductsFilterable = {

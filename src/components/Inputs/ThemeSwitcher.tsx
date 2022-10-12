@@ -1,24 +1,24 @@
-import React, { FC, useContext } from 'react'
-import { Switch, FormGroup, FormControlLabel } from '@mui/material'
-import { ColorModeContext, ThemeType } from '../../contexts'
+import React, { FC } from 'react'
+import { Switch, FormGroup, FormControlLabel } from '@lib/mui'
 
-export const ThemeSwitcher: FC = () => {
-  const { mode, toggleColorMode } = useContext(ColorModeContext)
+type PropsThemeSwitcher = { checked: boolean; onChange: () => void }
 
-  const checked = mode === ThemeType.DARK
-
+export const ThemeSwitcher: FC<PropsThemeSwitcher> = ({
+  checked,
+  onChange
+}) => {
   return (
     <FormGroup>
       <FormControlLabel
         control={
           <Switch
-            onChange={toggleColorMode}
+            onChange={onChange}
             checked={checked}
             id="switch-mui"
             color="primary"
           />
         }
-        label={`Dark Theme ${!checked ? '🌞' : '🌚'}`}
+        label={!checked ? '🌞' : '🌚'}
       />
     </FormGroup>
   )

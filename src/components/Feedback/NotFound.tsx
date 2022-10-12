@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import styled from 'styled-components'
-import { Typography } from '@mui/material'
+import { Typography } from '@lib/mui'
 
 const StyledNotFound = styled.div`
   display: flex;

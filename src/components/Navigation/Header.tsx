@@ -4,7 +4,8 @@ import React, {
   MouseEvent,
   useCallback,
   PropsWithChildren,
-  ChangeEvent
+  ChangeEvent,
+  useContext
 } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
@@ -15,19 +16,24 @@ import {
   IconButton,
   Container,
   Menu,
-  Badge
-} from '@mui/material'
-import { SxProps, Theme, Typography } from '@mui/material'
-import SearchIcon from '@mui/icons-material/Search'
-import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined'
-import { useResearchContext, useShoppingCartContext } from '../../contexts'
-import { ThemeSwitcher } from '../Inputs/ThemeSwitcher'
+  Badge,
+  Typography,
+  SearchIcon,
+  ShoppingBagOutlinedIcon,
+  SxPropsWithTheme
+} from '@lib/mui'
+import {
+  ColorModeContext,
+  ThemeType,
+  useResearchContext,
+  useShoppingCartContext
+} from '@context'
+import { ThemeSwitcher, SearchBar } from '../Inputs'
 import { CartTemporaryDrawer } from './CartTemporaryDrawer'
-import { SearchBar } from '../Inputs/SearchBar'
 
 type PropsTitleLink = PropsWithChildren<{
   to: string
-  sx?: SxProps<Theme> | undefined
+  sx?: SxPropsWithTheme
 }>
 
 const StyledCart = styled.div`
@@ -74,6 +80,9 @@ const ShoppingCart: FC = () => {
 export const Header: FC = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
   const { state, dispatch } = useResearchContext()
+  const { mode, toggleColorMode } = useContext(ColorModeContext)
+
+  const checked = mode === ThemeType.DARK
 
   const title = 'Shopping'
 
@@ -145,7 +154,7 @@ export const Header: FC = () => {
             />
           </Box>
 
-          <ThemeSwitcher />
+          <ThemeSwitcher checked={checked} onChange={toggleColorMode} />
 
           <CartTemporaryDrawer>
             <StyledCart>

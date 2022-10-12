@@ -1,6 +1,6 @@
 import React, { FC, memo, useMemo } from 'react'
 import styled from 'styled-components'
-import { Product, useProductsContext } from '../../../contexts'
+import { Product, useProductsContext } from '@context'
 import { ProductCard } from './product-card'
 import { FilterName } from './products-filterable'
 
