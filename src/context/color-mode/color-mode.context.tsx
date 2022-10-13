@@ -6,7 +6,8 @@ import React, {
   useMemo,
   useState
 } from 'react'
-import { ThemeProvider, createTheme, CssBaseline } from '@mui/material'
+import { ThemeProvider, createTheme } from '@mui/material/styles'
+import { CssBaseline } from '@mui/material'
 import defaultTheme from './defaultTheme'
 import { ThemeTypes } from './ThemeType.enum'
 
