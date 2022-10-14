@@ -1,3 +1,4 @@
+/* eslint-disable react/no-children-prop */
 import React, {
   useState,
   MouseEvent,
@@ -134,7 +135,9 @@ export const CartTemporaryDrawer: FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <div>
-      <span onClick={onToggleDrawer}>{children}</span>
+      <span onClick={onToggleDrawer} role="presentation">
+        {children}
+      </span>
       <Drawer
         anchor="right"
         open={isOpen}

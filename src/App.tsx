@@ -1,14 +1,14 @@
 import React, { FC } from 'react'
 import { Outlet } from 'react-router-dom'
-import { Container } from '@mui/material'
+import { Container } from '@lib/mui'
 import { SnackbarProvider } from 'notistack'
 import {
   ColorModeProvider,
   ProductsProvider,
   ShoppingCartProvider,
   ResearchProvider
-} from './context'
-import { Header } from './components'
+} from '@context'
+import { Header } from '@components'
 
 export const App: FC = () => {
   return (

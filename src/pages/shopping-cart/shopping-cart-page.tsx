@@ -6,7 +6,7 @@ import { CartProductItem } from './components/cart-product-item'
 
 export const ShoppingCartPage: FC = () => {
   const { state } = useShoppingCartContext()
-  let [totalPrice, setTotalPrice] = useState(0)
+  const [totalPrice, setTotalPrice] = useState(0)
   const { loading, products } = useProductsContext()
 
   useEffect(() => {

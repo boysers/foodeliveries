@@ -38,7 +38,7 @@ const BuyBox = styled.div`
 `
 
 export const SingleProductPage: FC = () => {
-  let { id } = useParams()
+  const { id } = useParams()
   const { loading, products } = useProductsContext()
   const { dispatch } = useShoppingCartContext()
 

@@ -12,7 +12,7 @@ export const CheckCartProduct: FC<CheckCartProductProps> = ({
   title = 'Ajouter au panier',
   children
 }) => {
-  let [isInShoppingCart, setIsInShoppingCart] = useState(false)
+  const [isInShoppingCart, setIsInShoppingCart] = useState(false)
   const { state } = useShoppingCartContext()
   useEffect(() => {
     const productIndex = state.productIds.findIndex(

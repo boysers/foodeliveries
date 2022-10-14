@@ -63,14 +63,13 @@ export const cartReducer = (state: State, action: Action): State => {
     case CartActionTypes.DELETE:
       if (!state.productIds[INDEX_ID]) return state
 
-      let { quantity } = state.productIds[INDEX_ID]
-
       return {
         ...state,
         productIds: state.productIds.filter(
           (product) => product.id !== action.payload
         ),
-        quantityInCart: state.quantityInCart - quantity
+        quantityInCart:
+          state.quantityInCart - state.productIds[INDEX_ID].quantity
       }
     case CartActionTypes.RESET:
       return initValue

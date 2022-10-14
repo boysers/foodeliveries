@@ -25,7 +25,7 @@ const getInitValueState = () => {
 }
 
 export const ColorModeContext = createContext<DefaultValueColorModeContext>({
-  toggleColorMode: () => {},
+  toggleColorMode: () => undefined,
   mode: defaultTheme
 })
 

@@ -17,7 +17,7 @@ type DefaultValueRecipesCookContext = {
 }
 type PropsRecipesCookProvider = PropsWithChildren
 
-const fetchFakeTimer: number = 100
+const fetchFakeTimer = 100
 
 const RecipesCookContext = createContext<DefaultValueRecipesCookContext | null>(
   null
