@@ -5,25 +5,26 @@ import React, {
   useMemo,
   useContext
 } from 'react'
-import { useFetch } from '../../hooks'
-import { Product } from './product.interface'
+import { useFetch } from '../hooks'
+import { Product } from '@types'
 
-type DefaultValueProductsContext = {
+type ValueProductsContext = {
   loading: boolean
-  products?: Product[]
+  products: Product[]
+  error: Error | null
 }
 type PropsProductsProvider = PropsWithChildren
 
-const ProductsContext = createContext<DefaultValueProductsContext | null>(null)
+const ProductsContext = createContext<ValueProductsContext | null>(null)
 
 export const ProductsProvider: FC<PropsProductsProvider> = ({ children }) => {
-  const [loading, products] = useFetch<Product[]>(
+  const { data, error, loading } = useFetch<Product[]>(
     'https://fakestoreapi.com/products'
   )
 
-  const value = useMemo<DefaultValueProductsContext>(
-    () => ({ loading, products }),
-    [loading, products]
+  const value = useMemo<ValueProductsContext>(
+    () => ({ loading, products: data ?? [], error }),
+    [data, error, loading]
   )
 
   return (

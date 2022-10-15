@@ -21,7 +21,12 @@
       "@context/*": ["context/*"],
       "@components": ["components"],
       "@components/*": ["components/*"],
-      "@lib/*": ["lib/*"]
+      "@lib/*": ["lib/*"],
+      "@types": ["types"],
+      "@types/*": ["types/*"],
+      "@data": ["data"],
+      "@data/*": ["data/*"],
+      "@utils": ["utils"]
     }
   },
   "include": ["src"],

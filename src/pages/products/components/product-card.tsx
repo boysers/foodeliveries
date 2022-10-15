@@ -13,23 +13,19 @@ import {
   Tooltip,
   AddShoppingCartOutlinedIcon
 } from '@lib/mui'
-import {
-  Product,
-  ColorModeContext,
-  ThemeType,
-  CartActionTypes,
-  useShoppingCartContext,
-  MAX_QUANTITY_CART
-} from '@context'
+import { ColorModeContext, useShoppingCartContext } from '@context'
 import { CheckCartProduct } from '@components'
+import { CartActionTypes, Product, ThemeTypes } from '@types'
+import { MAX_QUANTITY_CART } from '@data/configCart'
+import { toUpperCaseFirstLetter } from '@utils'
 
 type PropsProductCard = { product: Product }
 
 const TitleStyled = styled.div`
   &:hover {
     cursor: pointer;
-    color: ${(props: { theme: ThemeType }) =>
-      props.theme === ThemeType.DARK ? '#29b6f6' : '#0288d1'};
+    color: ${(props: { theme: ThemeTypes }) =>
+      props.theme === ThemeTypes.DARK ? '#29b6f6' : '#0288d1'};
   }
 `
 const CardStyled = styled.div`
@@ -97,7 +93,7 @@ export const ProductCard: FC<PropsProductCard> = ({ product }) => {
               </Typography>
             </Tooltip>
             <Typography variant="body1" color="text.secondary">
-              {category}
+              {toUpperCaseFirstLetter(category)}
             </Typography>
             <RatingStyled>
               <Rating

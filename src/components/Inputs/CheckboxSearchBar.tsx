@@ -1,5 +1,7 @@
 import React, { FC } from 'react'
 import { FormControlLabel, Checkbox, Box, Typography } from '@lib/mui'
+import { toUpperCaseFirstLetter } from '@utils'
+import styled from 'styled-components'
 
 type PropsCheckboxSearchBar = {
   label: string
@@ -14,6 +16,12 @@ export const CheckboxSearchBar: FC<PropsCheckboxSearchBar> = ({
   value,
   onChange
 }) => {
+  const StyledLabel = styled.div`
+    background-color: hsla(0, 0%, 100%, 0.09);
+    padding: 0.1rem 0.5rem;
+    border-radius: 5px;
+  `
+
   return (
     <Box sx={{ margin: '10px 0' }}>
       <Typography variant="h6">{label}</Typography>
@@ -21,7 +29,9 @@ export const CheckboxSearchBar: FC<PropsCheckboxSearchBar> = ({
         {listCategorie.map((categorie, index) => (
           <FormControlLabel
             key={index}
-            label={categorie}
+            label={
+              <StyledLabel>{toUpperCaseFirstLetter(categorie)}</StyledLabel>
+            }
             control={
               <Checkbox
                 onChange={(event, checked) => onChange(index, checked)}

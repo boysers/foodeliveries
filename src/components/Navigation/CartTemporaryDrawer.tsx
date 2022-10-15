@@ -5,30 +5,123 @@ import React, {
   KeyboardEvent,
   FC,
   PropsWithChildren,
-  useContext
+  useContext,
+  useMemo,
+  useCallback,
+  memo
 } from 'react'
 import { Link } from 'react-router-dom'
 import { Box, Button, Drawer, Grid, Paper, Typography, styled } from '@lib/mui'
 import {
   useShoppingCartContext,
-  CartActionTypes,
   useProductsContext,
-  ColorModeContext,
-  ThemeType
+  ColorModeContext
 } from '@context'
+import { ThemeTypes, CartActionTypes, Product } from '@types'
+
+type PropsCartProductItem = Product & {
+  quantity: number
+  onToggleDrawer: (event: KeyboardEvent | MouseEvent) => void
+}
+
+const CartProductItem: FC<PropsCartProductItem> = ({
+  id,
+  image,
+  title,
+  quantity,
+  onToggleDrawer,
+  price
+}) => {
+  const { dispatch } = useShoppingCartContext()
+
+  const StyledImg = styled('img')({
+    margin: 'auto',
+    display: 'block',
+    maxWidth: '100%',
+    maxHeight: '100%'
+  })
+
+  return (
+    <Paper
+      sx={{
+        p: 2,
+        margin: '20px',
+        maxWidth: 500,
+        flexGrow: 1,
+        backgroundColor: (theme) =>
+          theme.palette.mode === 'dark' ? '#1A2027' : '#fff'
+      }}
+    >
+      <Grid container spacing={2}>
+        <Grid item>
+          <StyledImg alt="complex" sx={{ width: '100px' }} src={image} />
+        </Grid>
+        <Grid item xs={12} sm container>
+          <Grid item xs container direction="column" spacing={2}>
+            <Grid item xs>
+              <Typography
+                variant="subtitle1"
+                component="div"
+                children={title}
+              />
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                children={`Quantity : ${quantity}`}
+              />
+            </Grid>
+            <Grid item container>
+              <Grid item>
+                <Button
+                  onClick={() =>
+                    dispatch({
+                      type: CartActionTypes.DELETE,
+                      payload: id
+                    })
+                  }
+                >
+                  <Typography sx={{ cursor: 'pointer' }} variant="body2">
+                    Remove
+                  </Typography>
+                </Button>
+              </Grid>
+              <Grid item>
+                <Button
+                  onClick={onToggleDrawer}
+                  color="primary"
+                  component={Link}
+                  to={`/products/${id}`}
+                >
+                  <Typography sx={{ cursor: 'pointer' }} variant="body2">
+                    Page produit
+                  </Typography>
+                </Button>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item>
+            <Typography
+              variant="subtitle1"
+              component="div"
+              children={`Price : $${price}`}
+            />
+          </Grid>
+        </Grid>
+      </Grid>
+    </Paper>
+  )
+}
+
+const MemoizedCartProductItem = memo(CartProductItem)
 
 export const CartTemporaryDrawer: FC<PropsWithChildren> = ({ children }) => {
   const { products } = useProductsContext()
   const shoppingCartContext = useShoppingCartContext()
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const { mode } = useContext(ColorModeContext)
-  const checked = mode === ThemeType.DARK
+  const checked = mode === ThemeTypes.DARK
 
-  if (!products) {
-    return null
-  }
-
-  const onToggleDrawer = (event: KeyboardEvent | MouseEvent) => {
+  const onToggleDrawer = useCallback((event: KeyboardEvent | MouseEvent) => {
     if (
       event.type === 'keydown' &&
       ((event as KeyboardEvent).key === 'Tab' ||
@@ -38,100 +131,34 @@ export const CartTemporaryDrawer: FC<PropsWithChildren> = ({ children }) => {
     }
 
     setIsOpen((prev) => !prev)
-  }
+  }, [])
 
-  const StyledImg = styled('img')({
-    margin: 'auto',
-    display: 'block',
-    maxWidth: '100%',
-    maxHeight: '100%'
-  })
-
-  const calculateTotalPrice = shoppingCartContext.state.productIds.reduce(
-    (acc, currentValue) => {
-      return products[currentValue.id].price * currentValue.quantity + acc
-    },
-    0
+  const calculateTotalPrice = useMemo(
+    () =>
+      shoppingCartContext.state.productsCart.reduce((acc, currentValue) => {
+        const product = products.find(
+          (itemCart) => itemCart.id === currentValue.id
+        )
+        return !product ? acc : product.price * currentValue.quantity + acc
+      }, 0),
+    [products, shoppingCartContext.state.productsCart]
   )
 
-  const listProduct = shoppingCartContext.state.productIds.map((product) => {
-    return (
-      <Paper
-        key={product.id}
-        sx={{
-          p: 2,
-          margin: '20px',
-          maxWidth: 500,
-          flexGrow: 1,
-          backgroundColor: (theme) =>
-            theme.palette.mode === 'dark' ? '#1A2027' : '#fff'
-        }}
-      >
-        {products && (
-          <Grid container spacing={2}>
-            <Grid item>
-              <StyledImg
-                alt="complex"
-                sx={{ width: '100px' }}
-                src={products[product.id].image}
-              />
-            </Grid>
-            <Grid item xs={12} sm container>
-              <Grid item xs container direction="column" spacing={2}>
-                <Grid item xs>
-                  <Typography
-                    variant="subtitle1"
-                    component="div"
-                    children={products[product.id].title}
-                  />
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    children={`Quantity : ${product.quantity}`}
-                  />
-                </Grid>
-                <Grid item container>
-                  <Grid item>
-                    <Button
-                      onClick={() =>
-                        shoppingCartContext.dispatch({
-                          type: CartActionTypes.DELETE,
-                          payload: product.id
-                        })
-                      }
-                    >
-                      <Typography sx={{ cursor: 'pointer' }} variant="body2">
-                        Remove
-                      </Typography>
-                    </Button>
-                  </Grid>
-                  <Grid item>
-                    <Button
-                      onClick={onToggleDrawer}
-                      color="primary"
-                      component={Link}
-                      to={`/products/${product.id}`}
-                    >
-                      <Typography sx={{ cursor: 'pointer' }} variant="body2">
-                        Page produit
-                      </Typography>
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item>
-                <Typography
-                  variant="subtitle1"
-                  component="div"
-                  children={`Price : $${products[product.id].price}`}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-        )}
-      </Paper>
-    )
-  })
+  const listProduct = shoppingCartContext.state.productsCart.map(
+    (productCart) => {
+      const INDEX_ID = products.findIndex(
+        (product) => product.id === productCart.id
+      )
+      return (
+        <MemoizedCartProductItem
+          key={products[INDEX_ID].id}
+          onToggleDrawer={onToggleDrawer}
+          quantity={productCart.quantity}
+          {...products[INDEX_ID]}
+        />
+      )
+    }
+  )
 
   return (
     <div>
@@ -168,7 +195,7 @@ export const CartTemporaryDrawer: FC<PropsWithChildren> = ({ children }) => {
             onClick={onToggleDrawer}
           >
             <Typography sx={{ cursor: 'pointer' }} variant="body2">
-              Ouvrir le panier - {calculateTotalPrice}€
+              Ouvrir le panier - {calculateTotalPrice.toFixed(2)}€
             </Typography>
           </Button>
         </Box>

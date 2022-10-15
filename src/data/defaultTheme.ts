@@ -1,4 +1,4 @@
-import { ThemeTypes } from './ThemeType.enum'
+import { ThemeTypes } from '@types'
 
 const defaultTheme = ThemeTypes.LIGHT
 

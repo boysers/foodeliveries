@@ -1,8 +1,9 @@
 import React, { FC, memo, useMemo } from 'react'
 import styled from 'styled-components'
-import { Product, useProductsContext } from '@context'
+import { useProductsContext } from '@context'
 import { ProductCard } from './product-card'
 import { FilterName } from './products-filterable'
+import { Product } from '@types'
 
 enum SortBy {
   ASCENDING_PRICE = 'ascending price',
@@ -64,7 +65,7 @@ export const ProductList: FC<PropsProductList> = ({
             case SortBy.AVERAGE_RATING:
               return b.rating.rate - a.rating.rate
             default:
-              return a.id - b.id
+              return a.title < b.title ? -1 : 0
           }
         })
         .map((sortProduct) => (

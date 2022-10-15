@@ -15,12 +15,12 @@ export const CheckCartProduct: FC<CheckCartProductProps> = ({
   const [isInShoppingCart, setIsInShoppingCart] = useState(false)
   const { state } = useShoppingCartContext()
   useEffect(() => {
-    const productIndex = state.productIds.findIndex(
+    const productIndex = state.productsCart.findIndex(
       (item) => item.id === productId
     )
     if (productIndex > -1) setIsInShoppingCart(true)
     else setIsInShoppingCart(false)
-  }, [productId, state.productIds])
+  }, [productId, state.productsCart])
 
   return isInShoppingCart ? (
     <Box

@@ -13,7 +13,10 @@ export default defineConfig({
     alias: {
       '@context': folderAlias('context'),
       '@components': folderAlias('components'),
-      '@lib': folderAlias('lib')
+      '@lib': folderAlias('lib'),
+      '@types': folderAlias('types'),
+      '@data': folderAlias('data'),
+      '@utils': folderAlias('utils')
     }
   },
   plugins: [react(), eslint()]

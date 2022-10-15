@@ -1,12 +1,13 @@
 import React, { FC, useCallback, useState } from 'react'
 import styled from 'styled-components'
 import { SelectChangeEvent } from '@lib/mui'
-import { Product, useResearchContext, useProductsContext } from '@context'
+import { useResearchContext, useProductsContext } from '@context'
 import { CheckboxSearchBar, SelectSearchBar } from '@components'
 import { ProductList } from './product-list'
+import { Product } from '@types'
 
 type PropsProductsFilterable = {
-  products?: Product[]
+  products: Product[]
 }
 
 export type FilterName = string
@@ -14,9 +15,17 @@ export type FilterCategorie = string
 
 const StyledContainer = styled.div`
   display: flex;
+  align-items: flex-start;
 `
 const StyledReseachBar = styled.div`
   width: 200px;
+  height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: column;
+
+  position: sticky;
+  top: 64px;
+  left: 0;
 `
 
 export const ProductsFilterable: FC<PropsProductsFilterable> = ({
@@ -38,7 +47,7 @@ export const ProductsFilterable: FC<PropsProductsFilterable> = ({
     []
   )
 
-  const onHandleChangeListCategorie: (index: number, checked: boolean) => void =
+  const onHandleChangeListCategory: (index: number, checked: boolean) => void =
     useCallback(
       (id) =>
         setFilterListCategorie((prev) =>
@@ -49,12 +58,16 @@ export const ProductsFilterable: FC<PropsProductsFilterable> = ({
 
   return (
     <StyledContainer>
+      {/* <Typography variant="h4" sx={{ textAlign: 'center', m: 4 }}>
+        Food
+      </Typography> */}
+
       <StyledReseachBar>
         <CheckboxSearchBar
-          label="categories"
+          label="Category"
           listCategorie={categories}
           value={filterListCategorie}
-          onChange={onHandleChangeListCategorie}
+          onChange={onHandleChangeListCategory}
         />
 
         <SelectSearchBar

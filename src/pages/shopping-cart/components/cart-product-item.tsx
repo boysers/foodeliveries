@@ -1,12 +1,8 @@
 import React, { FC } from 'react'
 import styled from 'styled-components'
 import { AddIcon, Box, Button, Divider, IconButton, RemoveIcon } from '@lib/mui'
-import {
-  CartActionTypes,
-  useProductsContext,
-  useShoppingCartContext,
-  ProductId as ProductCart
-} from '@context'
+import { useProductsContext, useShoppingCartContext } from '@context'
+import { CartActionTypes, ProductCart } from '@types'
 
 type PropsCartProductItems = {
   productCart: ProductCart

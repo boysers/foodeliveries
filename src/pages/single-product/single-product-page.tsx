@@ -2,29 +2,23 @@ import React, { FC } from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { Box, Button, Rating, Typography } from '@lib/mui'
-import {
-  CartActionTypes,
-  useShoppingCartContext,
-  useProductsContext
-} from '@context'
+import { useShoppingCartContext, useProductsContext } from '@context'
 import { Loader, NotFound, CheckCartProduct } from '@components'
+import { CartActionTypes } from '@types'
 
 const RatingStyled = styled.div`
   display: flex;
   margin: 5px 0;
 `
-
 const TitleProduct = styled.span`
   font-size: 24px;
   font-weight: 400;
   word-break: break-word;
   line-height: 32px;
 `
-
 const ImageProduct = styled.img`
   max-width: 400px;
 `
-
 const BuyBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -42,15 +36,13 @@ export const SingleProductPage: FC = () => {
   const { loading, products } = useProductsContext()
   const { dispatch } = useShoppingCartContext()
 
-  if (!id || isNaN(+id)) return <NotFound />
+  if (loading || !id) return <Loader />
 
-  const product = products?.[+id]
+  const product = products.find((product) => product.id === +id)
 
-  return loading ? (
-    <Loader />
-  ) : !product ? (
-    <NotFound />
-  ) : (
+  if (!product) return <NotFound />
+
+  return (
     <Box sx={{ padding: '100px 20px', display: 'flex', gap: '20px' }}>
       <Box>
         <ImageProduct src={product.image} alt={product.title} />

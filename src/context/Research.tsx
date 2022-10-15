@@ -20,7 +20,7 @@ type DefaultValue = {
   }
 }
 
-export const ResearchContext = createContext<DefaultValue | null>(null)
+const ResearchContext = createContext<DefaultValue | null>(null)
 
 export const ResearchProvider: FC<PropsWithChildren> = ({ children }) => {
   const [search, setSearch] = useState<string>('')

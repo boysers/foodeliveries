@@ -6,6 +6,7 @@ import {
   SelectChangeEvent,
   MenuItem
 } from '@lib/mui'
+import { toUpperCaseFirstLetter } from '@utils'
 
 type PropsSelectSearchBar = PropsWithChildren<{
   words: string[]
@@ -39,7 +40,7 @@ export const SelectSearchBar: FC<PropsSelectSearchBar> = ({
         </MenuItem>
         {words.map((word, index) => (
           <MenuItem key={index} value={word}>
-            {word.charAt(0).toUpperCase() + word.slice(1)}
+            {toUpperCaseFirstLetter(word)}
           </MenuItem>
         ))}
       </Select>

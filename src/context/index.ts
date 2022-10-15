@@ -1,23 +1,14 @@
-export { ThemeType, ColorModeContext, ColorModeProvider } from './color-mode'
+export { ColorModeContext, ColorModeProvider } from './ColorMode'
 
-// export { type Product, useProductsContext, ProductsProvider } from './products'
+// export { useProductsContext, ProductsProvider } from './Products'
 
+// Changed data products as foods
 export {
-  type RecipeCook as Product,
-  useRecipesCookContext as useProductsContext,
-  RecipesCookProvider as ProductsProvider
-} from './recipes-cook'
+  RecipesCookProvider as ProductsProvider,
+  useRecipesCookContext as useProductsContext
+} from './Foods'
 
-export type { ProductId } from './shopping-cart/shopping-cart.context'
-export {
-  ShoppingCartProvider,
-  CartActionTypes,
-  useShoppingCartContext
-} from './shopping-cart'
+// export type { ProductId } from './shopping-cart.context'
+export { ShoppingCartProvider, useShoppingCartContext } from './ShoppingCart'
 
-export { MAX_QUANTITY_CART } from './shopping-cart'
-
-export {
-  ResearchProvider,
-  useResearchContext
-} from './research/research.context'
+export { ResearchProvider, useResearchContext } from './Research'

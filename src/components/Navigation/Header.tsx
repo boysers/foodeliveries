@@ -24,12 +24,12 @@ import {
 } from '@lib/mui'
 import {
   ColorModeContext,
-  ThemeType,
   useResearchContext,
   useShoppingCartContext
 } from '@context'
 import { ThemeSwitcher, SearchBar } from '../Inputs'
 import { CartTemporaryDrawer } from './CartTemporaryDrawer'
+import { ThemeTypes } from '@types'
 
 type PropsTitleLink = PropsWithChildren<{
   to: string
@@ -37,8 +37,6 @@ type PropsTitleLink = PropsWithChildren<{
 }>
 
 const StyledCart = styled.div`
-  display: flex;
-  align-items: center;
   &:hover {
     cursor: pointer;
   }
@@ -82,7 +80,7 @@ export const Header: FC = () => {
   const { state, dispatch } = useResearchContext()
   const { mode, toggleColorMode } = useContext(ColorModeContext)
 
-  const checked = mode === ThemeType.DARK
+  const checked = mode === ThemeTypes.DARK
 
   const title = 'Shopping'
 
@@ -158,7 +156,6 @@ export const Header: FC = () => {
 
           <CartTemporaryDrawer>
             <StyledCart>
-              <span>Your Cart </span>
               <ShoppingCart />
             </StyledCart>
           </CartTemporaryDrawer>

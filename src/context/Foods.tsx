@@ -7,12 +7,13 @@ import React, {
   useState,
   useEffect
 } from 'react'
-import listFood from '../../data/listFood.json'
-import { RecipeCook } from './recipe-cook.type'
+import listFood from '../data/listFood.json'
+import { Product as Food } from '@types'
+import { toUpperCaseFirstLetter } from '@utils'
 
 type DefaultValueRecipesCookContext = {
   loading: boolean
-  products: RecipeCook[]
+  products: Food[]
   categories: string[]
 }
 type PropsRecipesCookProvider = PropsWithChildren
@@ -31,7 +32,10 @@ export const RecipesCookProvider: FC<PropsRecipesCookProvider> = ({
   const value = useMemo(
     () => ({
       loading,
-      products: listFood,
+      products: listFood.map((product) => ({
+        ...product,
+        title: toUpperCaseFirstLetter(product.title)
+      })),
       categories: listFood.reduce<string[]>(
         (acc, product) =>
           acc.includes(product.category) ? acc : acc.concat(product.category),

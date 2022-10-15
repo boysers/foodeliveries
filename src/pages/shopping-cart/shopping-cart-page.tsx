@@ -11,7 +11,7 @@ export const ShoppingCartPage: FC = () => {
 
   useEffect(() => {
     if (loading || !products) return
-    const productsCart = state.productIds
+    const productsCart = state.productsCart
     let totalPrice = 0
     for (let i = 0; i < productsCart.length; i++) {
       const elementId = productsCart[i].id
@@ -21,7 +21,7 @@ export const ShoppingCartPage: FC = () => {
       totalPrice += quantity * products[productIndex].price
     }
     setTotalPrice(totalPrice)
-  }, [loading, products, state.productIds])
+  }, [loading, products, state.productsCart])
 
   return loading ? (
     <Loader />
@@ -64,8 +64,8 @@ export const ShoppingCartPage: FC = () => {
             <span>Price</span>
           </Box>
           <Divider />
-          {state.productIds.length ? (
-            state.productIds.map((productCart) => (
+          {state.productsCart.length ? (
+            state.productsCart.map((productCart) => (
               <CartProductItem key={productCart.id} productCart={productCart} />
             ))
           ) : (

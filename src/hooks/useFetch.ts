@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 
 export const useFetch = <D = unknown>(url: string) => {
   const [loading, setLoading] = useState<boolean>(true)
-  const [data, setData] = useState<D>()
+  const [data, setData] = useState<D | null>()
+  const [error, setError] = useState<Error | null>(null)
 
   useEffect(() => {
     const controller = new AbortController()
@@ -11,16 +12,18 @@ export const useFetch = <D = unknown>(url: string) => {
       try {
         const res = await fetch(url, { signal: controller.signal })
 
-        if (!res.ok) throw new Error(`${res.status} Error`)
+        if (!res.ok) throw new Error(`${res.status} ${res.statusText}`)
 
-        const resData = (await res.json()) as D
+        const data = (await res.json()) as D
 
-        setData(resData)
-        setLoading(false)
+        setData(data)
       } catch (error) {
         if (error instanceof Error) {
-          console.error(error.message)
+          setError(error)
+        } else {
+          setError(new Error('hook useFetch error'))
         }
+      } finally {
         setLoading(false)
       }
     }
@@ -32,5 +35,5 @@ export const useFetch = <D = unknown>(url: string) => {
     }
   }, [url])
 
-  return [loading, data] as const
+  return { data, error, loading } as const
 }
