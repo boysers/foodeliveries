@@ -41,6 +41,13 @@ const RatingStyled = styled.div`
   display: flex;
   justify-content: center;
 `
+const PriceStyled = styled.h5`
+  color: ${(props: { theme: ThemeTypes }) =>
+    props.theme === ThemeTypes.DARK ? '#29b6f6' : '#0288d1'};
+`
+const ContainerStyled = styled.div`
+  width: 100%;
+`
 
 export const ProductCard: FC<PropsProductCard> = ({ product }) => {
   const { image, title, category, rating, price, id } = product
@@ -66,7 +73,7 @@ export const ProductCard: FC<PropsProductCard> = ({ product }) => {
   return (
     <Card className="grid-item" variant="outlined">
       <CardStyled>
-        <div>
+        <ContainerStyled>
           <CardMedia
             component="img"
             src={image}
@@ -74,9 +81,8 @@ export const ProductCard: FC<PropsProductCard> = ({ product }) => {
             sx={{
               ':hover': { cursor: 'pointer' },
               maxWidth: 270,
-              maxHeight: 270,
-              width: 'auto',
-              margin: '0 auto'
+              width: '100%',
+              height: 270
             }}
             onClick={onHandleClickNavigate}
           />
@@ -92,7 +98,11 @@ export const ProductCard: FC<PropsProductCard> = ({ product }) => {
                 <TitleStyled theme={theme}>{title}</TitleStyled>
               </Typography>
             </Tooltip>
-            <Typography variant="body1" color="text.secondary">
+            <Typography
+              variant="body1"
+              color="text.secondary"
+              sx={{ fontSize: '0.9rem' }}
+            >
               {toUpperCaseFirstLetter(category)}
             </Typography>
             <RatingStyled>
@@ -103,15 +113,19 @@ export const ProductCard: FC<PropsProductCard> = ({ product }) => {
                 size="small"
                 readOnly
               />
-              <Typography sx={{ paddingLeft: 0.5 }}>
+              <Typography sx={{ paddingLeft: 0.5, fontSize: '0.8rem' }}>
                 {rating.count} evaluation
               </Typography>
             </RatingStyled>
-            <Typography variant="h5" sx={{ textAlign: 'center', marginTop: 2 }}>
-              ${price}
+            <Typography
+              component={PriceStyled}
+              variant="h5"
+              sx={{ textAlign: 'center' }}
+            >
+              {price.toFixed(2).replace('.', ',')} €
             </Typography>
           </CardContent>
-        </div>
+        </ContainerStyled>
         <CardActions>
           <CheckCartProduct productId={id}>
             <Button
@@ -125,7 +139,7 @@ export const ProductCard: FC<PropsProductCard> = ({ product }) => {
                 }
               }}
             >
-              Add to Cart
+              Ajouter au panier
             </Button>
           </CheckCartProduct>
         </CardActions>

@@ -10,18 +10,18 @@ type PropsCheckboxSearchBar = {
   onChange: (index: number, checked: boolean) => void
 }
 
+const StyledLabel = styled.div`
+  background-color: hsla(0, 0%, 100%, 0.09);
+  padding: 0.1rem 0.5rem;
+  border-radius: 5px;
+`
+
 export const CheckboxSearchBar: FC<PropsCheckboxSearchBar> = ({
   label,
   listCategorie,
   value,
   onChange
 }) => {
-  const StyledLabel = styled.div`
-    background-color: hsla(0, 0%, 100%, 0.09);
-    padding: 0.1rem 0.5rem;
-    border-radius: 5px;
-  `
-
   return (
     <Box sx={{ margin: '10px 0' }}>
       <Typography variant="h6">{label}</Typography>
