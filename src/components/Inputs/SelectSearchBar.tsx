@@ -1,12 +1,12 @@
-import React, { FC, PropsWithChildren } from 'react'
+import React, { PropsWithChildren } from 'react'
 import {
   FormControl,
   InputLabel,
   Select,
   SelectChangeEvent,
   MenuItem
-} from '@lib/mui'
-import { toUpperCaseFirstLetter } from '@utils'
+} from '@/lib/material-ui'
+import { toUpperCaseFirstLetter } from '@/utils'
 
 type PropsSelectSearchBar = PropsWithChildren<{
   words: string[]
@@ -16,7 +16,7 @@ type PropsSelectSearchBar = PropsWithChildren<{
   minWidth?: number
 }>
 
-export const SelectSearchBar: FC<PropsSelectSearchBar> = ({
+export const SelectSearchBar: React.FC<PropsSelectSearchBar> = ({
   words,
   label,
   value,

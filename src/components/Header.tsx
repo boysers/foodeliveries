@@ -1,5 +1,4 @@
 import React, {
-  FC,
   useState,
   MouseEvent,
   useCallback,
@@ -21,15 +20,15 @@ import {
   SearchIcon,
   ShoppingBagOutlinedIcon,
   SxPropsWithTheme
-} from '@lib/mui'
+} from '@/lib/material-ui'
 import {
   ColorModeContext,
   useResearchContext,
   useShoppingCartContext
-} from '@context'
-import { ThemeSwitcher, SearchBar } from '../Inputs'
+} from '@/context'
+import { ThemeSwitcher, SearchBar } from './Inputs'
 import { CartTemporaryDrawer } from './CartTemporaryDrawer'
-import { ThemeTypes } from '@types'
+import { ThemeTypes } from '@/types'
 
 type PropsTitleLink = PropsWithChildren<{
   to: string
@@ -42,7 +41,7 @@ const StyledCart = styled.div`
   }
 `
 
-const TitleLink: FC<PropsTitleLink> = ({ to, sx, children }) => {
+const TitleLink: React.FC<PropsTitleLink> = ({ to, sx, children }) => {
   return (
     <Typography
       component={Link}
@@ -62,7 +61,7 @@ const TitleLink: FC<PropsTitleLink> = ({ to, sx, children }) => {
   )
 }
 
-const ShoppingCart: FC = () => {
+const ShoppingCart: React.FC = () => {
   const context = useShoppingCartContext()
   return (
     <IconButton>
@@ -75,7 +74,7 @@ const ShoppingCart: FC = () => {
   )
 }
 
-export const Header: FC = () => {
+export const Header: React.FC = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
   const { state, dispatch } = useResearchContext()
   const { mode, toggleColorMode } = useContext(ColorModeContext)

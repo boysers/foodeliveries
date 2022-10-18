@@ -1,10 +1,10 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Button, Divider } from '@mui/material'
-import { useProductsContext, useShoppingCartContext } from '@context'
-import { Loader } from '@components'
-import { CartProductItem } from './components/cart-product-item'
+import { useProductsContext, useShoppingCartContext } from '@/context'
+import { Loader } from '@/components'
+import { CartProductItem } from './CartProductItem'
 
-export const ShoppingCartPage: FC = () => {
+export const ShoppingCartPage: React.FC = () => {
   const { state } = useShoppingCartContext()
   const [totalPrice, setTotalPrice] = useState(0)
   const { loading, products } = useProductsContext()

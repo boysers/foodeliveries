@@ -1,10 +1,17 @@
-import React, { FC } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { AddIcon, Box, Button, Divider, IconButton, RemoveIcon } from '@lib/mui'
-import { useProductsContext, useShoppingCartContext } from '@context'
-import { CartActionTypes, ProductCart } from '@types'
+import {
+  AddIcon,
+  Box,
+  Button,
+  Divider,
+  IconButton,
+  RemoveIcon
+} from '@/lib/material-ui'
+import { useProductsContext, useShoppingCartContext } from '@/context'
+import { CartActionTypes, ProductCart } from '@/types'
 
-type PropsCartProductItems = {
+type PropsCartProductItem = {
   productCart: ProductCart
 }
 
@@ -15,7 +22,9 @@ const StyledImg = styled('img')({
   maxHeight: '150px'
 })
 
-export const CartProductItem: FC<PropsCartProductItems> = ({ productCart }) => {
+export const CartProductItem: React.FC<PropsCartProductItem> = ({
+  productCart
+}) => {
   const { loading, products } = useProductsContext()
   const { dispatch } = useShoppingCartContext()
   if (loading || !products) return null

@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { VariantType, useSnackbar } from 'notistack'
@@ -12,12 +12,12 @@ import {
   CardActions,
   Tooltip,
   AddShoppingCartOutlinedIcon
-} from '@lib/mui'
-import { ColorModeContext, useShoppingCartContext } from '@context'
-import { CheckCartProduct } from '@components'
-import { CartActionTypes, Product, ThemeTypes } from '@types'
-import { MAX_QUANTITY_CART } from '@data/configCart'
-import { toUpperCaseFirstLetter } from '@utils'
+} from '@/lib/material-ui'
+import { ColorModeContext, useShoppingCartContext } from '@/context'
+import { CheckCartProduct } from '@/components'
+import { CartActionTypes, Product, ThemeTypes } from '@/types'
+import { MAX_QUANTITY_CART } from '@/data/configCart'
+import { toUpperCaseFirstLetter } from '@/utils'
 
 type PropsProductCard = { product: Product }
 
@@ -49,7 +49,7 @@ const ContainerStyled = styled.div`
   width: 100%;
 `
 
-export const ProductCard: FC<PropsProductCard> = ({ product }) => {
+export const ProductCard: React.FC<PropsProductCard> = ({ product }) => {
   const { image, title, category, rating, price, id } = product
 
   const { mode: theme } = useContext(ColorModeContext)

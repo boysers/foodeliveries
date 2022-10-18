@@ -1,5 +1,5 @@
-import React, { FC } from 'react'
-import { Switch, styled } from '@lib/mui'
+import React from 'react'
+import { Switch, styled } from '@/lib/material-ui'
 
 type PropsThemeSwitcher = { checked: boolean; onChange: () => void }
 
@@ -50,7 +50,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   }
 }))
 
-export const ThemeSwitcher: FC<PropsThemeSwitcher> = ({
+export const ThemeSwitcher: React.FC<PropsThemeSwitcher> = ({
   checked,
   onChange
 }) => <MaterialUISwitch onChange={onChange} checked={checked} sx={{ m: 1 }} />

@@ -1,15 +1,9 @@
-import React, { FC, memo, useMemo } from 'react'
+import React, { memo, useMemo } from 'react'
 import styled from 'styled-components'
-import { useProductsContext } from '@context'
-import { ProductCard } from './product-card'
-import { FilterName } from './products-filterable'
-import { Product } from '@types'
-
-enum SortBy {
-  ASCENDING_PRICE = 'ascending price',
-  DECREASING_PRICE = 'decreasing price',
-  AVERAGE_RATING = 'average rating'
-}
+import { useProductsContext } from '@/context'
+import { Product, SortBy } from '@/types'
+import { ProductCard } from './ProductCard'
+import { FilterName } from './ProductsFilterable'
 
 type PropsProductList = {
   products: Product[]
@@ -30,7 +24,7 @@ const Grid = styled.div`
 
 const MemoizedProductCard = memo(ProductCard)
 
-export const ProductList: FC<PropsProductList> = ({
+export const ProductList: React.FC<PropsProductList> = ({
   products,
   filterName,
   filterSortBy,

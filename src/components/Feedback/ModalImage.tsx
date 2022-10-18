@@ -1,5 +1,5 @@
-import React, { FC } from 'react'
-import { Modal, Box, CardMedia } from '@lib/mui'
+import React from 'react'
+import { Modal, Box, CardMedia } from '@/lib/material-ui'
 
 type PropsProductSingleModal = {
   isOpen: boolean
@@ -15,7 +15,7 @@ const style = {
   transform: 'translate(-50%, -50%)'
 }
 
-export const ModalImage: FC<PropsProductSingleModal> = ({
+export const ModalImage: React.FC<PropsProductSingleModal> = ({
   isOpen,
   onHandleClose,
   src,

@@ -1,4 +1,4 @@
-import { ThemeTypes } from '@types'
+import { ThemeTypes } from '@/types'
 
 const defaultTheme = ThemeTypes.LIGHT
 

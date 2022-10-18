@@ -1,6 +1,6 @@
-import React, { FC } from 'react'
-import { FormControlLabel, Checkbox, Box, Typography } from '@lib/mui'
-import { toUpperCaseFirstLetter } from '@utils'
+import React from 'react'
+import { FormControlLabel, Checkbox, Box, Typography } from '@/lib/material-ui'
+import { toUpperCaseFirstLetter } from '@/utils'
 import styled from 'styled-components'
 
 type PropsCheckboxSearchBar = {
@@ -16,7 +16,7 @@ const StyledLabel = styled.div`
   border-radius: 5px;
 `
 
-export const CheckboxSearchBar: FC<PropsCheckboxSearchBar> = ({
+export const CheckboxSearchBar: React.FC<PropsCheckboxSearchBar> = ({
   label,
   listCategorie,
   value,
@@ -34,7 +34,7 @@ export const CheckboxSearchBar: FC<PropsCheckboxSearchBar> = ({
             }
             control={
               <Checkbox
-                onChange={(event, checked) => onChange(index, checked)}
+                onChange={(_event, checked) => onChange(index, checked)}
                 checked={value[index]}
               />
             }

@@ -1,10 +1,12 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom'
+import { ErrorBoundary } from 'react-error-boundary'
 import styled from 'styled-components'
-import { Box, Button, Rating, Typography } from '@lib/mui'
-import { useShoppingCartContext, useProductsContext } from '@context'
-import { Loader, NotFound, CheckCartProduct } from '@components'
-import { CartActionTypes } from '@types'
+import { useProductsContext, useShoppingCartContext } from '@/context'
+import { Loader, ErrorFallback, NotFound, CheckCartProduct } from '@/components'
+import { Box, Button, Rating, Typography } from '@/lib/material-ui'
+import { CartActionTypes } from '@/types'
+import { ProductsFilterable } from './ProductsFilterable'
 
 const RatingStyled = styled.div`
   display: flex;
@@ -31,7 +33,7 @@ const BuyBox = styled.div`
   border-radius: 7px;
 `
 
-export const SingleProductPage: FC = () => {
+export const SingleProductPage: React.FC = () => {
   const { id } = useParams()
   const { loading, products } = useProductsContext()
   const { dispatch } = useShoppingCartContext()
@@ -94,5 +96,17 @@ export const SingleProductPage: FC = () => {
         </Box>
       </BuyBox>
     </Box>
+  )
+}
+
+export const ProductsPage: React.FC = () => {
+  const { loading, products } = useProductsContext()
+
+  if (loading) return <Loader />
+
+  return (
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
+      <ProductsFilterable products={products} />
+    </ErrorBoundary>
   )
 }

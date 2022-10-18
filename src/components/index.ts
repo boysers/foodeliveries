@@ -1,3 +1,3 @@
 export * from './Inputs'
 export * from './Feedback'
-export * from './Navigation'
+export { Header } from './Header'

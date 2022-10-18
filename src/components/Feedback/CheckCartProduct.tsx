@@ -1,13 +1,13 @@
-import React, { FC, PropsWithChildren, useEffect, useState } from 'react'
-import { CheckCircleIcon, Box } from '@lib/mui'
-import { useShoppingCartContext } from '@context'
+import React, { PropsWithChildren, useEffect, useState } from 'react'
+import { CheckCircleIcon, Box } from '@/lib/material-ui'
+import { useShoppingCartContext } from '@/context'
 
 type CheckCartProductProps = PropsWithChildren<{
   productId: number
   title?: string
 }>
 
-export const CheckCartProduct: FC<CheckCartProductProps> = ({
+export const CheckCartProduct: React.FC<CheckCartProductProps> = ({
   productId,
   title = 'Ajouter au panier',
   children

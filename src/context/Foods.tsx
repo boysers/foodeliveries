@@ -1,15 +1,14 @@
 import React, {
   createContext,
   PropsWithChildren,
-  FC,
   useMemo,
   useContext,
   useState,
   useEffect
 } from 'react'
-import listFood from '../data/listFood.json'
-import { Product as Food } from '@types'
-import { toUpperCaseFirstLetter } from '@utils'
+import listFood from '@/assets/foodList.json'
+import { Product as Food } from '@/types'
+import { toUpperCaseFirstLetter } from '@/utils'
 
 type DefaultValueRecipesCookContext = {
   loading: boolean
@@ -24,7 +23,7 @@ const RecipesCookContext = createContext<DefaultValueRecipesCookContext | null>(
   null
 )
 
-export const RecipesCookProvider: FC<PropsRecipesCookProvider> = ({
+export const RecipesCookProvider: React.FC<PropsRecipesCookProvider> = ({
   children
 }) => {
   const [loading, setLoading] = useState<boolean>(true)

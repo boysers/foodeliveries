@@ -1,7 +1,7 @@
-import React from 'react'
 import { Navigate, RouteObject } from 'react-router-dom'
 import { App } from './App'
-import { ProductsPage, SingleProductPage, ShoppingCartPage } from './pages'
+import { ProductsPage, SingleProductPage } from '@/pages/Products'
+import { ShoppingCartPage } from '@/pages'
 
 export const routes: RouteObject[] = [
   {

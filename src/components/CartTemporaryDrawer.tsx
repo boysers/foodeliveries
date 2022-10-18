@@ -3,7 +3,6 @@ import React, {
   useState,
   MouseEvent,
   KeyboardEvent,
-  FC,
   PropsWithChildren,
   useContext,
   useMemo,
@@ -11,20 +10,28 @@ import React, {
   memo
 } from 'react'
 import { Link } from 'react-router-dom'
-import { Box, Button, Drawer, Grid, Paper, Typography, styled } from '@lib/mui'
+import {
+  Box,
+  Button,
+  Drawer,
+  Grid,
+  Paper,
+  Typography,
+  styled
+} from '@/lib/material-ui'
 import {
   useShoppingCartContext,
   useProductsContext,
   ColorModeContext
-} from '@context'
-import { ThemeTypes, CartActionTypes, Product } from '@types'
+} from '@/context'
+import { ThemeTypes, CartActionTypes, Product } from '@/types'
 
 type PropsCartProductItem = Product & {
   quantity: number
   onToggleDrawer: (event: KeyboardEvent | MouseEvent) => void
 }
 
-const CartProductItem: FC<PropsCartProductItem> = ({
+const CartProductItem: React.FC<PropsCartProductItem> = ({
   id,
   image,
   title,
@@ -114,7 +121,9 @@ const CartProductItem: FC<PropsCartProductItem> = ({
 
 const MemoizedCartProductItem = memo(CartProductItem)
 
-export const CartTemporaryDrawer: FC<PropsWithChildren> = ({ children }) => {
+export const CartTemporaryDrawer: React.FC<PropsWithChildren> = ({
+  children
+}) => {
   const { products } = useProductsContext()
   const shoppingCartContext = useShoppingCartContext()
   const [isOpen, setIsOpen] = useState<boolean>(false)

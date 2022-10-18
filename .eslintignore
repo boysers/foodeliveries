@@ -1,5 +1,2 @@
 node_modules
-.eslintrc.cjs
-vite.config.ts
 dist
-node_modules/*

@@ -1,6 +1,6 @@
-import React, { FC } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { Typography } from '@lib/mui'
+import { Typography } from '@/lib/material-ui'
 
 const StyledNotFound = styled.div`
   display: flex;
@@ -9,7 +9,7 @@ const StyledNotFound = styled.div`
   min-height: 200px;
 `
 
-export const NotFound: FC = () => (
+export const NotFound: React.FC = () => (
   <StyledNotFound>
     <Typography variant="h5">404 not found !</Typography>
   </StyledNotFound>

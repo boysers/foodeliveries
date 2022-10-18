@@ -1,5 +1,5 @@
-import React, { FC, ChangeEventHandler } from 'react'
-import { TextField } from '@lib/mui'
+import React, { ChangeEventHandler } from 'react'
+import { TextField } from '@/lib/material-ui'
 
 type PropsSearchBar = Partial<{
   onChange: ChangeEventHandler<HTMLInputElement>
@@ -9,7 +9,7 @@ type PropsSearchBar = Partial<{
   width?: number
 }>
 
-export const SearchBar: FC<PropsSearchBar> = ({
+export const SearchBar: React.FC<PropsSearchBar> = ({
   value,
   onChange,
   label,

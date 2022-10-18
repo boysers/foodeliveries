@@ -1,6 +1,6 @@
-import React, { FC } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { CircularProgress } from '@lib/mui'
+import { CircularProgress } from '@/lib/material-ui'
 
 const LoadingStyled = styled.div`
   font-size: 1.6rem;
@@ -12,7 +12,7 @@ const LoadingStyled = styled.div`
   overflow: hidden;
 `
 
-export const Loader: FC = () => {
+export const Loader: React.FC = () => {
   return (
     <LoadingStyled>
       <CircularProgress color="info" size={112} />

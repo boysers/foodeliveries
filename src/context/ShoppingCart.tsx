@@ -6,11 +6,11 @@ import React, {
   useReducer,
   useEffect
 } from 'react'
-import { CartActionTypes, ProductCart } from '@types'
+import { CartActionTypes, ProductCart } from '@/types'
 import {
   MAX_QUANTITY_CART,
   MAX_QUANTITY_SINGLE_PRODUCT
-} from '@data/configCart'
+} from '@/data/configCart'
 
 type ValueShoppingCartContext = {
   state: State

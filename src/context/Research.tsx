@@ -4,7 +4,6 @@ import React, {
   useState,
   useMemo,
   PropsWithChildren,
-  FC,
   Dispatch,
   SetStateAction
 } from 'react'
@@ -22,7 +21,7 @@ type DefaultValue = {
 
 const ResearchContext = createContext<DefaultValue | null>(null)
 
-export const ResearchProvider: FC<PropsWithChildren> = ({ children }) => {
+export const ResearchProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [search, setSearch] = useState<string>('')
   const [categories, setCategories] = useState<string[]>([])
   const [sort, setSort] = useState<string>('')

@@ -1,10 +1,10 @@
-import React, { FC, useCallback, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import styled from 'styled-components'
-import { SelectChangeEvent } from '@lib/mui'
-import { useResearchContext, useProductsContext } from '@context'
-import { CheckboxSearchBar, SelectSearchBar } from '@components'
-import { ProductList } from './product-list'
-import { Product } from '@types'
+import { SelectChangeEvent } from '@/lib/material-ui'
+import { useResearchContext, useProductsContext } from '@/context'
+import { CheckboxSearchBar, SelectSearchBar } from '@/components'
+import { Product } from '@/types'
+import { ProductList } from './ProductList'
 
 type PropsProductsFilterable = {
   products: Product[]
@@ -28,7 +28,7 @@ const StyledReseachBar = styled.div`
   left: 0;
 `
 
-export const ProductsFilterable: FC<PropsProductsFilterable> = ({
+export const ProductsFilterable: React.FC<PropsProductsFilterable> = ({
   products
 }) => {
   if (!products?.length) throw new Error('products unavailable !')
@@ -58,10 +58,6 @@ export const ProductsFilterable: FC<PropsProductsFilterable> = ({
 
   return (
     <StyledContainer>
-      {/* <Typography variant="h4" sx={{ textAlign: 'center', m: 4 }}>
-        Food
-      </Typography> */}
-
       <StyledReseachBar>
         <CheckboxSearchBar
           label="Category"

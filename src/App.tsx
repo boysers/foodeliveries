@@ -1,16 +1,16 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { Outlet } from 'react-router-dom'
-import { Container } from '@lib/mui'
 import { SnackbarProvider } from 'notistack'
+import { Container } from '@/lib/material-ui'
+import { Header } from '@/components'
 import {
   ColorModeProvider,
   ProductsProvider,
   ShoppingCartProvider,
   ResearchProvider
-} from '@context'
-import { Header } from '@components'
+} from '@/context'
 
-export const App: FC = () => {
+export const App: React.FC = () => {
   return (
     <ColorModeProvider>
       <ProductsProvider>

@@ -1,6 +1,5 @@
 import React, {
   createContext,
-  FC,
   PropsWithChildren,
   useEffect,
   useMemo,
@@ -9,7 +8,7 @@ import React, {
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { CssBaseline } from '@mui/material'
 import defaultTheme from '../data/defaultTheme'
-import { ThemeTypes } from '@types'
+import { ThemeTypes } from '@/types'
 
 type ValueColorModeContext = {
   toggleColorMode: () => void
@@ -28,7 +27,9 @@ export const ColorModeContext = createContext<ValueColorModeContext>({
   mode: defaultTheme
 })
 
-export const ColorModeProvider: FC<PropsWithChildren> = ({ children }) => {
+export const ColorModeProvider: React.FC<PropsWithChildren> = ({
+  children
+}) => {
   const [mode, setMode] = useState<ThemeTypes>(getInitValueState)
 
   const colorMode = useMemo(
