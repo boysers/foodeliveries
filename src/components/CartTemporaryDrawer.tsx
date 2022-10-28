@@ -26,10 +26,11 @@ import {
 } from '@/context'
 import { ThemeTypes, CartActionTypes, Product } from '@/types'
 
-type PropsCartProductItem = Product & {
-  quantity: number
-  onToggleDrawer: (event: KeyboardEvent | MouseEvent) => void
-}
+type PropsCartProductItem = Partial<Product> &
+  Pick<Product, 'id'> & {
+    quantity: number
+    onToggleDrawer: (event: KeyboardEvent | MouseEvent) => void
+  }
 
 const CartProductItem: React.FC<PropsCartProductItem> = ({
   id,
@@ -61,7 +62,7 @@ const CartProductItem: React.FC<PropsCartProductItem> = ({
     >
       <Grid container spacing={2}>
         <Grid item>
-          <StyledImg alt="complex" sx={{ width: '100px' }} src={image} />
+          <StyledImg alt={title} sx={{ width: '100px' }} src={image} />
         </Grid>
         <Grid item xs={12} sm container>
           <Grid item xs container direction="column" spacing={2}>
@@ -69,7 +70,8 @@ const CartProductItem: React.FC<PropsCartProductItem> = ({
               <Typography
                 variant="subtitle1"
                 component="div"
-                children={title}
+                children={title ? title : 'unavailable product'}
+                sx={{ color: title ? 'currentcolor' : '#fd2121' }}
               />
               <Typography
                 variant="body2"
@@ -98,6 +100,7 @@ const CartProductItem: React.FC<PropsCartProductItem> = ({
                   color="primary"
                   component={Link}
                   to={`/products/${id}`}
+                  disabled={!(title && price && image)}
                 >
                   <Typography sx={{ cursor: 'pointer' }} variant="body2">
                     Page produit
@@ -107,11 +110,13 @@ const CartProductItem: React.FC<PropsCartProductItem> = ({
             </Grid>
           </Grid>
           <Grid item>
-            <Typography
-              variant="subtitle1"
-              component="div"
-              children={`Price : $${price}`}
-            />
+            {price && (
+              <Typography
+                variant="subtitle1"
+                component="div"
+                children={`Price : $${price}`}
+              />
+            )}
           </Grid>
         </Grid>
       </Grid>
@@ -158,6 +163,17 @@ export const CartTemporaryDrawer: React.FC<PropsWithChildren> = ({
       const INDEX_ID = products.findIndex(
         (product) => product.id === productCart.id
       )
+
+      if (!INDEX_ID || INDEX_ID === -1)
+        return (
+          <MemoizedCartProductItem
+            key={productCart.id}
+            onToggleDrawer={onToggleDrawer}
+            quantity={productCart.quantity}
+            id={productCart.id}
+          />
+        )
+
       return (
         <MemoizedCartProductItem
           key={products[INDEX_ID].id}

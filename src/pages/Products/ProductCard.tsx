@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import { VariantType, useSnackbar } from 'notistack'
 import {
   Card,
-  CardMedia,
   CardContent,
   Typography,
   Rating,
@@ -74,17 +73,15 @@ export const ProductCard: React.FC<PropsProductCard> = ({ product }) => {
     <Card className="grid-item" variant="outlined">
       <CardStyled>
         <ContainerStyled>
-          <CardMedia
-            component="img"
+          <img
             src={image}
             alt={title}
-            sx={{
-              ':hover': { cursor: 'pointer' },
+            style={{
               maxWidth: 270,
               width: '100%',
-              height: 270
+              height: 270,
+              cursor: 'pointer'
             }}
-            onClick={onHandleClickNavigate}
           />
           <CardContent
             sx={{ paddingBottom: '0!important', textAlign: 'center' }}

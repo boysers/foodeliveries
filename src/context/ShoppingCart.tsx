@@ -25,7 +25,7 @@ type State = {
 // Change payload type based on id type Product
 type Action = { type: CartActionTypes; payload: number }
 
-export const initValue: State = {
+const initValue: State = {
   productsCart: [],
   quantityInCart: 0
 }
