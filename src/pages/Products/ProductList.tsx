@@ -43,19 +43,20 @@ export const ProductList: React.FC<PropsProductList> = ({
     [categories, filterCheckboxCategories]
   )
 
+  const productsFiltered = products.filter(
+    (product) =>
+      product.title.toLowerCase().includes(filterName) &&
+      (cates.find((cate) => product.category === cate) || cates.length === 0) &&
+      product
+  )
+
   return (
     <Grid>
       <ProductGrid>
-        <span style={{ fontWeight: 700 }}>{products.length}</span> Products
+        <span style={{ fontWeight: 700 }}>{productsFiltered.length}</span>{' '}
+        {productsFiltered.length <= 1 ? 'product' : 'products'}
       </ProductGrid>
-      {products
-        .filter(
-          (product) =>
-            product.title.toLowerCase().includes(filterName) &&
-            (cates.find((cate) => product.category === cate) ||
-              cates.length === 0) &&
-            product
-        )
+      {productsFiltered
         .sort((a, b) => {
           switch (filterSortBy) {
             case SortBy.ASCENDING_PRICE:
