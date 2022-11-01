@@ -1,19 +1,31 @@
 import React, { PropsWithChildren, useEffect, useState } from 'react'
-import { CheckCircleIcon, Box } from '@/lib/material-ui'
+import {
+  CheckCircleIcon,
+  AddShoppingCartOutlinedIcon,
+  Button,
+  CircularProgress
+} from '@/lib/material-ui'
 import { useShoppingCartContext } from '@/context'
 
 type CheckCartProductProps = PropsWithChildren<{
   productId: number
-  title?: string
+  onClick?: React.MouseEventHandler<HTMLButtonElement>
 }>
 
 export const CheckCartProduct: React.FC<CheckCartProductProps> = ({
   productId,
-  title = 'Ajouter au panier',
+  onClick,
   children
 }) => {
   const [isInShoppingCart, setIsInShoppingCart] = useState(false)
+  const [loading, setLoading] = useState(false)
   const { state } = useShoppingCartContext()
+
+  const onHandleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setLoading(true)
+    onClick?.(event)
+  }
+
   useEffect(() => {
     const productIndex = state.productsCart.findIndex(
       (item) => item.id === productId
@@ -22,19 +34,33 @@ export const CheckCartProduct: React.FC<CheckCartProductProps> = ({
     else setIsInShoppingCart(false)
   }, [productId, state.productsCart])
 
-  return isInShoppingCart ? (
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: '3px',
-        color: 'green'
-      }}
-    >
-      {title} <CheckCircleIcon />
-    </Box>
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1000)
+    return () => {
+      clearInterval(timer)
+    }
+  }, [loading])
+
+  const IsCartIcon = isInShoppingCart ? (
+    <CheckCircleIcon />
   ) : (
-    <>{children}</>
+    <AddShoppingCartOutlinedIcon />
+  )
+
+  const isLoadingIcon = loading ? (
+    <CircularProgress size={20} color="warning" />
+  ) : (
+    IsCartIcon
+  )
+
+  return (
+    <Button
+      endIcon={isLoadingIcon}
+      onClick={onHandleClick}
+      color={isInShoppingCart ? (loading ? 'warning' : 'success') : 'primary'}
+      sx={{ borderRadius: '8px' }}
+    >
+      {children}
+    </Button>
   )
 }

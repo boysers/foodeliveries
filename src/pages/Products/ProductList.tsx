@@ -15,11 +15,14 @@ type PropsProductList = {
 const Grid = styled.div`
   height: auto;
   width: 100%;
-  margin: 30px auto;
   display: grid;
   grid-template-columns: repeat(auto-fill, 270px);
   justify-content: center;
   grid-gap: 1rem;
+`
+const ProductGrid = styled.p`
+  grid-column: 1 / -1;
+  margin: 0;
 `
 
 const MemoizedProductCard = memo(ProductCard)
@@ -42,6 +45,9 @@ export const ProductList: React.FC<PropsProductList> = ({
 
   return (
     <Grid>
+      <ProductGrid>
+        <span style={{ fontWeight: 700 }}>{products.length}</span> Products
+      </ProductGrid>
       {products
         .filter(
           (product) =>

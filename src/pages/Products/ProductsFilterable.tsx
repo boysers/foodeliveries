@@ -16,18 +16,19 @@ export type FilterCategorie = string
 const StyledContainer = styled.div`
   display: flex;
   align-items: flex-start;
+  margin: 16px auto;
 `
 const StyledReseachBar = styled.div`
   width: 200px;
-  height: calc(100vh - 64px);
+  height: calc(100vh - 80px);
   display: flex;
   flex-direction: column;
 
   position: sticky;
-  top: 64px;
+  top: 80px;
   left: 0;
 `
-
+import Divider from '@mui/material/Divider'
 export const ProductsFilterable: React.FC<PropsProductsFilterable> = ({
   products
 }) => {
@@ -66,6 +67,8 @@ export const ProductsFilterable: React.FC<PropsProductsFilterable> = ({
           onChange={onHandleChangeListCategory}
         />
 
+        <Divider sx={{ margin: '16px 0' }} variant="fullWidth" />
+
         <SelectSearchBar
           label="Sort by"
           words={['ascending price', 'decreasing price', 'average rating']}
@@ -76,12 +79,14 @@ export const ProductsFilterable: React.FC<PropsProductsFilterable> = ({
         </SelectSearchBar>
       </StyledReseachBar>
 
-      <ProductList
-        products={products}
-        filterName={state.search}
-        filterSortBy={filterSortBy}
-        filterCheckboxCategories={filterListCategorie}
-      />
+      <div style={{ width: '100%' }}>
+        <ProductList
+          products={products}
+          filterName={state.search}
+          filterSortBy={filterSortBy}
+          filterCheckboxCategories={filterListCategorie}
+        />
+      </div>
     </StyledContainer>
   )
 }

@@ -34,6 +34,7 @@ export const SelectSearchBar: React.FC<PropsSelectSearchBar> = ({
         value={value}
         onChange={onChance}
         autoWidth
+        sx={{ borderRadius: '6px' }}
       >
         <MenuItem value="">
           <em>{children}</em>
