@@ -11,6 +11,16 @@ export { type SelectChangeEvent } from '@mui/material/Select'
 export { styled } from '@mui/material'
 
 // icons material
+import { default as SquareSharpIcon } from '@mui/icons-material/SquareSharp'
+import { default as GridViewSharp } from '@mui/icons-material/GridViewSharp'
+import { default as AppsSharp } from '@mui/icons-material/AppsSharp'
+import { default as ViewCompactSharp } from '@mui/icons-material/ViewCompactSharp'
+export const GridIcons = {
+  One: SquareSharpIcon,
+  Two: GridViewSharp,
+  Three: AppsSharp,
+  Four: ViewCompactSharp
+}
 export { default as CheckCircleIcon } from '@mui/icons-material/CheckCircle'
 export { default as SearchIcon } from '@mui/icons-material/Search'
 export { default as ShoppingBagOutlinedIcon } from '@mui/icons-material/ShoppingBagOutlined'
