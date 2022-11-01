@@ -13,7 +13,7 @@ type PropsCheckboxSearchBar = {
 const StyledLabel = styled.div`
   background-color: hsla(0, 0%, 100%, 0.09);
   padding: 0.1rem 0.5rem;
-  border-radius: 5px;
+  border-radius: 6px;
 `
 
 export const CheckboxSearchBar: React.FC<PropsCheckboxSearchBar> = ({
@@ -23,7 +23,7 @@ export const CheckboxSearchBar: React.FC<PropsCheckboxSearchBar> = ({
   onChange
 }) => {
   return (
-    <Box sx={{ margin: '10px 0' }}>
+    <Box>
       <Typography variant="h6">{label}</Typography>
       <Box sx={{ display: 'flex', flexDirection: 'column', ml: 3 }}>
         {listCategorie.map((categorie, index) => (

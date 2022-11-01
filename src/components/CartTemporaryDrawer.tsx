@@ -164,7 +164,7 @@ export const CartTemporaryDrawer: React.FC<PropsWithChildren> = ({
         (product) => product.id === productCart.id
       )
 
-      if (!INDEX_ID || INDEX_ID === -1)
+      if (INDEX_ID === -1)
         return (
           <MemoizedCartProductItem
             key={productCart.id}
