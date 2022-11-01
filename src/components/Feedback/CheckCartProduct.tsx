@@ -22,6 +22,8 @@ export const CheckCartProduct: React.FC<CheckCartProductProps> = ({
   const { state } = useShoppingCartContext()
 
   const onHandleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (isInShoppingCart) return
+
     setLoading(true)
     onClick?.(event)
   }
@@ -47,18 +49,15 @@ export const CheckCartProduct: React.FC<CheckCartProductProps> = ({
     <AddShoppingCartOutlinedIcon />
   )
 
-  const isLoadingIcon = loading ? (
-    <CircularProgress size={20} color="warning" />
-  ) : (
-    IsCartIcon
-  )
+  const isLoadingIcon = loading ? <CircularProgress size={20} /> : IsCartIcon
 
   return (
     <Button
       endIcon={isLoadingIcon}
       onClick={onHandleClick}
       color={isInShoppingCart ? (loading ? 'warning' : 'success') : 'primary'}
-      sx={{ borderRadius: '8px' }}
+      disabled={isInShoppingCart}
+      sx={{ borderRadius: '8px', color: '' }}
     >
       {children}
     </Button>
