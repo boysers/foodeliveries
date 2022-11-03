@@ -8,7 +8,7 @@ export { type SxPropsWithTheme }
 export { type SelectChangeEvent } from '@mui/material/Select'
 
 // utils
-export { styled } from '@mui/material'
+export { styled as styledMui } from '@mui/material'
 
 // icons material
 import { default as SquareSharpIcon } from '@mui/icons-material/SquareSharp'
@@ -61,3 +61,4 @@ export { default as Card } from '@mui/material/Card'
 export { default as CardContent } from '@mui/material/CardContent'
 export { default as CardActions } from '@mui/material/CardActions'
 export { default as Tooltip } from '@mui/material/Tooltip'
+export { default as LinkMui } from '@mui/material/Link'

@@ -1,14 +1,13 @@
-import React, { useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { VariantType, useSnackbar } from 'notistack'
 import { Card, CardContent, Typography, Tooltip } from '@/lib/material-ui'
-import { ColorModeContext, useShoppingCartContext } from '@/context'
+import { useColorModeContext, useShoppingCartContext } from '@/context'
 import { CheckCartProduct } from '@/components'
 import { CartActionTypes, Product, ThemeTypes } from '@/types'
 import { MAX_QUANTITY_CART } from '@/data/configCart'
-import { toUpperCaseFirstLetter } from '@/utils'
-import { toStringSlice } from '@/utils/toStringSlice'
+import { toUpperCaseFirstLetter, toStringSlice } from '@/utils'
 
 type PropsProductCard = { product: Product }
 
@@ -31,14 +30,12 @@ const PriceStyled = styled.h5`
   color: ${(props: { theme: ThemeTypes }) =>
     props.theme === ThemeTypes.DARK ? '#29b6f6' : '#0288d1'};
 `
-const ContainerStyled = styled.div`
-  width: 100%;
-`
 
 export const ProductCard: React.FC<PropsProductCard> = ({ product }) => {
   const { image, title, category, price, id } = product
 
-  const { mode: theme } = useContext(ColorModeContext)
+  const { mode: theme } = useColorModeContext()
+  const [isInShoppingCart, setIsInShoppingCart] = useState(false)
   const { dispatch, state } = useShoppingCartContext()
   const { enqueueSnackbar } = useSnackbar()
   const navigate = useNavigate()
@@ -65,6 +62,12 @@ export const ProductCard: React.FC<PropsProductCard> = ({ product }) => {
     }
   }
 
+  useEffect(() => {
+    const productIndex = state.productsCart.findIndex((item) => item.id === id)
+    if (productIndex > -1) setIsInShoppingCart(true)
+    else setIsInShoppingCart(false)
+  }, [id, state.productsCart])
+
   return (
     <Card
       className="grid-item"
@@ -72,56 +75,57 @@ export const ProductCard: React.FC<PropsProductCard> = ({ product }) => {
       sx={{ borderRadius: '12px' }}
     >
       <CardStyled>
-        <ContainerStyled>
-          <img
-            src={image}
-            alt={title}
-            style={{
-              maxWidth: 270,
-              width: '100%',
-              height: 270,
-              display: 'block',
-              cursor: 'pointer'
-            }}
-          />
-          <CardContent
-            sx={{
-              padding: '0 12px!important',
-              margin: '12px 0',
-              textAlign: 'center'
-            }}
+        <img
+          src={image}
+          alt={title}
+          style={{
+            maxWidth: 270,
+            width: '100%',
+            height: 270,
+            display: 'block',
+            cursor: 'pointer'
+          }}
+        />
+        <CardContent
+          sx={{
+            padding: '0 12px!important',
+            margin: '12px 0',
+            textAlign: 'center'
+          }}
+        >
+          <Tooltip title={title}>
+            <Typography
+              component="h5"
+              variant="h6"
+              onClick={onHandleClickNavigate}
+            >
+              <TitleStyled theme={theme}>
+                {toStringSlice(title, 24)}
+              </TitleStyled>
+            </Typography>
+          </Tooltip>
+          <Typography
+            variant="body1"
+            color="text.secondary"
+            sx={{ fontSize: '0.9rem' }}
           >
-            <Tooltip title={title}>
-              <Typography
-                component="h5"
-                variant="h6"
-                onClick={onHandleClickNavigate}
-              >
-                <TitleStyled theme={theme}>
-                  {toStringSlice(title, 24)}
-                </TitleStyled>
-              </Typography>
-            </Tooltip>
-            <Typography
-              variant="body1"
-              color="text.secondary"
-              sx={{ fontSize: '0.9rem' }}
-            >
-              {toUpperCaseFirstLetter(category)}
-            </Typography>
-            <Typography
-              component={PriceStyled}
-              variant="h5"
-              sx={{ textAlign: 'center', margin: '6px 0' }}
-            >
-              {price.toFixed(2).replace('.', ',')} €
-            </Typography>
+            {toUpperCaseFirstLetter(category)}
+          </Typography>
+          <Typography
+            component={PriceStyled}
+            variant="h5"
+            sx={{ textAlign: 'center', margin: '6px 0' }}
+          >
+            {price.toFixed(2).replace('.', ',')} €
+          </Typography>
 
-            <CheckCartProduct productId={id} onClick={onClickAddProductCart}>
-              Ajouter au panier
-            </CheckCartProduct>
-          </CardContent>
-        </ContainerStyled>
+          <CheckCartProduct
+            onClick={onClickAddProductCart}
+            disabled={isInShoppingCart}
+          >
+            Ajouter au panier
+          </CheckCartProduct>
+        </CardContent>
       </CardStyled>
     </Card>
   )

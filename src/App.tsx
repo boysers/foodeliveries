@@ -6,8 +6,7 @@ import { Header } from '@/components'
 import {
   ColorModeProvider,
   ProductsProvider,
-  ShoppingCartProvider,
-  ResearchProvider
+  ShoppingCartProvider
 } from '@/context'
 
 export const App: React.FC = () => {
@@ -16,12 +15,10 @@ export const App: React.FC = () => {
       <ProductsProvider>
         <ShoppingCartProvider>
           <SnackbarProvider maxSnack={3}>
-            <ResearchProvider>
-              <Header />
-              <Container maxWidth="xl">
-                <Outlet />
-              </Container>
-            </ResearchProvider>
+            <Header />
+            <Container maxWidth="xl">
+              <Outlet />
+            </Container>
           </SnackbarProvider>
         </ShoppingCartProvider>
       </ProductsProvider>

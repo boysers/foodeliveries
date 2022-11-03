@@ -1,11 +1,11 @@
-export { ColorModeContext, ColorModeProvider } from './ColorMode'
+export { ColorModeProvider, useColorModeContext } from './ColorMode'
 
 // export { useProductsContext, ProductsProvider } from './Products'
 
 // Changed data products as foods
 export {
-  RecipesCookProvider as ProductsProvider,
-  useRecipesCookContext as useProductsContext
+  FoodProvider as ProductsProvider,
+  useFoodContext as useProductsContext
 } from './Foods'
 
 // export type { ProductId } from './shopping-cart.context'

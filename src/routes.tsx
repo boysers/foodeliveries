@@ -1,7 +1,6 @@
 import { Navigate, RouteObject } from 'react-router-dom'
 import { App } from './App'
-import { ProductsPage, SingleProductPage } from '@/pages/Products'
-import { ShoppingCartPage } from '@/pages'
+import { ShoppingCartPage, ProductsPage, SingleProductPage } from '@/pages'
 
 export const routes: RouteObject[] = [
   {

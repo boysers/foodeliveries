@@ -3,7 +3,8 @@ import React, {
   PropsWithChildren,
   useEffect,
   useMemo,
-  useState
+  useState,
+  useContext
 } from 'react'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { CssBaseline } from '@mui/material'
@@ -22,7 +23,7 @@ const getInitValueState = () => {
   else return defaultTheme
 }
 
-export const ColorModeContext = createContext<ValueColorModeContext>({
+const ColorModeContext = createContext<ValueColorModeContext>({
   toggleColorMode: () => undefined,
   mode: defaultTheme
 })
@@ -57,4 +58,13 @@ export const ColorModeProvider: React.FC<PropsWithChildren> = ({
       </ThemeProvider>
     </ColorModeContext.Provider>
   )
+}
+
+export const useColorModeContext = () => {
+  const colorModeContext = useContext(ColorModeContext)
+
+  if (!colorModeContext)
+    throw new Error('useColorModeContext was used outside of its Provider')
+
+  return colorModeContext
 }

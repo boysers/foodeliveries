@@ -1,32 +1,18 @@
-import React, {
-  useState,
-  MouseEvent,
-  useCallback,
-  PropsWithChildren,
-  ChangeEvent,
-  useContext
-} from 'react'
+import React, { PropsWithChildren } from 'react'
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
 import {
   AppBar,
   Toolbar,
-  Box,
   IconButton,
   Container,
-  Menu,
   Badge,
   Typography,
-  SearchIcon,
   ShoppingBagOutlinedIcon,
-  SxPropsWithTheme
+  SxPropsWithTheme,
+  Box
 } from '@/lib/material-ui'
-import {
-  ColorModeContext,
-  useResearchContext,
-  useShoppingCartContext
-} from '@/context'
-import { ThemeSwitcher, SearchBar } from './Inputs'
+import { useColorModeContext, useShoppingCartContext } from '@/context'
+import { ThemeSwitcher } from './Inputs'
 import { CartTemporaryDrawer } from './CartTemporaryDrawer'
 import { ThemeTypes } from '@/types'
 
@@ -35,129 +21,71 @@ type PropsTitleLink = PropsWithChildren<{
   sx?: SxPropsWithTheme
 }>
 
-const StyledCart = styled.div`
-  &:hover {
-    cursor: pointer;
-  }
-`
-
-const TitleLink: React.FC<PropsTitleLink> = ({ to, sx, children }) => {
-  return (
-    <Typography
-      component={Link}
-      to={to}
-      variant="h5"
-      noWrap
-      sx={{
-        flexGrow: 1,
-        textDecoration: 'none',
-        color: 'inherit',
-        letterSpacing: '0.25rem',
-        ...sx
-      }}
-    >
-      {children}
-    </Typography>
-  )
-}
-
-const ShoppingCart: React.FC = () => {
-  const context = useShoppingCartContext()
-  return (
-    <IconButton>
-      <Badge badgeContent={context.state.quantityInCart} color="error" max={99}>
-        <ShoppingBagOutlinedIcon
-          sx={{ fontSize: { xs: '1.5rem', md: '1.8rem' }, color: '#ffffff' }}
-        />
-      </Badge>
-    </IconButton>
-  )
-}
-
 export const Header: React.FC = () => {
-  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
-  const { state, dispatch } = useResearchContext()
-  const { mode, toggleColorMode } = useContext(ColorModeContext)
+  const { mode, toggleColorMode } = useColorModeContext()
+  const { state } = useShoppingCartContext()
 
-  const checked = mode === ThemeTypes.DARK
-
-  const title = 'Shopping'
-
-  const onHandleChangeSearch = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) =>
-      dispatch.setSearch(e.target.value.toLowerCase()),
-    [dispatch]
-  )
-
-  const onHandleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget)
+  const TitleLink: React.FC<PropsTitleLink> = ({ to, sx, children }) => {
+    return (
+      <Typography
+        component={Link}
+        to={to}
+        variant="h5"
+        noWrap
+        sx={{
+          textDecoration: 'none',
+          color: 'inherit',
+          letterSpacing: '0.25rem',
+          ...sx
+        }}
+      >
+        {children}
+      </Typography>
+    )
   }
 
-  const onHandleCloseNavMenu = () => {
-    setAnchorElNav(null)
+  const ShoppingCart: React.FC = () => {
+    return (
+      <IconButton sx={{ ':hover': 'pointer' }}>
+        <Badge badgeContent={state.quantityInCart} color="error" max={99}>
+          <ShoppingBagOutlinedIcon
+            sx={{ fontSize: { xs: '1.5rem', md: '1.8rem' }, color: '#ffffff' }}
+          />
+        </Badge>
+      </IconButton>
+    )
   }
 
   return (
     <AppBar position="fixed">
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <TitleLink
-            to="/"
-            sx={{ display: { xs: 'none', md: 'flex' }, textAlign: 'center' }}
+        <Toolbar
+          disableGutters
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            minHeight: '64px'
+          }}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              flex: 1,
+              justifyContent: { xs: 'center', md: 'start' }
+            }}
           >
-            {title}
-          </TitleLink>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              onClick={onHandleOpenNavMenu}
-              color="inherit"
-              aria-controls="menu-appbar"
-            >
-              <SearchIcon />
-            </IconButton>
-
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left'
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={onHandleCloseNavMenu}
-              sx={{ display: { xs: 'block', md: 'none' } }}
-            >
-              <SearchBar
-                value={state.search}
-                onChange={onHandleChangeSearch}
-                id="search"
-                label="Search"
-              />
-            </Menu>
+            <TitleLink to="/">Shopping</TitleLink>
           </Box>
-
-          <TitleLink to="/" sx={{ display: { xs: 'flex', md: 'none' } }}>
-            {title}
-          </TitleLink>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <SearchBar
-              value={state.search}
-              onChange={onHandleChangeSearch}
-              id="search"
-              label="Search"
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <ThemeSwitcher
+              checked={mode === ThemeTypes.DARK}
+              onChange={toggleColorMode}
             />
-          </Box>
-
-          <ThemeSwitcher checked={checked} onChange={toggleColorMode} />
-
-          <CartTemporaryDrawer>
-            <StyledCart>
+            <CartTemporaryDrawer>
               <ShoppingCart />
-            </StyledCart>
-          </CartTemporaryDrawer>
+            </CartTemporaryDrawer>
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>

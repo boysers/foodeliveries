@@ -1,16 +1,15 @@
 import React from 'react'
-import styled from 'styled-components'
-import { Typography } from '@/lib/material-ui'
-
-const StyledNotFound = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 200px;
-`
+import { Button, Typography } from '@/lib/material-ui'
+import { ViewportHeight } from '@/layouts'
+import { Link } from 'react-router-dom'
 
 export const NotFound: React.FC = () => (
-  <StyledNotFound>
-    <Typography variant="h5">404 not found !</Typography>
-  </StyledNotFound>
+  <ViewportHeight sx={{ flexDirection: 'column' }}>
+    <Typography variant="h5" sx={{ margin: '16px 0' }}>
+      404 not found !
+    </Typography>
+    <Button component={Link} to="/">
+      Return to the home page
+    </Button>
+  </ViewportHeight>
 )

@@ -10,20 +10,16 @@ import listFood from '@/assets/foodList.json'
 import { Product as Food } from '@/types'
 import { toUpperCaseFirstLetter } from '@/utils'
 
-type DefaultValueRecipesCookContext = {
+type ValueRecipesCookContext = {
   loading: boolean
   products: Food[]
   categories: string[]
 }
 type PropsRecipesCookProvider = PropsWithChildren
 
-const fetchFakeTimer = 100
+const FoodContext = createContext<ValueRecipesCookContext | null>(null)
 
-const RecipesCookContext = createContext<DefaultValueRecipesCookContext | null>(
-  null
-)
-
-export const RecipesCookProvider: React.FC<PropsRecipesCookProvider> = ({
+export const FoodProvider: React.FC<PropsRecipesCookProvider> = ({
   children
 }) => {
   const [loading, setLoading] = useState<boolean>(true)
@@ -45,22 +41,20 @@ export const RecipesCookProvider: React.FC<PropsRecipesCookProvider> = ({
   )
 
   useEffect(() => {
-    const timer = setInterval(() => setLoading(false), fetchFakeTimer)
-    return () => clearInterval(timer)
+    const timer = setInterval(() => setLoading(false), 300)
+    return () => {
+      clearInterval(timer)
+    }
   }, [])
 
-  return (
-    <RecipesCookContext.Provider value={value}>
-      {children}
-    </RecipesCookContext.Provider>
-  )
+  return <FoodContext.Provider value={value}>{children}</FoodContext.Provider>
 }
 
-export const useRecipesCookContext = () => {
-  const recipesCookContext = useContext(RecipesCookContext)
+export const useFoodContext = () => {
+  const foodContext = useContext(FoodContext)
 
-  if (!recipesCookContext)
+  if (!foodContext)
     throw new Error('useRecipesCookContext was used outside of its Provider')
 
-  return recipesCookContext
+  return foodContext
 }

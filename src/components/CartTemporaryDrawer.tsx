@@ -4,7 +4,6 @@ import React, {
   MouseEvent,
   KeyboardEvent,
   PropsWithChildren,
-  useContext,
   useMemo,
   useCallback,
   memo
@@ -17,12 +16,12 @@ import {
   Grid,
   Paper,
   Typography,
-  styled
+  styledMui
 } from '@/lib/material-ui'
 import {
   useShoppingCartContext,
   useProductsContext,
-  ColorModeContext
+  useColorModeContext
 } from '@/context'
 import { ThemeTypes, CartActionTypes, Product } from '@/types'
 
@@ -42,7 +41,7 @@ const CartProductItem: React.FC<PropsCartProductItem> = ({
 }) => {
   const { dispatch } = useShoppingCartContext()
 
-  const StyledImg = styled('img')({
+  const StyledImg = styledMui('img')({
     margin: 'auto',
     display: 'block',
     maxWidth: '100%',
@@ -132,7 +131,7 @@ export const CartTemporaryDrawer: React.FC<PropsWithChildren> = ({
   const { products } = useProductsContext()
   const shoppingCartContext = useShoppingCartContext()
   const [isOpen, setIsOpen] = useState<boolean>(false)
-  const { mode } = useContext(ColorModeContext)
+  const { mode } = useColorModeContext()
   const checked = mode === ThemeTypes.DARK
 
   const onToggleDrawer = useCallback((event: KeyboardEvent | MouseEvent) => {

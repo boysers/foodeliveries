@@ -6,7 +6,7 @@ type PropsSearchBar = Partial<{
   value: string
   id: string
   label: string
-  width?: number
+  width: number
 }>
 
 export const SearchBar: React.FC<PropsSearchBar> = ({

@@ -1,31 +1,21 @@
-import { Button, GridIcons } from '@/lib/material-ui'
 import { useState } from 'react'
-import styled from 'styled-components'
-
-const ContainerStyled = styled.div`
-  display: flex;
-`
-const IconStyled = styled(Button)`
-  & {
-    cursor: pointer;
-  }
-`
+import { Box, Button, GridIcons } from '@/lib/material-ui'
 
 export const CollectionLayout = () => {
   const [grid, setGrid] = useState(2)
-
   return (
-    <ContainerStyled>
+    <Box sx={{ display: 'flex' }}>
       {Object.values(GridIcons).map((Icon, idx) => (
-        <IconStyled
+        <Button
           key={idx}
           color="info"
+          sx={{ cursor: 'pointer' }}
           disabled={grid === idx}
           onClick={() => setGrid(idx)}
         >
           <Icon />
-        </IconStyled>
+        </Button>
       ))}
-    </ContainerStyled>
+    </Box>
   )
 }

@@ -1,9 +1,10 @@
 import React, { useCallback, useState } from 'react'
 import styled from 'styled-components'
-import { SelectChangeEvent } from '@/lib/material-ui'
-import { useResearchContext, useProductsContext } from '@/context'
+import { Box, Divider, SelectChangeEvent } from '@/lib/material-ui'
+import { useProductsContext } from '@/context'
 import { CheckboxSearchBar, SelectSearchBar } from '@/components'
-import { Product } from '@/types'
+import { Product, SortBy } from '@/types'
+import { toUpperCaseFirstLetter } from '@/utils'
 import { ProductList } from './ProductList'
 
 type PropsProductsFilterable = {
@@ -13,28 +14,22 @@ type PropsProductsFilterable = {
 export type FilterName = string
 export type FilterCategorie = string
 
-const StyledContainer = styled.div`
-  display: flex;
-  align-items: flex-start;
-  margin: 16px auto;
-`
 const StyledReseachBar = styled.div`
   width: 200px;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 64px);
   display: flex;
   flex-direction: column;
+  padding: 16px 0;
 
   position: sticky;
-  top: 80px;
+  top: 64px;
   left: 0;
 `
-import Divider from '@mui/material/Divider'
 export const ProductsFilterable: React.FC<PropsProductsFilterable> = ({
   products
 }) => {
   if (!products?.length) throw new Error('products unavailable !')
 
-  const { state } = useResearchContext()
   const { categories } = useProductsContext()
 
   // filter
@@ -58,20 +53,20 @@ export const ProductsFilterable: React.FC<PropsProductsFilterable> = ({
     )
 
   return (
-    <StyledContainer>
+    <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
       <StyledReseachBar>
         <CheckboxSearchBar
           label="Category"
-          listCategorie={categories}
+          listCategory={categories.map((cate) => toUpperCaseFirstLetter(cate))}
           value={filterListCategorie}
           onChange={onHandleChangeListCategory}
         />
 
-        <Divider sx={{ margin: '16px 0' }} variant="fullWidth" />
+        <Divider sx={{ margin: '16px 0' }} />
 
         <SelectSearchBar
           label="Sort by"
-          words={['ascending price', 'decreasing price', 'average rating']}
+          words={[SortBy.ASCENDING_PRICE, SortBy.DECREASING_PRICE]}
           value={filterSortBy}
           onChance={onHandleChangeSortBy}
         >
@@ -79,14 +74,14 @@ export const ProductsFilterable: React.FC<PropsProductsFilterable> = ({
         </SelectSearchBar>
       </StyledReseachBar>
 
-      <div style={{ width: '100%' }}>
+      <Box style={{ width: '100%', padding: '16px 0' }}>
         <ProductList
           products={products}
-          filterName={state.search}
+          filterName={''}
           filterSortBy={filterSortBy}
           filterCheckboxCategories={filterListCategorie}
         />
-      </div>
-    </StyledContainer>
+      </Box>
+    </Box>
   )
 }

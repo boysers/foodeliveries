@@ -8,13 +8,6 @@ type PropsProductSingleModal = {
   alt?: string
 }
 
-const style = {
-  position: 'absolute' as const,
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)'
-}
-
 export const ModalImage: React.FC<PropsProductSingleModal> = ({
   isOpen,
   onHandleClose,
@@ -23,7 +16,14 @@ export const ModalImage: React.FC<PropsProductSingleModal> = ({
 }) => {
   return (
     <Modal open={isOpen} onClose={onHandleClose} disableAutoFocus>
-      <Box sx={style}>
+      <Box
+        sx={{
+          position: 'absolute' as const,
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)'
+        }}
+      >
         <CardMedia component="img" src={src} alt={alt} />
       </Box>
     </Modal>

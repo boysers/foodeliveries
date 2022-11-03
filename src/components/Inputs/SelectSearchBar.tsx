@@ -6,19 +6,18 @@ import {
   SelectChangeEvent,
   MenuItem
 } from '@/lib/material-ui'
-import { toUpperCaseFirstLetter } from '@/utils'
 
 type PropsSelectSearchBar = PropsWithChildren<{
   words: string[]
   value: string
   onChance: (e: SelectChangeEvent) => void
-  label: string
+  label?: string
   minWidth?: number
 }>
 
 export const SelectSearchBar: React.FC<PropsSelectSearchBar> = ({
   words,
-  label,
+  label = 'Select',
   value,
   onChance,
   children,
@@ -34,14 +33,14 @@ export const SelectSearchBar: React.FC<PropsSelectSearchBar> = ({
         value={value}
         onChange={onChance}
         autoWidth
-        sx={{ borderRadius: '6px' }}
+        sx={{ borderRadius: '8px' }}
       >
         <MenuItem value="">
           <em>{children}</em>
         </MenuItem>
         {words.map((word, index) => (
           <MenuItem key={index} value={word}>
-            {toUpperCaseFirstLetter(word)}
+            {word}
           </MenuItem>
         ))}
       </Select>
