@@ -1,4 +1,4 @@
-export { ColorModeProvider, useColorModeContext } from './ColorMode'
+export { ColorModeProvider, useColorModeContext } from './ColorModeContext'
 
 // export { useProductsContext, ProductsProvider } from './Products'
 
@@ -6,9 +6,12 @@ export { ColorModeProvider, useColorModeContext } from './ColorMode'
 export {
   FoodProvider as ProductsProvider,
   useFoodContext as useProductsContext
-} from './Foods'
+} from './FoodsContext'
 
 // export type { ProductId } from './shopping-cart.context'
-export { ShoppingCartProvider, useShoppingCartContext } from './ShoppingCart'
+export {
+  ShoppingCartProvider,
+  useShoppingCartContext
+} from './ShoppingCartContext'
 
-export { ResearchProvider, useResearchContext } from './Research'
+export { ResearchProvider, useResearchContext } from './ResearchContext'
