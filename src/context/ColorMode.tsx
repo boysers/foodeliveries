@@ -1,26 +1,18 @@
 import React, {
   createContext,
   PropsWithChildren,
-  useEffect,
   useMemo,
-  useState,
   useContext
 } from 'react'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { CssBaseline } from '@mui/material'
-import defaultTheme from '../data/defaultTheme'
+import defaultTheme from '@/data/defaultTheme'
 import { ThemeTypes } from '@/types'
+import { useLocalStorage } from '@/hooks'
 
 type ValueColorModeContext = {
   toggleColorMode: () => void
   mode: ThemeTypes
-}
-
-const getInitValueState = () => {
-  const theme = localStorage.getItem('theme')
-  if (theme)
-    return theme === ThemeTypes.DARK ? ThemeTypes.DARK : ThemeTypes.LIGHT
-  else return defaultTheme
 }
 
 const ColorModeContext = createContext<ValueColorModeContext>({
@@ -31,28 +23,30 @@ const ColorModeContext = createContext<ValueColorModeContext>({
 export const ColorModeProvider: React.FC<PropsWithChildren> = ({
   children
 }) => {
-  const [mode, setMode] = useState<ThemeTypes>(getInitValueState)
+  const [theme, setTheme] = useLocalStorage('theme', { mode: defaultTheme })
 
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () =>
-        setMode((prev) =>
-          prev === ThemeTypes.LIGHT ? ThemeTypes.DARK : ThemeTypes.LIGHT
-        ),
-      mode
+        setTheme((prevTheme) => ({
+          mode:
+            prevTheme.mode === ThemeTypes.LIGHT
+              ? ThemeTypes.DARK
+              : ThemeTypes.LIGHT
+        })),
+      mode: theme.mode
     }),
-    [mode]
+    [setTheme, theme.mode]
   )
 
-  const theme = useMemo(() => createTheme({ palette: { mode } }), [mode])
-
-  useEffect(() => {
-    localStorage.setItem('theme', mode)
-  }, [mode])
+  const themeMui = useMemo(
+    () => createTheme({ palette: { mode: theme.mode } }),
+    [theme.mode]
+  )
 
   return (
     <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={themeMui}>
         <CssBaseline />
         {children}
       </ThemeProvider>

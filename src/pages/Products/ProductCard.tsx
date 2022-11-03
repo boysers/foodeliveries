@@ -6,7 +6,7 @@ import { Card, CardContent, Typography, Tooltip } from '@/lib/material-ui'
 import { useColorModeContext, useShoppingCartContext } from '@/context'
 import { CheckCartProduct } from '@/components'
 import { CartActionTypes, Product, ThemeTypes } from '@/types'
-import { MAX_QUANTITY_CART } from '@/data/configCart'
+import { MAX_QUANTITY_CART } from '@/data/configCart.json'
 import { toUpperCaseFirstLetter, toStringSlice } from '@/utils'
 
 type PropsProductCard = { product: Product }

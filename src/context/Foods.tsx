@@ -6,7 +6,7 @@ import React, {
   useState,
   useEffect
 } from 'react'
-import listFood from '@/assets/foodList.json'
+import listFood from '@/data/foodList.json'
 import { Product as Food } from '@/types'
 import { toUpperCaseFirstLetter } from '@/utils'
 

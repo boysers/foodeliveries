@@ -10,7 +10,7 @@ import { CartActionTypes, ProductCart } from '@/types'
 import {
   MAX_QUANTITY_CART,
   MAX_QUANTITY_SINGLE_PRODUCT
-} from '@/data/configCart'
+} from '@/data/configCart.json'
 
 type ValueShoppingCartContext = {
   state: State
