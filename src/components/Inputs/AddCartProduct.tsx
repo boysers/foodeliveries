@@ -3,7 +3,6 @@ import {
   CheckCircleIcon,
   AddShoppingCartOutlinedIcon,
   Button,
-  CircularProgress,
   useSnackbar,
   VariantType
 } from '@/lib/material-ui'
@@ -17,7 +16,6 @@ export const AddCartProduct: React.FC<AddCartProductProps> = ({
   id,
   title
 }) => {
-  const [loading, setLoading] = useState(false)
   const [isInShoppingCart, setIsInShoppingCart] = useState(false)
   const { dispatch, state } = useShoppingCartContext()
   const { enqueueSnackbar } = useSnackbar()
@@ -42,32 +40,18 @@ export const AddCartProduct: React.FC<AddCartProductProps> = ({
     }
   }
 
-  const endIcon = loading ? (
-    <CircularProgress size={20} />
-  ) : isInShoppingCart ? (
-    <CheckCircleIcon />
-  ) : (
-    <AddShoppingCartOutlinedIcon />
-  )
-
   useEffect(() => {
     const productIndex = state.productsCart.findIndex((item) => item.id === id)
     if (productIndex > -1) setIsInShoppingCart(true)
     else setIsInShoppingCart(false)
   }, [id, state.productsCart])
 
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1000)
-    return () => {
-      clearInterval(timer)
-    }
-  }, [loading])
-
   return (
     <Button
-      endIcon={endIcon}
+      endIcon={
+        isInShoppingCart ? <CheckCircleIcon /> : <AddShoppingCartOutlinedIcon />
+      }
       onClick={onClickAddProductCart}
-      color={isInShoppingCart ? (loading ? 'warning' : 'success') : 'primary'}
       disabled={isInShoppingCart}
       sx={{ borderRadius: '8px' }}
     >
