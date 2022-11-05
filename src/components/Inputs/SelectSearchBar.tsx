@@ -21,7 +21,7 @@ export const SelectSearchBar: React.FC<SelectSearchBarProps> = ({
   value,
   onChance,
   children,
-  minWidth = 120
+  minWidth = 180
 }) => {
   const labelId = `select-search-bar-${label}`
   return (

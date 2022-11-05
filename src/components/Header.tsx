@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { AppBar, Toolbar, Container, Typography, Box } from '@/lib/material-ui'
-import { CartTemporaryDrawer } from './CartTemporaryDrawer'
+import { CartDrawer } from './CartDrawer'
 import { ThemeSwitcher, ShoppingCartButton } from './Inputs'
 
 export const Header: React.FC = () => {
@@ -40,9 +40,9 @@ export const Header: React.FC = () => {
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <ThemeSwitcher />
-            <CartTemporaryDrawer>
+            <CartDrawer>
               <ShoppingCartButton />
-            </CartTemporaryDrawer>
+            </CartDrawer>
           </Box>
         </Toolbar>
       </Container>

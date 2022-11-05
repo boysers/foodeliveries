@@ -28,6 +28,7 @@ export { default as AddIcon } from '@mui/icons-material/Add'
 export { default as RemoveIcon } from '@mui/icons-material/Remove'
 export { default as AddShoppingCartOutlinedIcon } from '@mui/icons-material/AddShoppingCartOutlined'
 export { default as KeyboardReturnIcon } from '@mui/icons-material/KeyboardReturn'
+export { default as CloseIcon } from '@mui/icons-material/Close'
 
 // components
 export { default as Box } from '@mui/material/Box'

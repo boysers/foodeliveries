@@ -1,35 +1,39 @@
 import React, { useCallback, useState, memo } from 'react'
 import styled from 'styled-components'
-import { Box, Divider, SelectChangeEvent } from '@/lib/material-ui'
-import { CheckboxSearchBar, SelectSearchBar } from '@/components'
+import { Box, Button, SelectChangeEvent, Typography } from '@/lib/material-ui'
 import { Product, SortBy, Category } from '@/types'
-import { toUpperCaseFirstLetter } from '@/utils'
 import { ProductCard } from './ProductCard'
+import { useToggleDrawer } from '@/hooks/useToggleDrawer'
+import { FilterByDrawer } from './FilterByDrawer'
 
 type ProductsFilterableProps = {
   products: Product[]
   categories: Category[]
 }
 
-const FilterByStyled = styled.div`
-  padding: 16px 0;
-  width: 210px;
-  height: calc(100vh - 64px);
-  display: flex;
-  flex-direction: column;
-  position: sticky;
-  top: 64px;
-  left: 0;
-`
-
 const GridStyled = styled.div`
-  padding: 16px 0;
+  padding-bottom: 16px;
   height: auto;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, 270px);
   justify-content: center;
-  grid-gap: 1rem;
+  grid-gap: 16px;
+`
+
+const GridHeaderStyled = styled.div`
+  height: 42px;
+  margin: 8px 0;
+  padding: 8px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  grid-column: 1 / -1;
+  z-index: 100;
+
+  position: sticky;
+  top: calc(64px + 16px);
 `
 
 const MemoizedProductCard = memo(ProductCard)
@@ -38,8 +42,9 @@ export const ProductsFilterable: React.FC<ProductsFilterableProps> = ({
   products,
   categories
 }) => {
+  const { isOpen, onToggleDrawer } = useToggleDrawer()
   const [filterSortBy, setFilteredSortBy] = useState<string>('')
-  const [isFilteredCategoryList, setIsFilteredCategoryList] = useState(
+  const [isFilteredCategories, setIsFilteredCategories] = useState(
     categories.map(() => false)
   )
 
@@ -48,17 +53,17 @@ export const ProductsFilterable: React.FC<ProductsFilterableProps> = ({
     []
   )
 
-  const onHandleChangeListCategory: (index: number, checked: boolean) => void =
+  const onHandleChangeCategories: (index: number, checked: boolean) => void =
     useCallback(
       (id) =>
-        setIsFilteredCategoryList((prev) =>
+        setIsFilteredCategories((prev) =>
           prev.map((cate, index) => (index !== id ? cate : !cate))
         ),
       []
     )
 
   const filteredCategories = categories.filter(
-    (cate, index) => isFilteredCategoryList[index] && cate
+    (cate, index) => isFilteredCategories[index] && cate
   )
 
   const filteredProducts = products.filter(
@@ -76,25 +81,33 @@ export const ProductsFilterable: React.FC<ProductsFilterableProps> = ({
         justifyContent: 'space-between'
       }}
     >
-      <FilterByStyled>
-        <CheckboxSearchBar
-          label="Category"
-          listCategory={categories.map((cate) => toUpperCaseFirstLetter(cate))}
-          value={isFilteredCategoryList}
-          onChange={onHandleChangeListCategory}
-        />
-        <Divider sx={{ margin: '16px 0' }} />
-        <SelectSearchBar
-          label="Sort by"
-          words={[SortBy.ASCENDING_PRICE, SortBy.DECREASING_PRICE]}
-          value={filterSortBy}
-          onChance={onHandleChangeSortBy}
-        />
-      </FilterByStyled>
+      <FilterByDrawer
+        categories={categories}
+        filterSortBy={filterSortBy}
+        isFilteredCategories={isFilteredCategories}
+        onHandleChangeCategories={onHandleChangeCategories}
+        onHandleChangeSortBy={onHandleChangeSortBy}
+        isOpen={isOpen}
+        onToggleDrawer={onToggleDrawer}
+      />
       <GridStyled>
-        <Box sx={{ gridColumn: '1 / -1', margin: 0 }}>
-          <span style={{ fontWeight: 700 }}>{filteredProducts.length}</span>{' '}
-          {filteredProducts.length <= 1 ? 'product' : 'products'}
+        <Box
+          component={GridHeaderStyled}
+          sx={{
+            backgroundColor: (theme) =>
+              theme.palette.mode === 'dark' ? '#1A2027' : '#fff'
+          }}
+        >
+          <Typography>
+            <span style={{ fontWeight: 700 }}>{filteredProducts.length}</span>{' '}
+            {filteredProducts.length <= 1 ? 'product' : 'products'}
+          </Typography>
+          <Button
+            onClick={onToggleDrawer}
+            sx={{ display: { xs: 'block', md: 'none' } }}
+          >
+            Filter By
+          </Button>
         </Box>
         {filteredProducts
           .sort((a, b) => {
@@ -107,8 +120,8 @@ export const ProductsFilterable: React.FC<ProductsFilterableProps> = ({
                 return a.title < b.title ? -1 : 0
             }
           })
-          .map((sortProduct) => (
-            <MemoizedProductCard key={sortProduct.id} {...sortProduct} />
+          .map((sortedProduct) => (
+            <MemoizedProductCard key={sortedProduct.id} {...sortedProduct} />
           ))}
       </GridStyled>
     </Box>
