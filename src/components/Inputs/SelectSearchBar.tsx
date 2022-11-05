@@ -7,7 +7,7 @@ import {
   MenuItem
 } from '@/lib/material-ui'
 
-type PropsSelectSearchBar = PropsWithChildren<{
+type SelectSearchBarProps = PropsWithChildren<{
   words: string[]
   value: string
   onChance: (e: SelectChangeEvent) => void
@@ -15,7 +15,7 @@ type PropsSelectSearchBar = PropsWithChildren<{
   minWidth?: number
 }>
 
-export const SelectSearchBar: React.FC<PropsSelectSearchBar> = ({
+export const SelectSearchBar: React.FC<SelectSearchBarProps> = ({
   words,
   label = 'Select',
   value,
@@ -36,7 +36,7 @@ export const SelectSearchBar: React.FC<PropsSelectSearchBar> = ({
         sx={{ borderRadius: '8px' }}
       >
         <MenuItem value="">
-          <em>{children}</em>
+          <em>{children ? children : label}</em>
         </MenuItem>
         {words.map((word, index) => (
           <MenuItem key={index} value={word}>

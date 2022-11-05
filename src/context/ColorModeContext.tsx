@@ -4,21 +4,23 @@ import React, {
   useMemo,
   useContext
 } from 'react'
-import { ThemeProvider, createTheme } from '@mui/material/styles'
-import { CssBaseline } from '@mui/material'
+import {
+  createThemeMui,
+  CssBaselineMui,
+  ThemeProviderMui
+} from '@/lib/material-ui'
 import defaultTheme from '@/data/defaultTheme'
 import { ThemeTypes } from '@/types'
 import { useLocalStorage } from '@/hooks'
 
-type ValueColorModeContext = {
+type ColorModeContextDefaultValue = {
   toggleColorMode: () => void
   mode: ThemeTypes
 }
 
-const ColorModeContext = createContext<ValueColorModeContext>({
-  toggleColorMode: () => undefined,
-  mode: defaultTheme
-})
+const ColorModeContext = createContext<ColorModeContextDefaultValue | null>(
+  null
+)
 
 export const ColorModeProvider: React.FC<PropsWithChildren> = ({
   children
@@ -40,16 +42,16 @@ export const ColorModeProvider: React.FC<PropsWithChildren> = ({
   )
 
   const themeMui = useMemo(
-    () => createTheme({ palette: { mode: theme.mode } }),
+    () => createThemeMui({ palette: { mode: theme.mode } }),
     [theme.mode]
   )
 
   return (
     <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={themeMui}>
-        <CssBaseline />
+      <ThemeProviderMui theme={themeMui}>
+        <CssBaselineMui />
         {children}
-      </ThemeProvider>
+      </ThemeProviderMui>
     </ColorModeContext.Provider>
   )
 }

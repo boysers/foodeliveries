@@ -1,3 +1,3 @@
-export { ProductsPage } from './Products'
-export { ShoppingCartPage } from './ShoppingCart'
-export { SingleProductPage } from './SingleProduct'
+export { Products } from './Products'
+export { SingleProduct } from './SingleProduct'
+export { ShoppingCart } from './ShoppingCart'

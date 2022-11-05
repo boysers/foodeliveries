@@ -1,27 +1,20 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import { SnackbarProvider } from 'notistack'
-import { Container } from '@/lib/material-ui'
 import { Header } from '@/components'
-import {
-  ColorModeProvider,
-  ProductsProvider,
-  ShoppingCartProvider
-} from '@/context'
+import { ColorModeProvider, ShoppingCartProvider } from '@/context'
+import { Container, SnackbarProvider } from '@/lib/material-ui'
 
 export const App: React.FC = () => {
   return (
     <ColorModeProvider>
-      <ProductsProvider>
-        <ShoppingCartProvider>
-          <SnackbarProvider maxSnack={3}>
-            <Header />
-            <Container maxWidth="xl">
-              <Outlet />
-            </Container>
-          </SnackbarProvider>
-        </ShoppingCartProvider>
-      </ProductsProvider>
+      <ShoppingCartProvider>
+        <SnackbarProvider maxSnack={3}>
+          <Header />
+          <Container maxWidth="xl">
+            <Outlet />
+          </Container>
+        </SnackbarProvider>
+      </ShoppingCartProvider>
     </ColorModeProvider>
   )
 }

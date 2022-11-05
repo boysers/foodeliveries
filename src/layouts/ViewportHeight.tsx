@@ -1,5 +1,5 @@
-import { Box, SxPropsWithTheme } from '@/lib/material-ui'
 import React, { PropsWithChildren } from 'react'
+import { Box, SxPropsWithTheme } from '@/lib/material-ui'
 
 type PropsViewportHeight = PropsWithChildren<{
   sx?: SxPropsWithTheme
@@ -14,9 +14,9 @@ export const ViewportHeight: React.FC<PropsViewportHeight> = ({
   return (
     <Box
       maxWidth={maxWidth}
-      component={undefined}
       sx={{
         display: 'flex',
+        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         height: 'calc(100vh - 64px)',

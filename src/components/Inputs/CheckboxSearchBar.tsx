@@ -1,14 +1,14 @@
 import React from 'react'
 import { FormControlLabel, Checkbox, Box, Typography } from '@/lib/material-ui'
 
-type PropsCheckboxSearchBar = {
+type CheckboxSearchBarProps = {
   label: string
   listCategory: string[]
   value: boolean[]
   onChange: (index: number, checked: boolean) => void
 }
 
-export const CheckboxSearchBar: React.FC<PropsCheckboxSearchBar> = ({
+export const CheckboxSearchBar: React.FC<CheckboxSearchBarProps> = ({
   label,
   listCategory,
   value,

@@ -1,6 +1,8 @@
 import { Navigate, RouteObject } from 'react-router-dom'
 import { App } from './App'
-import { ShoppingCartPage, ProductsPage, SingleProductPage } from '@/pages'
+import { ShoppingCart, Products, SingleProduct } from '@/pages'
+import foodList from '@/data/foodList.json'
+import { NotFound } from './components'
 
 export const routes: RouteObject[] = [
   {
@@ -16,17 +18,21 @@ export const routes: RouteObject[] = [
         children: [
           {
             index: true,
-            element: <ProductsPage />
+            element: <Products />,
+            loader: () => foodList
           },
           {
             path: ':id',
-            element: <SingleProductPage />
+            element: <SingleProduct />,
+            errorElement: <NotFound />,
+            loader: ({ params }) =>
+              foodList.find((product) => product.id === Number(params.id))
           }
         ]
       },
       {
         path: 'cart',
-        element: <ShoppingCartPage />
+        element: <ShoppingCart />
       },
       {
         path: '*',

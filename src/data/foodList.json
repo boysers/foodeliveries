@@ -49,7 +49,7 @@
   },
   {
     "id": 5,
-    "title": "Côte de boeuf angus-salers et purée maison",
+    "title": "côte de boeuf angus-salers et purée maison",
     "price": 45,
     "category": "plat",
     "description": "côte de boeuf angus-salers braisé sauce vin rouge et purée en accompagnement",
@@ -61,7 +61,7 @@
   },
   {
     "id": 6,
-    "title": "Paris-Brest",
+    "title": "paris-brest",
     "price": 13.5,
     "category": "pâtisserie",
     "description": "gâteau composé d'une pate à choux et d'une crème parlinée soupoudrée de sucre glace",

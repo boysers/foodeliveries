@@ -18,20 +18,17 @@ import {
   Typography,
   styledMui
 } from '@/lib/material-ui'
-import {
-  useShoppingCartContext,
-  useProductsContext,
-  useColorModeContext
-} from '@/context'
+import { useShoppingCartContext, useColorModeContext } from '@/context'
 import { ThemeTypes, CartActionTypes, Product } from '@/types'
+import foodList from '@/data/foodList.json'
 
-type PropsCartProductItem = Partial<Product> &
+type CartProductItemProps = Partial<Product> &
   Pick<Product, 'id'> & {
     quantity: number
     onToggleDrawer: (event: KeyboardEvent | MouseEvent) => void
   }
 
-const CartProductItem: React.FC<PropsCartProductItem> = ({
+const CartProductItem: React.FC<CartProductItemProps> = ({
   id,
   image,
   title,
@@ -41,7 +38,7 @@ const CartProductItem: React.FC<PropsCartProductItem> = ({
 }) => {
   const { dispatch } = useShoppingCartContext()
 
-  const StyledImg = styledMui('img')({
+  const ImgStyled = styledMui('img')({
     margin: 'auto',
     display: 'block',
     maxWidth: '100%',
@@ -61,7 +58,7 @@ const CartProductItem: React.FC<PropsCartProductItem> = ({
     >
       <Grid container spacing={2}>
         <Grid item>
-          <StyledImg alt={title} sx={{ width: '100px' }} src={image} />
+          <ImgStyled alt={title} sx={{ width: '100px' }} src={image} />
         </Grid>
         <Grid item xs={12} sm container>
           <Grid item xs container direction="column" spacing={2}>
@@ -128,7 +125,6 @@ const MemoizedCartProductItem = memo(CartProductItem)
 export const CartTemporaryDrawer: React.FC<PropsWithChildren> = ({
   children
 }) => {
-  const { products } = useProductsContext()
   const shoppingCartContext = useShoppingCartContext()
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const { mode } = useColorModeContext()
@@ -149,17 +145,17 @@ export const CartTemporaryDrawer: React.FC<PropsWithChildren> = ({
   const calculateTotalPrice = useMemo(
     () =>
       shoppingCartContext.state.productsCart.reduce((acc, currentValue) => {
-        const product = products.find(
+        const product = foodList.find(
           (itemCart) => itemCart.id === currentValue.id
         )
         return !product ? acc : product.price * currentValue.quantity + acc
       }, 0),
-    [products, shoppingCartContext.state.productsCart]
+    [shoppingCartContext.state.productsCart]
   )
 
   const listProduct = shoppingCartContext.state.productsCart.map(
     (productCart) => {
-      const INDEX_ID = products.findIndex(
+      const INDEX_ID = foodList.findIndex(
         (product) => product.id === productCart.id
       )
 
@@ -175,10 +171,10 @@ export const CartTemporaryDrawer: React.FC<PropsWithChildren> = ({
 
       return (
         <MemoizedCartProductItem
-          key={products[INDEX_ID].id}
+          key={foodList[INDEX_ID].id}
           onToggleDrawer={onToggleDrawer}
           quantity={productCart.quantity}
-          {...products[INDEX_ID]}
+          {...foodList[INDEX_ID]}
         />
       )
     }

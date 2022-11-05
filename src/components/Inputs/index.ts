@@ -1,5 +1,5 @@
 export { ThemeSwitcher } from './ThemeSwitcher'
 export { CheckboxSearchBar } from './CheckboxSearchBar'
-export { SearchBar } from './SearchBar'
 export { SelectSearchBar } from './SelectSearchBar'
-export { CheckCartProduct } from './CheckCartProduct'
+export { AddCartProduct } from './AddCartProduct'
+export { ShoppingCartButton } from './ShoppingCartButton'

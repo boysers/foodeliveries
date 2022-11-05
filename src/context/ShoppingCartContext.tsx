@@ -6,13 +6,13 @@ import React, {
   useReducer,
   useEffect
 } from 'react'
-import { CartActionTypes, ProductCart } from '@/types'
 import {
   MAX_QUANTITY_CART,
   MAX_QUANTITY_SINGLE_PRODUCT
 } from '@/data/configCart.json'
+import { CartActionTypes, ProductCart } from '@/types'
 
-type ValueShoppingCartContext = {
+type ShoppingCartContextDefaultValue = {
   state: State
   dispatch: React.Dispatch<Action>
 }
@@ -22,6 +22,7 @@ type State = {
   productsCart: ProductCart[]
   quantityInCart: number
 }
+
 // Change payload type based on id type Product
 type Action = { type: CartActionTypes; payload: number }
 
@@ -53,7 +54,7 @@ const getInitValueLocalStorage: () => State = () => {
   }
 }
 
-const cartReducer = (state: State, action: Action): State => {
+const reducerCart = (state: State, action: Action): State => {
   const INDEX_ID = state.productsCart.findIndex(
     (product) => product.id === action.payload
   )
@@ -124,11 +125,12 @@ const cartReducer = (state: State, action: Action): State => {
   }
 }
 
-const ShoppingCartContext = createContext<ValueShoppingCartContext | null>(null)
+const ShoppingCartContext =
+  createContext<ShoppingCartContextDefaultValue | null>(null)
 
 export const ShoppingCartProvider: FC<PropsWithChildren> = ({ children }) => {
   const [state, dispatch] = useReducer(
-    cartReducer,
+    reducerCart,
     initValue,
     getInitValueLocalStorage
   )
