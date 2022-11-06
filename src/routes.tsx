@@ -1,6 +1,6 @@
 import { Navigate, RouteObject } from 'react-router-dom'
 import { App } from './App'
-import { ShoppingCart, Products, SingleProduct } from '@/pages'
+import { Products, SingleProduct } from '@/pages'
 import foodList from '@/data/foodList.json'
 import { NotFound } from './components'
 
@@ -29,10 +29,6 @@ export const routes: RouteObject[] = [
               foodList.find((product) => product.id === Number(params.id))
           }
         ]
-      },
-      {
-        path: 'cart',
-        element: <ShoppingCart />
       },
       {
         path: '*',

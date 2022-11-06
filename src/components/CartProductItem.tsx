@@ -1,8 +1,18 @@
 import React, { MouseEvent, KeyboardEvent } from 'react'
 import { Link } from 'react-router-dom'
-import { Button, Grid, Paper, Typography, styledMui } from '@/lib/material-ui'
+import {
+  Button,
+  Grid,
+  Paper,
+  Typography,
+  styledMui,
+  IconButton,
+  RemoveIcon,
+  AddIcon
+} from '@/lib/material-ui'
 import { useShoppingCartContext } from '@/context'
-import { CartActionTypes, Product } from '@/types'
+import { Product } from '@/types'
+import foodList from '@/data/foodList.json'
 
 type CartProductItemProps = Partial<Product> &
   Pick<Product, 'id'> & {
@@ -10,22 +20,27 @@ type CartProductItemProps = Partial<Product> &
     onToggleDrawer: (event: KeyboardEvent | MouseEvent) => void
   }
 
+const ImgStyled = styledMui('img')({
+  margin: 'auto',
+  display: 'block',
+  maxWidth: '100%',
+  maxHeight: '100%'
+})
+
 export const CartProductItem: React.FC<CartProductItemProps> = ({
   id,
-  image,
-  title,
   quantity,
-  onToggleDrawer,
-  price
+  onToggleDrawer
 }) => {
-  const { dispatch } = useShoppingCartContext()
+  const { removeFromCart, increaseCartQuantity, decreaseCartQuantity } =
+    useShoppingCartContext()
 
-  const ImgStyled = styledMui('img')({
-    margin: 'auto',
-    display: 'block',
-    maxWidth: '100%',
-    maxHeight: '100%'
-  })
+  const product = foodList.find((item) => item.id === id)
+
+  if (!product) {
+    removeFromCart(id)
+    return null
+  }
 
   return (
     <Paper
@@ -40,7 +55,11 @@ export const CartProductItem: React.FC<CartProductItemProps> = ({
     >
       <Grid container spacing={2}>
         <Grid item>
-          <ImgStyled alt={title} sx={{ width: '100px' }} src={image} />
+          <ImgStyled
+            alt={product.title}
+            sx={{ width: '100px' }}
+            src={product.image}
+          />
         </Grid>
         <Grid item xs={12} sm container>
           <Grid item xs container direction="column" spacing={2}>
@@ -48,24 +67,41 @@ export const CartProductItem: React.FC<CartProductItemProps> = ({
               <Typography
                 variant="subtitle1"
                 component="div"
-                sx={{ color: title ? 'currentcolor' : '#fd2121' }}
+                sx={{ color: product.title ? 'currentcolor' : '#fd2121' }}
               >
-                {title ? title : 'unavailable product'}
+                {product.title}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Quantity : {quantity}
+            </Grid>
+            <Grid
+              item
+              container
+              sx={{ alignItems: 'center', paddingTop: '0 !important' }}
+            >
+              <Typography
+                sx={{ fontSize: '0.8rem', paddingRight: '8px' }}
+                color="text.secondary"
+              >
+                Quantity :
               </Typography>
+              <IconButton
+                aria-label="add"
+                color="primary"
+                onClick={() => decreaseCartQuantity(id)}
+              >
+                <RemoveIcon />
+              </IconButton>
+              <Typography sx={{ m: '0 8px' }}>{quantity}</Typography>
+              <IconButton
+                aria-label="add"
+                color="primary"
+                onClick={() => increaseCartQuantity(id)}
+              >
+                <AddIcon />
+              </IconButton>
             </Grid>
             <Grid item container>
               <Grid item>
-                <Button
-                  onClick={() =>
-                    dispatch({
-                      type: CartActionTypes.DELETE,
-                      payload: id
-                    })
-                  }
-                >
+                <Button onClick={() => removeFromCart(id)}>
                   <Typography sx={{ cursor: 'pointer' }} variant="body2">
                     Remove
                   </Typography>
@@ -77,7 +113,7 @@ export const CartProductItem: React.FC<CartProductItemProps> = ({
                   color="primary"
                   component={Link}
                   to={`/products/${id}`}
-                  disabled={!(title && price && image)}
+                  disabled={!(product.title && product.price && product.image)}
                 >
                   <Typography sx={{ cursor: 'pointer' }} variant="body2">
                     Page produit
@@ -87,9 +123,9 @@ export const CartProductItem: React.FC<CartProductItemProps> = ({
             </Grid>
           </Grid>
           <Grid item>
-            {price && (
+            {product.price && (
               <Typography variant="subtitle1" component="div">
-                Price : ${price}
+                Price : {product.price.toFixed(2).replace('.', ',')} €
               </Typography>
             )}
           </Grid>

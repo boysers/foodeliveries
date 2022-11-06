@@ -7,8 +7,6 @@ import {
   VariantType
 } from '@/lib/material-ui'
 import { useShoppingCartContext } from '@/context'
-import { CartActionTypes } from '@/types'
-import { MAX_QUANTITY_CART } from '@/data/configCart.json'
 
 type AddCartProductProps = { id: number; title: string }
 
@@ -17,7 +15,7 @@ export const AddCartProduct: React.FC<AddCartProductProps> = ({
   title
 }) => {
   const [isInShoppingCart, setIsInShoppingCart] = useState(false)
-  const { dispatch, state } = useShoppingCartContext()
+  const { increaseCartQuantity, getItemQuantity } = useShoppingCartContext()
   const { enqueueSnackbar } = useSnackbar()
 
   const onHandleClickPopupAddProduct = (
@@ -31,27 +29,19 @@ export const AddCartProduct: React.FC<AddCartProductProps> = ({
     }
   }
 
-  const onClickAddProductCart = () => {
-    dispatch({ payload: id, type: CartActionTypes.ADD })
-    if (state.quantityInCart === MAX_QUANTITY_CART) {
-      onHandleClickPopupAddProduct(title, 'error')
-    } else {
-      onHandleClickPopupAddProduct(title)
-    }
-  }
-
   useEffect(() => {
-    const productIndex = state.productsCart.findIndex((item) => item.id === id)
-    if (productIndex > -1) setIsInShoppingCart(true)
-    else setIsInShoppingCart(false)
-  }, [id, state.productsCart])
+    setIsInShoppingCart(() => (getItemQuantity(id) ? true : false))
+  }, [getItemQuantity, id])
 
   return (
     <Button
       endIcon={
         isInShoppingCart ? <CheckCircleIcon /> : <AddShoppingCartOutlinedIcon />
       }
-      onClick={onClickAddProductCart}
+      onClick={() => {
+        increaseCartQuantity(id)
+        onHandleClickPopupAddProduct(title)
+      }}
       disabled={isInShoppingCart}
       sx={{ borderRadius: '8px' }}
     >

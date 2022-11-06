@@ -1,98 +1,101 @@
-import React, { PropsWithChildren, useMemo, memo } from 'react'
-import { Link } from 'react-router-dom'
-import { Box, Button, Drawer, Typography } from '@/lib/material-ui'
+import React, { memo } from 'react'
+import { Box, Button, CloseIcon, Drawer, Typography } from '@/lib/material-ui'
 import { useShoppingCartContext, useColorModeContext } from '@/context'
 import { ThemeTypes } from '@/types'
-import foodList from '@/data/foodList.json'
 import { CartProductItem } from './CartProductItem'
-import { useToggleDrawer } from '@/hooks/useToggleDrawer'
+import listFood from '@/data/foodList.json'
+import { ViewportHeight } from '@/layouts'
+
+type CartDrawerProps = {
+  isOpen: boolean
+  onToggleDrawer: (
+    event: React.KeyboardEvent<Element> | React.MouseEvent<Element, MouseEvent>
+  ) => void
+}
 
 const MemoizedCartProductItem = memo(CartProductItem)
 
-export const CartDrawer: React.FC<PropsWithChildren> = ({ children }) => {
-  const { isOpen, onToggleDrawer } = useToggleDrawer()
-  const shoppingCartContext = useShoppingCartContext()
+export const CartDrawer: React.FC<CartDrawerProps> = ({
+  isOpen,
+  onToggleDrawer
+}) => {
+  const { cartItems, cartQuantity } = useShoppingCartContext()
   const { mode } = useColorModeContext()
   const checked = mode === ThemeTypes.DARK
 
-  const calculateTotalPrice = useMemo(
-    () =>
-      shoppingCartContext.state.productsCart.reduce((acc, currentValue) => {
-        const product = foodList.find(
-          (itemCart) => itemCart.id === currentValue.id
-        )
-        return !product ? acc : product.price * currentValue.quantity + acc
-      }, 0),
-    [shoppingCartContext.state.productsCart]
-  )
-
-  const CartProducts = shoppingCartContext.state.productsCart.map(
-    (cartProduct) => {
-      const INDEX_ID = foodList.findIndex(
-        (product) => product.id === cartProduct.id
-      )
-
-      if (INDEX_ID === -1)
-        return (
-          <MemoizedCartProductItem
-            key={cartProduct.id}
-            onToggleDrawer={onToggleDrawer}
-            quantity={cartProduct.quantity}
-            id={cartProduct.id}
-          />
-        )
-
-      return (
-        <MemoizedCartProductItem
-          key={foodList[INDEX_ID].id}
-          onToggleDrawer={onToggleDrawer}
-          quantity={cartProduct.quantity}
-          {...foodList[INDEX_ID]}
-        />
-      )
-    }
-  )
-
   return (
     <>
-      <span onClick={onToggleDrawer} role="presentation">
-        {children}
-      </span>
-      <Drawer
-        anchor="right"
-        open={isOpen}
-        onClose={onToggleDrawer}
-        sx={{ width: '300px' }}
-      >
+      <Drawer anchor="right" open={isOpen} onClose={onToggleDrawer}>
         <Box
           sx={{
-            position: 'sticky',
-            top: 0,
-            zIndex: 1000,
-            height: '64px',
-            backgroundColor: !checked ? 'white' : '#253F4B',
-            borderBottom: !checked ? '2px solid gray' : 'none',
-            display: 'flex',
-            justifyContent: 'space-between'
+            maxWidth: '500px',
+            width: { xs: '100vw', md: '100%' },
+            height: '100vh'
           }}
         >
-          <Typography component="h4" sx={{ padding: '1rem' }}>
-            Panier
-          </Typography>
-          <Button
-            color="primary"
-            component={Link}
-            to={`/cart`}
-            onClick={onToggleDrawer}
+          <Box
+            sx={{
+              position: 'sticky',
+              top: 0,
+              zIndex: 1000,
+              height: '64px',
+              width: '100%',
+              backgroundColor: !checked ? 'white' : '#1f2429',
+              borderBottom: !checked ? '2px solid gray' : 'none',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              padding: '0 16px'
+            }}
           >
-            <Typography sx={{ cursor: 'pointer' }} variant="body2">
-              Ouvrir le panier - {calculateTotalPrice.toFixed(2)}€
-            </Typography>
-          </Button>
+            <CloseIcon
+              sx={{ ':hover': { cursor: 'pointer' } }}
+              onClick={onToggleDrawer}
+            />
+            <Typography component="h4">Panier ({cartQuantity})</Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Typography
+                color="info.main"
+                variant="body1"
+                sx={{ fontSize: '1.2rem', paddingRight: '16px' }}
+              >
+                Total:{' '}
+                {cartItems
+                  .reduce((total, cartItem) => {
+                    const item = listFood.find(
+                      (food) => food.id === cartItem.id
+                    )
+                    return total + (item?.price || 0) * cartItem.quantity
+                  }, 0)
+                  .toFixed(2)
+                  .replace('.', ',')}{' '}
+                €
+              </Typography>
+              <Button variant="contained" color="info">
+                Buy
+              </Button>
+            </Box>
+          </Box>
+          <Box>
+            {cartItems.length ? (
+              <Box sx={{ padding: '1px 0' }}>
+                {cartItems.map((item) => (
+                  <MemoizedCartProductItem
+                    key={item.id}
+                    {...item}
+                    onToggleDrawer={onToggleDrawer}
+                  />
+                ))}
+              </Box>
+            ) : (
+              <ViewportHeight>
+                <Typography sx={{ fontSize: '2rem' }} variant="body1">
+                  Panier vide 😢
+                </Typography>
+              </ViewportHeight>
+            )}
+          </Box>
         </Box>
-        <div style={{ margin: '.25rem 1rem' }}>
-          {CartProducts.length ? CartProducts : 'Panier vide'}
-        </div>
       </Drawer>
     </>
   )

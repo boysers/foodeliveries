@@ -1,147 +1,104 @@
 import React, {
   createContext,
-  FC,
   PropsWithChildren,
   useContext,
-  useReducer,
-  useEffect
+  useMemo,
+  useCallback
 } from 'react'
-import {
-  MAX_QUANTITY_CART,
-  MAX_QUANTITY_SINGLE_PRODUCT
-} from '@/data/configCart.json'
-import { CartActionTypes, ProductCart } from '@/types'
+import { useLocalStorage } from '@/hooks'
+import { CartItem } from '@/types/CartItem.interface'
+import { useToggleDrawer } from '@/hooks/useToggleDrawer'
+import { CartDrawer } from '@/components/CartDrawer'
 
 type ShoppingCartContextDefaultValue = {
-  state: State
-  dispatch: React.Dispatch<Action>
-}
-
-// Product Type
-type State = {
-  productsCart: ProductCart[]
-  quantityInCart: number
-}
-
-// Change payload type based on id type Product
-type Action = { type: CartActionTypes; payload: number }
-
-const initValue: State = {
-  productsCart: [],
-  quantityInCart: 0
-}
-
-const getInitValueLocalStorage: () => State = () => {
-  try {
-    const storage = localStorage.getItem('cart')
-
-    if (!storage) throw new Error('cart is not found')
-
-    const cart = JSON.parse(storage) as State
-
-    if (!cart.productsCart || isNaN(cart.quantityInCart))
-      throw new Error('cart is not valid')
-
-    return {
-      productsCart: cart.productsCart.filter(
-        (product) => product.id && product.quantity
-      ),
-      quantityInCart: cart.quantityInCart
-    }
-  } catch (error) {
-    if (error instanceof Error) console.error(error)
-    return initValue
-  }
-}
-
-const reducerCart = (state: State, action: Action): State => {
-  const INDEX_ID = state.productsCart.findIndex(
-    (product) => product.id === action.payload
-  )
-
-  switch (action.type) {
-    case CartActionTypes.INCREMENT:
-      if (state.quantityInCart >= MAX_QUANTITY_CART) return state
-
-      if (!state.productsCart[INDEX_ID]) return state
-
-      if (state.productsCart[INDEX_ID].quantity >= MAX_QUANTITY_SINGLE_PRODUCT)
-        return state
-
-      return {
-        ...state,
-        productsCart: state.productsCart.map((product, index) =>
-          index !== INDEX_ID
-            ? product
-            : { ...product, quantity: product.quantity + 1 }
-        ),
-        quantityInCart: state.quantityInCart + 1
-      }
-    case CartActionTypes.DECREMENT:
-      if (!state.productsCart[INDEX_ID]) return state
-
-      if (state.productsCart[INDEX_ID].quantity <= 1) return state
-
-      return {
-        ...state,
-        productsCart: state.productsCart.map((product, index) =>
-          index !== INDEX_ID
-            ? product
-            : { ...product, quantity: product.quantity - 1 }
-        ),
-        quantityInCart: state.quantityInCart - 1
-      }
-    case CartActionTypes.ADD:
-      if (!(state.quantityInCart < MAX_QUANTITY_CART)) return state
-
-      if (state.productsCart[INDEX_ID]) return state
-
-      return {
-        ...state,
-        productsCart: [
-          {
-            id: action.payload,
-            quantity: 1
-          },
-          ...state.productsCart
-        ],
-        quantityInCart: state.quantityInCart + 1
-      }
-    case CartActionTypes.DELETE:
-      if (!state.productsCart[INDEX_ID]) return state
-
-      return {
-        ...state,
-        productsCart: state.productsCart.filter(
-          (product) => product.id !== action.payload
-        ),
-        quantityInCart:
-          state.quantityInCart - state.productsCart[INDEX_ID].quantity
-      }
-    case CartActionTypes.RESET:
-      return initValue
-    default:
-      throw new Error(`Error cart context action type : ${action.type}`)
-  }
+  onToggleDrawer: (
+    event: React.KeyboardEvent<Element> | React.MouseEvent<Element, MouseEvent>
+  ) => void
+  cartItems: CartItem[]
+  cartQuantity: number
+  getItemQuantity: (id: number) => number
+  increaseCartQuantity: (id: number) => void
+  decreaseCartQuantity: (id: number) => void
+  removeFromCart: (id: number) => void
 }
 
 const ShoppingCartContext =
   createContext<ShoppingCartContextDefaultValue | null>(null)
 
-export const ShoppingCartProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [state, dispatch] = useReducer(
-    reducerCart,
-    initValue,
-    getInitValueLocalStorage
+export const ShoppingCartProvider: React.FC<PropsWithChildren> = ({
+  children
+}) => {
+  const [cartItems, setCartItems] = useLocalStorage<CartItem[]>(
+    'shoppingCart',
+    []
+  )
+  const { isOpen, onToggleDrawer } = useToggleDrawer()
+
+  const cartQuantity = useMemo(
+    () => cartItems.reduce((acc, item) => item.quantity + acc, 0),
+    [cartItems]
   )
 
-  useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(state))
-  }, [state])
+  const getItemQuantity = useCallback(
+    (id: number) => {
+      return cartItems.find((item) => item.id === id)?.quantity || 0
+    },
+    [cartItems]
+  )
+
+  const increaseCartQuantity = useCallback(
+    (id: number) => {
+      setCartItems((prevItems) => {
+        if (!prevItems.find((item) => item.id === id))
+          return [...prevItems, { id, quantity: 1 }]
+
+        return prevItems.map((item) => {
+          if (item.id !== id) return item
+          return { ...item, quantity: item.quantity + 1 }
+        })
+      })
+    },
+    [setCartItems]
+  )
+
+  const decreaseCartQuantity = useCallback(
+    (id: number) => {
+      setCartItems((prevItems) => {
+        if (prevItems.find((item) => item.id === id)?.quantity === 1)
+          return prevItems.filter((item) => item.id !== id)
+
+        return prevItems.map((item) => {
+          if (item.id !== id) return item
+          return { ...item, quantity: item.quantity - 1 }
+        })
+      })
+    },
+    [setCartItems]
+  )
+
+  const removeFromCart = useCallback(
+    (id: number) => {
+      setCartItems((prev) => {
+        return prev.filter((item) => item.id !== id)
+      })
+    },
+    [setCartItems]
+  )
 
   return (
-    <ShoppingCartContext.Provider value={{ state, dispatch }}>
+    <ShoppingCartContext.Provider
+      value={{
+        onToggleDrawer,
+        getItemQuantity,
+        cartQuantity,
+        increaseCartQuantity,
+        decreaseCartQuantity,
+        removeFromCart,
+        cartItems
+      }}
+    >
       {children}
+      <CartDrawer isOpen={isOpen} onToggleDrawer={onToggleDrawer} />
     </ShoppingCartContext.Provider>
   )
 }
