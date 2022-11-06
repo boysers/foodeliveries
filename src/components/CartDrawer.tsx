@@ -52,7 +52,9 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               sx={{ ':hover': { cursor: 'pointer' } }}
               onClick={onToggleDrawer}
             />
-            <Typography component="h4">Panier ({cartQuantity})</Typography>
+            <Typography component="h4" sx={{ margin: '0 16px' }}>
+              Panier ({cartQuantity})
+            </Typography>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Typography
                 color="info.main"
