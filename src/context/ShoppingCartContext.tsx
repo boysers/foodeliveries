@@ -5,10 +5,9 @@ import React, {
   useMemo,
   useCallback
 } from 'react'
-import { useLocalStorage } from '@/hooks'
-import { CartItem } from '@/types/CartItem.interface'
-import { useToggleDrawer } from '@/hooks/useToggleDrawer'
-import { CartDrawer } from '@/components/CartDrawer'
+import { useLocalStorage, useToggleDrawer } from '@/hooks'
+import { CartItem } from '@/types'
+import { CartDrawer } from '@/components'
 
 type ShoppingCartContextDefaultValue = {
   onToggleDrawer: (

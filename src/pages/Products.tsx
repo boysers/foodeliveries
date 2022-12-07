@@ -1,13 +1,13 @@
 import React from 'react'
-import { useLoaderData } from 'react-router-dom'
 import { ErrorBoundary } from 'react-error-boundary'
 import { FallbackErrorComponent, ProductsFilterable } from '@/components'
-import { Category, Product } from '@/types'
+import { Category, ProductsLoaderData } from '@/types'
+import { useLoaderData } from '@/hooks'
 
 export const Products: React.FC = () => {
-  const foodList = useLoaderData() as Product[]
+  const { products } = useLoaderData<ProductsLoaderData>()
 
-  const categoryList = foodList.reduce<Category[]>(
+  const categoryList = products.reduce<Category[]>(
     (acc, food) =>
       acc.includes(food.category) ? acc : acc.concat(food.category),
     []
@@ -15,7 +15,7 @@ export const Products: React.FC = () => {
 
   return (
     <ErrorBoundary FallbackComponent={FallbackErrorComponent}>
-      <ProductsFilterable products={foodList} categories={categoryList} />
+      <ProductsFilterable products={products} categories={categoryList} />
     </ErrorBoundary>
   )
 }

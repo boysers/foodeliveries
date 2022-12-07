@@ -4,15 +4,24 @@ import {
   AddShoppingCartOutlinedIcon,
   Button,
   useSnackbar,
-  VariantType
+  VariantType,
+  SxPropsWithTheme,
+  ButtonVariantType
 } from '@/lib/material-ui'
 import { useShoppingCartContext } from '@/context'
 
-type AddCartProductProps = { id: number; title: string }
+type AddCartProductProps = {
+  id: number
+  title: string
+  sx?: SxPropsWithTheme
+  variant?: ButtonVariantType
+}
 
 export const AddCartProduct: React.FC<AddCartProductProps> = ({
   id,
-  title
+  title,
+  sx,
+  variant
 }) => {
   const [isInShoppingCart, setIsInShoppingCart] = useState(false)
   const { increaseCartQuantity, getItemQuantity } = useShoppingCartContext()
@@ -23,7 +32,7 @@ export const AddCartProduct: React.FC<AddCartProductProps> = ({
     variant: VariantType = 'success'
   ) => {
     if (variant === 'success') {
-      enqueueSnackbar(`This product add in cart : ${title}`, { variant })
+      enqueueSnackbar(`This product add in your cart : ${title}`, { variant })
     } else if (variant === 'error') {
       enqueueSnackbar(`Shopping Cart is filled`, { variant })
     }
@@ -43,7 +52,8 @@ export const AddCartProduct: React.FC<AddCartProductProps> = ({
         onHandleClickPopupAddProduct(title)
       }}
       disabled={isInShoppingCart}
-      sx={{ borderRadius: '8px' }}
+      sx={{ borderRadius: '8px', ...sx }}
+      variant={variant}
     >
       Ajouter au panier
     </Button>

@@ -1,25 +1,16 @@
 import React, { useCallback, useState, memo } from 'react'
 import styled from 'styled-components'
 import { Box, Button, SelectChangeEvent, Typography } from '@/lib/material-ui'
+import { useToggleDrawer } from '@/hooks'
+import { StyledGridItems } from '@/layouts'
 import { Product, SortBy, Category } from '@/types'
 import { ProductCard } from './ProductCard'
-import { useToggleDrawer } from '@/hooks/useToggleDrawer'
 import { FilterByDrawer } from './FilterByDrawer'
 
 type ProductsFilterableProps = {
   products: Product[]
   categories: Category[]
 }
-
-const GridStyled = styled.div`
-  padding-bottom: 16px;
-  height: auto;
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 270px);
-  justify-content: center;
-  grid-gap: 16px;
-`
 
 const GridHeaderStyled = styled.div`
   height: 42px;
@@ -90,7 +81,7 @@ export const ProductsFilterable: React.FC<ProductsFilterableProps> = ({
         isOpen={isOpen}
         onToggleDrawer={onToggleDrawer}
       />
-      <GridStyled>
+      <StyledGridItems sx={{ paddingBottom: '50px' }}>
         <Box
           component={GridHeaderStyled}
           sx={{
@@ -123,7 +114,7 @@ export const ProductsFilterable: React.FC<ProductsFilterableProps> = ({
           .map((sortedProduct) => (
             <MemoizedProductCard key={sortedProduct.id} {...sortedProduct} />
           ))}
-      </GridStyled>
+      </StyledGridItems>
     </Box>
   )
 }

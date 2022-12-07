@@ -4,6 +4,7 @@ import { styled } from '@mui/material'
 import { default as SwitchMui } from '@mui/material/Switch'
 
 type SxPropsWithTheme = SxProps<Theme>
+type ButtonVariantType = 'text' | 'outlined' | 'contained'
 
 // for the theme context
 export {
@@ -13,7 +14,7 @@ export {
 export { CssBaseline as CssBaselineMui } from '@mui/material'
 
 // types
-export { type SxPropsWithTheme }
+export type { SxPropsWithTheme, ButtonVariantType }
 export { type SelectChangeEvent } from '@mui/material/Select'
 
 // utils

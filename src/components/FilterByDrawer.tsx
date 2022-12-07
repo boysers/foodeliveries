@@ -42,7 +42,8 @@ export const FilterByDrawer: React.FC<FilterByDrawerProps> = ({
       <FilterByComponent
         sx={{
           display: { xs: 'none', md: 'block' },
-          height: 'calc(100vh - 64px)',
+          // header: 64px and footer: 50px
+          height: 'calc(100vh - 64px - 50px)',
           position: 'sticky',
           top: '64px',
           left: 0

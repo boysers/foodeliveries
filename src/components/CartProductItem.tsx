@@ -13,6 +13,7 @@ import {
 import { useShoppingCartContext } from '@/context'
 import { Product } from '@/types'
 import foodList from '@/data/foodList.json'
+import { toConvertPrice } from '@/utils'
 
 type CartProductItemProps = Partial<Product> &
   Pick<Product, 'id'> & {
@@ -125,7 +126,7 @@ export const CartProductItem: React.FC<CartProductItemProps> = ({
           <Grid item>
             {product.price && (
               <Typography variant="subtitle1" component="div">
-                Price : {product.price.toFixed(2).replace('.', ',')} €
+                Price : {toConvertPrice(product.price)}
               </Typography>
             )}
           </Grid>

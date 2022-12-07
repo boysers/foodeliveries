@@ -1,10 +1,10 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import { Card, CardContent, Typography, Tooltip, Box } from '@/lib/material-ui'
-import { AddCartProduct } from '@/components'
 import { Product } from '@/types'
-import { toUpperCaseFirstLetter, toStringSlice } from '@/utils'
+import { Card, CardContent, Typography, Tooltip, Box } from '@/lib/material-ui'
+import { toUpperCaseFirstLetter, toStringSlice, toConvertPrice } from '@/utils'
+import { AddCartProduct } from './Inputs'
 
 type ProductCardProps = Product
 
@@ -28,6 +28,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   const navigate = useNavigate()
 
   const onHandleClickNavigate = () => {
+    window.scrollTo(0, 0)
     navigate(`/products/${id}`)
   }
 
@@ -77,7 +78,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           color="info.main"
           sx={{ textAlign: 'center', margin: '6px 0' }}
         >
-          {price.toFixed(2).replace('.', ',')} €
+          {toConvertPrice(price)}
         </Typography>
         <AddCartProduct id={id} title={title} />
       </CardContent>

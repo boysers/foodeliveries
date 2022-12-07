@@ -1,8 +1,8 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import { Header } from '@/components'
 import { ColorModeProvider, ShoppingCartProvider } from '@/context'
 import { Container, SnackbarProvider } from '@/lib/material-ui'
+import { Footer, Header } from '@/components'
 
 export const App: React.FC = () => {
   return (
@@ -13,6 +13,7 @@ export const App: React.FC = () => {
           <Container maxWidth="xl">
             <Outlet />
           </Container>
+          <Footer />
         </SnackbarProvider>
       </ShoppingCartProvider>
     </ColorModeProvider>

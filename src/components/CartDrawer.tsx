@@ -5,6 +5,7 @@ import { ThemeTypes } from '@/types'
 import { CartProductItem } from './CartProductItem'
 import listFood from '@/data/foodList.json'
 import { ViewportHeight } from '@/layouts'
+import { toConvertPrice } from '@/utils'
 
 type CartDrawerProps = {
   isOpen: boolean
@@ -23,12 +24,18 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   const { mode } = useColorModeContext()
   const checked = mode === ThemeTypes.DARK
 
+  const totalPrice = cartItems.reduce((total, cartItem) => {
+    const item = listFood.find((food) => food.id === cartItem.id)
+    return total + (item?.price || 0) * cartItem.quantity
+  }, 0)
+
   return (
     <>
       <Drawer anchor="right" open={isOpen} onClose={onToggleDrawer}>
         <Box
           sx={{
             maxWidth: '500px',
+            minWidth: '400px',
             width: { xs: '100vw', md: '100%' },
             height: '100vh'
           }}
@@ -61,17 +68,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 variant="body1"
                 sx={{ fontSize: '1.2rem', paddingRight: '16px' }}
               >
-                Total:{' '}
-                {cartItems
-                  .reduce((total, cartItem) => {
-                    const item = listFood.find(
-                      (food) => food.id === cartItem.id
-                    )
-                    return total + (item?.price || 0) * cartItem.quantity
-                  }, 0)
-                  .toFixed(2)
-                  .replace('.', ',')}{' '}
-                €
+                Total: {toConvertPrice(totalPrice)}
               </Typography>
               <Button variant="contained" color="info">
                 Buy
