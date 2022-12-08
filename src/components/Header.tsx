@@ -31,7 +31,6 @@ export const Header: React.FC = () => {
           <Box
             sx={{
               display: 'flex',
-              // flex: 1,
               justifyContent: { xs: 'center', md: 'start' }
             }}
           >

@@ -1,8 +1,8 @@
 import { Navigate, RouteObject } from 'react-router-dom'
 import { App } from './App'
-import { Home, NotFoundPage, Products, SingleProduct } from '@/pages'
+import { Home, NotFoundPage, Products, SingleProduct } from './pages'
 import { homeLoader, productsLoader, singleProductLoader } from './loaders'
-import { NotFound } from '@/components'
+import { NotFound } from './components'
 
 export const routes: RouteObject[] = [
   {

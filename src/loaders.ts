@@ -1,5 +1,5 @@
 import { LoaderFunctionArgs } from 'react-router-dom'
-import foodList from '@/data/foodList.json'
+import foodList from './data/foodList.json'
 import {
   HomeLoaderData,
   ProductsLoaderData,
