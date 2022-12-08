@@ -13,3 +13,4 @@ export type {
 
 // types
 export type { Category, ProductCart } from './Product'
+export type { HandleToggleDrawer } from './HandleToggleDrawer.type'

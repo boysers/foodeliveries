@@ -6,13 +6,12 @@ import React, {
   useCallback
 } from 'react'
 import { useLocalStorage, useToggleDrawer } from '@/hooks'
-import { CartItem } from '@/types'
+import { CartItem, HandleToggleDrawer } from '@/types'
 import { CartDrawer } from '@/components'
 
 type ShoppingCartContextDefaultValue = {
-  onToggleDrawer: (
-    event: React.KeyboardEvent<Element> | React.MouseEvent<Element, MouseEvent>
-  ) => void
+  onToggleDrawer: HandleToggleDrawer
+  isOpen: boolean
   cartItems: CartItem[]
   cartQuantity: number
   getItemQuantity: (id: number) => number
@@ -93,6 +92,7 @@ export const ShoppingCartProvider: React.FC<PropsWithChildren> = ({
     <ShoppingCartContext.Provider
       value={{
         onToggleDrawer,
+        isOpen,
         getItemQuantity,
         cartQuantity,
         increaseCartQuantity,
@@ -103,7 +103,7 @@ export const ShoppingCartProvider: React.FC<PropsWithChildren> = ({
       }}
     >
       {children}
-      <CartDrawer isOpen={isOpen} onToggleDrawer={onToggleDrawer} />
+      <CartDrawer />
     </ShoppingCartContext.Provider>
   )
 }

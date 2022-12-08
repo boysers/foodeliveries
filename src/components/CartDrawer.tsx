@@ -3,26 +3,17 @@ import { useNavigate } from 'react-router-dom'
 import listFood from '@/data/foodList.json'
 import { Box, Button, CloseIcon, Drawer, Typography } from '@/lib/material-ui'
 import { useShoppingCartContext, useColorModeContext } from '@/context'
-import { ThemeTypes } from '@/types'
+import { HandleToggleDrawer, ThemeTypes } from '@/types'
 import { ViewportHeight } from '@/layouts'
 import { toConvertPrice } from '@/utils'
 import { CartProductItem } from './CartProductItem'
 
-type CartDrawerProps = {
-  isOpen: boolean
-  onToggleDrawer: (
-    event: React.KeyboardEvent<Element> | React.MouseEvent<Element, MouseEvent>
-  ) => void
-}
-
 const MemoizedCartProductItem = memo(CartProductItem)
 
-export const CartDrawer: React.FC<CartDrawerProps> = ({
-  isOpen,
-  onToggleDrawer
-}) => {
+export const CartDrawer: React.FC = () => {
   const navigate = useNavigate()
-  const { cartItems, cartQuantity, resetCart } = useShoppingCartContext()
+  const { cartItems, cartQuantity, resetCart, onToggleDrawer, isOpen } =
+    useShoppingCartContext()
   const { mode } = useColorModeContext()
   const checked = mode === ThemeTypes.DARK
 
@@ -33,12 +24,15 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 
   const disabled = cartItems.length <= 0
 
-  const handleClickPurchase = () => {
+  const handleClickPurchase: HandleToggleDrawer = (e) => {
     if (disabled) return
     alert(
-      `your cart total is at ${totalPrice}\nthank for your purchase see you soon 🤩`
+      `your cart total is at ${toConvertPrice(
+        totalPrice
+      )}\nthank for your purchase see you soon 🤩`
     )
     resetCart()
+    onToggleDrawer(e)
     navigate('successful')
   }
 
@@ -86,7 +80,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               <Button
                 variant="contained"
                 color="info"
-                onClick={() => handleClickPurchase()}
+                onClick={handleClickPurchase}
                 disabled={disabled}
               >
                 Buy
