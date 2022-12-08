@@ -1,8 +1,9 @@
 import React from 'react'
-import { Link, useRouteError } from 'react-router-dom'
-import { Button, KeyboardReturnIcon, Typography } from '@/lib/material-ui'
+import { useRouteError } from 'react-router-dom'
+import { Typography } from '@/lib/material-ui'
 import { ViewportHeight } from '@/layouts'
 import { toUpperCaseFirstLetter } from '@/utils'
+import { FeedbackReturnToHome } from '../FeedbackReturnToHome'
 
 export const NotFound: React.FC = () => {
   const error = useRouteError()
@@ -21,14 +22,7 @@ export const NotFound: React.FC = () => {
           {toUpperCaseFirstLetter(message)}
         </Typography>
       )}
-      <Button
-        component={Link}
-        to="/"
-        sx={{ margin: '16px 0' }}
-        endIcon={<KeyboardReturnIcon />}
-      >
-        Return to the home page
-      </Button>
+      <FeedbackReturnToHome />
     </ViewportHeight>
   )
 }

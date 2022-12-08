@@ -1,11 +1,12 @@
 import React, { memo } from 'react'
+import { useNavigate } from 'react-router-dom'
+import listFood from '@/data/foodList.json'
 import { Box, Button, CloseIcon, Drawer, Typography } from '@/lib/material-ui'
 import { useShoppingCartContext, useColorModeContext } from '@/context'
 import { ThemeTypes } from '@/types'
-import { CartProductItem } from './CartProductItem'
-import listFood from '@/data/foodList.json'
 import { ViewportHeight } from '@/layouts'
 import { toConvertPrice } from '@/utils'
+import { CartProductItem } from './CartProductItem'
 
 type CartDrawerProps = {
   isOpen: boolean
@@ -20,7 +21,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   isOpen,
   onToggleDrawer
 }) => {
-  const { cartItems, cartQuantity } = useShoppingCartContext()
+  const navigate = useNavigate()
+  const { cartItems, cartQuantity, resetCart } = useShoppingCartContext()
   const { mode } = useColorModeContext()
   const checked = mode === ThemeTypes.DARK
 
@@ -28,6 +30,17 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
     const item = listFood.find((food) => food.id === cartItem.id)
     return total + (item?.price || 0) * cartItem.quantity
   }, 0)
+
+  const disabled = cartItems.length <= 0
+
+  const handleClickPurchase = () => {
+    if (disabled) return
+    alert(
+      `your cart total is at ${totalPrice}\nthank for your purchase see you soon 🤩`
+    )
+    resetCart()
+    navigate('successful')
+  }
 
   return (
     <>
@@ -70,7 +83,12 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               >
                 Total: {toConvertPrice(totalPrice)}
               </Typography>
-              <Button variant="contained" color="info">
+              <Button
+                variant="contained"
+                color="info"
+                onClick={() => handleClickPurchase()}
+                disabled={disabled}
+              >
                 Buy
               </Button>
             </Box>

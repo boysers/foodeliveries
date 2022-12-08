@@ -19,7 +19,8 @@ export const ViewportHeight: React.FC<PropsViewportHeight> = ({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        height: 'calc(100vh - 64px)',
+        // header: 64px and footer: 50px
+        height: 'calc(100vh - 64px - 50px)',
         ...sx
       }}
     >

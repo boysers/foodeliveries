@@ -19,6 +19,7 @@ type ShoppingCartContextDefaultValue = {
   increaseCartQuantity: (id: number) => void
   decreaseCartQuantity: (id: number) => void
   removeFromCart: (id: number) => void
+  resetCart: () => void
 }
 
 const ShoppingCartContext =
@@ -84,6 +85,10 @@ export const ShoppingCartProvider: React.FC<PropsWithChildren> = ({
     [setCartItems]
   )
 
+  const resetCart = useCallback(() => {
+    setCartItems([])
+  }, [setCartItems])
+
   return (
     <ShoppingCartContext.Provider
       value={{
@@ -93,7 +98,8 @@ export const ShoppingCartProvider: React.FC<PropsWithChildren> = ({
         increaseCartQuantity,
         decreaseCartQuantity,
         removeFromCart,
-        cartItems
+        cartItems,
+        resetCart
       }}
     >
       {children}
