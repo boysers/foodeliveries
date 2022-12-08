@@ -2,25 +2,37 @@ import { LoaderFunctionArgs } from 'react-router-dom'
 import foodList from './data/foodList.json'
 import {
   HomeLoaderData,
+  Product,
   ProductsLoaderData,
   SingleProductLoaderData
 } from './types'
 
 export function homeLoader(): HomeLoaderData {
-  const productOne = foodList[Math.floor(Math.random() * foodList.length)]
-  const filtered = foodList.filter((food) => food.id !== productOne.id)
-  const productTwo = filtered[Math.floor(Math.random() * filtered.length)]
-  const filteredWithoutFoodSelected = foodList.filter(
-    (food) => food.id !== productOne.id && food.id !== productTwo.id
+  const selectedFoods: Product[] = []
+
+  for (let i = 0; i < foodList.length; i++) {
+    const food = foodList[Math.floor(Math.random() * foodList.length)]
+
+    if (food.category !== selectedFoods[0]?.category) selectedFoods.push(food)
+
+    if (selectedFoods.length >= 2) break
+  }
+
+  const selectedFoodsString = selectedFoods.reduce(
+    (acc, food, idx, array) =>
+      (acc += `${food.category}|${food.id}${
+        array.length !== idx + 1 ? '|' : ''
+      }`),
+    ''
   )
 
-  const regexCategories = new RegExp(
-    `${productOne.category}|${productTwo.category}`
+  const regex = new RegExp(`(${selectedFoodsString})$`)
+
+  const similarCategoryProducts = foodList.filter(
+    (food) => regex.test(food.category) && !regex.test(food.id.toString())
   )
 
-  const similarCategoryProducts = filteredWithoutFoodSelected.filter((food) => {
-    if (regexCategories.test(food.category)) return food
-  })
+  const [productOne, productTwo] = selectedFoods
 
   return {
     productOne,
