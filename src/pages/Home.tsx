@@ -45,9 +45,12 @@ export const Home: React.FC = () => {
           marginBottom: '75px'
         }}
       >
-        <ImageHomeCard src={productOne.image} alt={productOne.title}>
-          {toUpperCaseFirstLetter(productOne.title)}
-        </ImageHomeCard>
+        <ImageHomeCard
+          src={productOne.image}
+          alt={productOne.title}
+          title={productOne.title}
+          category={productOne.category}
+        />
         <Box
           sx={{
             backgroundColor: 'rgba(255, 255, 255, 0.50)',
@@ -55,9 +58,12 @@ export const Home: React.FC = () => {
             width: '2px'
           }}
         />
-        <ImageHomeCard src={productTwo.image} alt={productTwo.title}>
-          {toUpperCaseFirstLetter(productTwo.title)}
-        </ImageHomeCard>
+        <ImageHomeCard
+          src={productTwo.image}
+          alt={productTwo.title}
+          title={productTwo.title}
+          category={productTwo.category}
+        />
         <Box
           sx={{
             position: 'absolute',
