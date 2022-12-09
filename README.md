@@ -1,4 +1,4 @@
-# Foodeliveries
+# Foodelivery
 
 A front-end food delivery app, built with JavaScript, Vite, React, TypeScript, React Router, Material UI, Vitest and React Testing Library
 

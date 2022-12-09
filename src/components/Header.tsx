@@ -1,8 +1,8 @@
-import React, { useCallback } from 'react'
-import { Link } from 'react-router-dom'
-import { AppBar, Toolbar, Container, Typography, Box } from '@/lib/material-ui'
-import { ThemeSwitcher, ShoppingCartButton } from './Inputs'
+import React from 'react'
 import styled from 'styled-components'
+import { AppBar, Toolbar, Container, Box } from '@/lib/material-ui'
+import { ThemeSwitcher, ShoppingCartButton } from './Inputs'
+import { Link } from './Link'
 
 const StyledLinkWrapper = styled.div`
   a {
@@ -16,10 +16,6 @@ const StyledLinkWrapper = styled.div`
 `
 
 export const Header: React.FC = () => {
-  const handleClickScroll = useCallback(() => {
-    window.scrollTo(0, 0)
-  }, [])
-
   return (
     <AppBar position="fixed">
       <Container maxWidth="xl">
@@ -32,43 +28,23 @@ export const Header: React.FC = () => {
             height: '64px'
           }}
         >
-          <Box
+          <Link
+            to="/"
+            variant="h5"
             sx={{
-              display: 'flex',
-              justifyContent: { xs: 'center', md: 'start' }
+              letterSpacing: '0.25rem',
+              userSelect: 'none'
             }}
           >
-            <Typography
-              component={Link}
-              to="/"
-              variant="h5"
-              noWrap
-              sx={{
-                textDecoration: 'none',
-                color: 'inherit',
-                letterSpacing: '0.25rem'
-              }}
-            >
-              Foodeliveries
-            </Typography>
-          </Box>
+            Foodelivery
+          </Link>
           <Box component={StyledLinkWrapper}>
-            <Typography
-              component={Link}
-              to="/"
-              sx={{ display: { xs: 'none', md: 'inline' } }}
-              onClick={handleClickScroll}
-            >
+            <Link to="/" sx={{ display: { xs: 'none', md: 'inline' } }}>
               Home
-            </Typography>
-            <Typography
-              to="products"
-              component={Link}
-              sx={{ margin: { xs: '10px', md: '50px' } }}
-              onClick={handleClickScroll}
-            >
+            </Link>
+            <Link to="products" sx={{ margin: { xs: '10px', md: '50px' } }}>
               Produits
-            </Typography>
+            </Link>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <ThemeSwitcher />

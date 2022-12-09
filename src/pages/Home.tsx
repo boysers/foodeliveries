@@ -24,7 +24,6 @@ export const Home: React.FC = () => {
   const navigate = useNavigate()
 
   const onHandleClickNavigate = () => {
-    window.scrollTo(0, 0)
     navigate(`products`)
   }
 

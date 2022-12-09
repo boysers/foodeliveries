@@ -28,7 +28,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   const navigate = useNavigate()
 
   const onHandleClickNavigate = () => {
-    window.scrollTo(0, 0)
     navigate(`/products/${id}`)
   }
 
