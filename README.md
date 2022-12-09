@@ -40,8 +40,8 @@ The project was created with the aim of integrating a school of web development 
 
 The application is a food delivery service, the data is hardcoded to avoid having to launch an API. The website is for demonstration purposes and is not made to be in production.
 
-What took me the most time was finding a good "folder structure", coming from Angular which is a complete modern platform that has its own folder structure and provides all the necessary libraries to make a good OPA. It was a challenge 🥲
+What took me the most time was finding a good "folder structure", coming from Angular which is a complete modern platform that has its own folder structure and provides all the necessary libraries to make a good OPA. It was a challenge 🥲.
 
 Initially I launched the project with `create-react-app`, but I found myself very quickly limited by the configuration and the build speed. I needed a fully configurable environment for eslint, prettier, testing libraries (vitest and react testing library) and directory aliases for module imports. That's why I migrated to `vite`.
 
-The main packages to use are vite, vitest, typescript, react, react router dom, @mui, @testing-library/react, eslint and prettier
+The main packages to use are vite, vitest, typescript, react, react router dom, @mui, @testing-library/react, eslint and prettier.

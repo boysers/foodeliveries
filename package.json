@@ -9,6 +9,7 @@
     "test": "vitest",
     "test:coverage": "vitest --coverage",
     "lint": "eslint ./src",
+    "lint:deadcode": "ts-prune -p tsconfig.json",
     "prettier": "prettier ./src --check"
   },
   "dependencies": {
@@ -42,6 +43,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "jsdom": "^20.0.1",
     "prettier": "^2.7.1",
+    "ts-prune": "^0.10.3",
     "typescript": "^4.8.4",
     "unplugin-auto-import": "^0.11.2",
     "vite": "^3.1.8",

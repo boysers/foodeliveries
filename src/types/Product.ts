@@ -1,4 +1,3 @@
-export type ProductCart = Pick<Product, 'id'> & { quantity: number }
 export type Category = string
 
 export interface Product {

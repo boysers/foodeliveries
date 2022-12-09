@@ -12,5 +12,5 @@ export type {
 } from './LoaderData.interface'
 
 // types
-export type { Category, ProductCart } from './Product'
+export type { Category } from './Product'
 export type { HandleToggleDrawer } from './HandleToggleDrawer.type'
