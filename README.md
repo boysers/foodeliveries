@@ -38,7 +38,7 @@ On your console if you have run command `npm run dev` and Ctrl-leftClick on `htt
 
 The project was created with the aim of integrating a school of web development and also the use of front-end technologies learned so far either through documentation and/or lessons/tutorials.
 
-The application is a food delivery service, the data is hardcoded to avoid having to launch an api. The website is for demonstration purposes and is not made to be in production.
+The application is a food delivery service, the data is hardcoded to avoid having to launch an API. The website is for demonstration purposes and is not made to be in production.
 
 What took me the most time was finding a good "folder structure", coming from Angular which is a complete modern platform that has its own folder structure and provides all the necessary libraries to make a good OPA. It was a challenge 🥲
 
