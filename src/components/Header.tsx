@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { AppBar, Toolbar, Container, Typography, Box } from '@/lib/material-ui'
 import { ThemeSwitcher, ShoppingCartButton } from './Inputs'
@@ -16,6 +16,10 @@ const StyledLinkWrapper = styled.div`
 `
 
 export const Header: React.FC = () => {
+  const handleClickScroll = useCallback(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <AppBar position="fixed">
       <Container maxWidth="xl">
@@ -45,7 +49,7 @@ export const Header: React.FC = () => {
                 letterSpacing: '0.25rem'
               }}
             >
-              Shopping
+              Foodeliveries
             </Typography>
           </Box>
           <Box component={StyledLinkWrapper}>
@@ -53,6 +57,7 @@ export const Header: React.FC = () => {
               component={Link}
               to="/"
               sx={{ display: { xs: 'none', md: 'inline' } }}
+              onClick={handleClickScroll}
             >
               Home
             </Typography>
@@ -60,6 +65,7 @@ export const Header: React.FC = () => {
               to="products"
               component={Link}
               sx={{ margin: { xs: '10px', md: '50px' } }}
+              onClick={handleClickScroll}
             >
               Produits
             </Typography>

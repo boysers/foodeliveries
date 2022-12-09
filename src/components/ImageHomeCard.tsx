@@ -36,12 +36,12 @@ export const ImageHomeCard: React.FC<PropsImageHomeCard> = ({
         }}
       >
         {title && (
-          <Typography component="h3" fontSize="1.2rem" margin="12px 0">
+          <Typography component="h3" fontSize="1.3rem" margin="12px 0">
             {toUpperCaseFirstLetter(title)}
           </Typography>
         )}
         {category && (
-          <Typography component="p" color="text.secondary">
+          <Typography component="p">
             {toUpperCaseFirstLetter(category)}
           </Typography>
         )}

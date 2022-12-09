@@ -13,7 +13,7 @@ import {
 import { useShoppingCartContext } from '@/context'
 import { Product } from '@/types'
 import foodList from '@/data/foodList.json'
-import { toConvertPrice } from '@/utils'
+import { toConvertPrice, toUpperCaseFirstLetter } from '@/utils'
 
 type CartProductItemProps = Partial<Product> &
   Pick<Product, 'id'> & {
@@ -70,7 +70,7 @@ export const CartProductItem: React.FC<CartProductItemProps> = ({
                 component="div"
                 sx={{ color: product.title ? 'currentcolor' : '#fd2121' }}
               >
-                {product.title}
+                {toUpperCaseFirstLetter(product.title)}
               </Typography>
             </Grid>
             <Grid
