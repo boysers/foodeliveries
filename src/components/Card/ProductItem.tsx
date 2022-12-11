@@ -4,9 +4,9 @@ import styled from 'styled-components'
 import { Product } from '@/types'
 import { Card, CardContent, Typography, Tooltip, Box } from '@/lib/material-ui'
 import { toUpperCaseFirstLetter, toStringSlice, toConvertPrice } from '@/utils'
-import { AddCartProduct } from './Inputs'
+import { AddCartProduct } from './AddCartProduct'
 
-type ProductCardProps = Product
+type ProductItemProps = Product
 
 const CardStyled = styled.div`
   display: flex;
@@ -18,7 +18,7 @@ const CardStyled = styled.div`
   border-radius: 12px !important;
 `
 
-export const ProductCard: React.FC<ProductCardProps> = ({
+export const ProductItem: React.FC<ProductItemProps> = ({
   image,
   title,
   category,

@@ -11,7 +11,7 @@ export const Footer = () => {
       }}
     >
       <Typography color="text.secondary" sx={{ textAlign: 'center' }}>
-        © {new Date().getFullYear()} Shopping - Tous droits réservés
+        © {new Date().getFullYear()} Foodelivery
       </Typography>
     </Box>
   )

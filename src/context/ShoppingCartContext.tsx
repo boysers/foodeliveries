@@ -7,7 +7,7 @@ import React, {
 } from 'react'
 import { useLocalStorage, useToggleDrawer } from '@/hooks'
 import { CartItem, HandleToggleDrawer } from '@/types'
-import { CartDrawer } from '@/components'
+import { ShoppingCartDrawer } from '@/components'
 
 type ShoppingCartContextDefaultValue = {
   onToggleDrawer: HandleToggleDrawer
@@ -103,7 +103,7 @@ export const ShoppingCartProvider: React.FC<PropsWithChildren> = ({
       }}
     >
       {children}
-      <CartDrawer />
+      <ShoppingCartDrawer />
     </ShoppingCartContext.Provider>
   )
 }

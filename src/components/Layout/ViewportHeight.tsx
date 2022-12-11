@@ -1,12 +1,12 @@
 import React, { PropsWithChildren } from 'react'
 import { Box, SxPropsWithTheme } from '@/lib/material-ui'
 
-type PropsViewportHeight = PropsWithChildren<{
+type ViewportHeightProps = PropsWithChildren<{
   sx?: SxPropsWithTheme
   maxWidth?: string | number
 }>
 
-export const ViewportHeight: React.FC<PropsViewportHeight> = ({
+export const ViewportHeight: React.FC<ViewportHeightProps> = ({
   sx,
   maxWidth = 'lx',
   children

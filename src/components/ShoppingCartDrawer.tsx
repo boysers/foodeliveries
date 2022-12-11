@@ -4,13 +4,13 @@ import listFood from '@/data/foodList.json'
 import { Box, Button, CloseIcon, Drawer, Typography } from '@/lib/material-ui'
 import { useShoppingCartContext, useColorModeContext } from '@/context'
 import { HandleToggleDrawer, ThemeTypes } from '@/types'
-import { ViewportHeight } from '@/layouts'
 import { toConvertPrice } from '@/utils'
-import { CartProductItem } from './CartProductItem'
+import { ViewportHeight } from './Layout'
+import { CartProductItem } from './Card'
 
 const MemoizedCartProductItem = memo(CartProductItem)
 
-export const CartDrawer: React.FC = () => {
+export const ShoppingCartDrawer: React.FC = () => {
   const navigate = useNavigate()
   const { cartItems, cartQuantity, resetCart, onToggleDrawer, isOpen } =
     useShoppingCartContext()

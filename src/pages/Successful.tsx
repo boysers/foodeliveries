@@ -1,7 +1,7 @@
 import React from 'react'
-import { ViewportHeight } from '@/layouts'
+import { ViewportHeight } from '@/components'
 import { CheckCircleIcon, Typography } from '@/lib/material-ui'
-import { FeedbackReturnToHome } from '@/components'
+import { ReturnToHome } from '@/components'
 
 export const Successful: React.FC = () => {
   return (
@@ -10,7 +10,7 @@ export const Successful: React.FC = () => {
       <Typography variant="h4" sx={{ margin: '24px 0' }}>
         Successfully Purchase
       </Typography>
-      <FeedbackReturnToHome />
+      <ReturnToHome />
     </ViewportHeight>
   )
 }

@@ -4,7 +4,6 @@ import { styled } from '@mui/material'
 import { default as SwitchMui } from '@mui/material/Switch'
 
 type SxPropsWithTheme = SxProps<Theme>
-type ButtonVariantType = 'text' | 'outlined' | 'contained'
 type TypographyVariantType =
   | 'h1'
   | 'h2'
@@ -29,12 +28,12 @@ export {
 export { CssBaseline as CssBaselineMui } from '@mui/material'
 
 // types
-export type { SxPropsWithTheme, ButtonVariantType, TypographyVariantType }
+export type { SxPropsWithTheme, TypographyVariantType }
 export { type SelectChangeEvent } from '@mui/material/Select'
 
 // utils
 export const styledMui = styled
-export { SnackbarProvider, useSnackbar, type VariantType } from 'notistack'
+export { SnackbarProvider, useSnackbar } from 'notistack'
 
 // icons material
 export { default as CheckCircleIcon } from '@mui/icons-material/CheckCircle'

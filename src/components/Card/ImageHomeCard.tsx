@@ -1,22 +1,21 @@
 import React from 'react'
-import styled from 'styled-components'
-import { Box, Typography } from '@/lib/material-ui'
+import { Box, styledMui, Typography } from '@/lib/material-ui'
 import { toUpperCaseFirstLetter } from '@/utils'
 
-type PropsImageHomeCard = {
+type ImageHomeCardProps = {
   src: string
   alt: string
   title?: string
   category?: string
 }
 
-const StyledImg = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-`
+const StyledImg = styledMui('img')({
+  width: '100%',
+  height: '100%',
+  objectFit: 'cover'
+})
 
-export const ImageHomeCard: React.FC<PropsImageHomeCard> = ({
+export const ImageHomeCard: React.FC<ImageHomeCardProps> = ({
   src,
   alt,
   title,

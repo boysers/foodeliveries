@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { AppBar, Toolbar, Container, Box } from '@/lib/material-ui'
-import { ThemeSwitcher, ShoppingCartButton } from './Inputs'
-import { Link } from './Link'
+import { ThemeSwitcher } from './Input'
+import { Link, ShoppingCartButton } from './Button'
 
 const StyledLinkWrapper = styled.div`
   a {

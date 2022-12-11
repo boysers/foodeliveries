@@ -2,11 +2,13 @@
 
 A front-end food delivery app, built with JavaScript, Vite, React, TypeScript, React Router, Material UI, Vitest and React Testing Library
 
-## Demo Link
+The project was created with the aim of integrating a web development school.
+
+The app is a food delivery service. It is for demonstration purposes and is not made to be in production.
 
 Access to site demo at [foodeliveries.netlify.app](https://foodeliveries.netlify.app/)
 
-## Screenshots
+## Overview
 
 ![home and cart page](./screenshots/home_and_cart_pages.jpg)
 
@@ -14,39 +16,37 @@ Access to site demo at [foodeliveries.netlify.app](https://foodeliveries.netlify
 
 ### ⚠️ Prerequisite:
 
-Clone down this repository. You will need `node` and `npm` installed globally on your machine.
+If you clone down this repository. You will need `node` and `npm` installed globally on your machine.
 
 ### ⌨️ Commands:
 
 Installation:
 
-`npm install`
+```
+npm install
+```
 
 To Run Test Suite:
 
-`npm run test`
+```
+npm run test
+```
 
 To Run Coverage Test Suite:
 
-`npm run test:coverage`
+```
+npm run test:coverage
+```
 
 To Start Development Server:
 
-`npm run dev`
+```
+npm run dev
+```
 
 To Visit App:
 
 On your console if you have run command `npm run dev` and Ctrl-leftClick on `http://localhost:5173/`
-
-## Reflection
-
-The project was created with the aim of integrating a school of web development and also the use of technologies learned so far either through documentation and/or lessons/tutorials.
-
-The application is a food delivery service. The website is for demonstration purposes and is not made to be in production.
-
-What took me the most time was finding a good "folder structure", coming from Angular which is a complete framework that has its own folder structure and provides all the libraries needed to make a good SPA. It was a challenge 🥲.
-
-Initially I launched the project with `create-react-app`, but I found myself very quickly limited by the configuration and the build speed. I needed a fully configurable environment for eslint, prettier, testing libraries (vitest and react testing library) and directory aliases for module imports. That's why I migrated to `vite`.
 
 ## Main Libraries
 

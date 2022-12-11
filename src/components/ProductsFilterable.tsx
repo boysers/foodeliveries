@@ -2,10 +2,10 @@ import React, { useCallback, useState, memo } from 'react'
 import styled from 'styled-components'
 import { Box, Button, SelectChangeEvent, Typography } from '@/lib/material-ui'
 import { useToggleDrawer } from '@/hooks'
-import { StyledGridItems } from '@/layouts'
 import { Product, SortBy, Category } from '@/types'
-import { ProductCard } from './ProductCard'
-import { FilterByDrawer } from './FilterByDrawer'
+import { ProductItem } from './Card'
+import { StyledGridItems } from './Layout'
+import { ComponentFilterBy } from './ComponentFilterBy'
 
 type ProductsFilterableProps = {
   products: Product[]
@@ -27,7 +27,7 @@ const GridHeaderStyled = styled.div`
   top: calc(64px + 16px);
 `
 
-const MemoizedProductCard = memo(ProductCard)
+const MemoizedProductCard = memo(ProductItem)
 
 export const ProductsFilterable: React.FC<ProductsFilterableProps> = ({
   products,
@@ -72,7 +72,7 @@ export const ProductsFilterable: React.FC<ProductsFilterableProps> = ({
         justifyContent: 'space-between'
       }}
     >
-      <FilterByDrawer
+      <ComponentFilterBy
         categories={categories}
         filterSortBy={filterSortBy}
         isFilteredCategories={isFilteredCategories}

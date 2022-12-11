@@ -1,26 +1,24 @@
+import React, { PropsWithChildren } from 'react'
+import { To, useLocation, useNavigate } from 'react-router-dom'
 import {
   SxPropsWithTheme,
   Typography,
   TypographyVariantType
 } from '@/lib/material-ui'
-import React, { PropsWithChildren } from 'react'
-import { To, useLocation, useNavigate } from 'react-router-dom'
 
-type PropsLink = PropsWithChildren<{
+type LinkProps = PropsWithChildren<{
   to: To
   sx?: SxPropsWithTheme
   variant?: TypographyVariantType
 }>
 
-export const Link: React.FC<PropsLink> = ({ to, children, sx, variant }) => {
+export const Link: React.FC<LinkProps> = ({ to, children, sx, variant }) => {
   const navigate = useNavigate()
   const { pathname } = useLocation()
 
   const onHandleClickNavigate = () => {
-    const path = to.toString().charAt(0) === '/' ? to : `/${to}`
-
-    console.log(pathname, path)
-    if (pathname !== path) navigate(to)
+    const toPath = to.toString().charAt(0) === '/' ? to : `/${to}`
+    if (pathname !== toPath) navigate(toPath)
   }
 
   return (
@@ -29,8 +27,6 @@ export const Link: React.FC<PropsLink> = ({ to, children, sx, variant }) => {
       variant={variant}
       onClick={onHandleClickNavigate}
       sx={{
-        textDecoration: 'none',
-        color: 'inherit',
         cursor: 'pointer',
         ...sx
       }}

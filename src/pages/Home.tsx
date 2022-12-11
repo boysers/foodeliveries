@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { Box, Button, Typography } from '@/lib/material-ui'
 import { Category, HomeLoaderData } from '@/types'
 import { toUpperCaseFirstLetter } from '@/utils'
-import { ImageHomeCard, ProductCard } from '@/components'
+import { ImageHomeCard, ProductItem } from '@/components'
 import { useLoaderData } from '@/hooks'
 
 const GridStyled = styled.div`
@@ -105,7 +105,7 @@ export const Home: React.FC = () => {
                 .filter((food) => food.category === cate)
                 .slice(0, 4)
                 .map((foodFiltered) => (
-                  <ProductCard {...foodFiltered} key={foodFiltered.id} />
+                  <ProductItem {...foodFiltered} key={foodFiltered.id} />
                 ))}
               <Button
                 onClick={onHandleClickNavigate}

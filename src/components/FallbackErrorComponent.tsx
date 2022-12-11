@@ -1,7 +1,7 @@
 import React from 'react'
 import { FallbackProps } from 'react-error-boundary'
 import { Alert, Stack } from '@/lib/material-ui'
-import { ViewportHeight } from '@/layouts'
+import { ViewportHeight } from './Layout'
 
 export const FallbackErrorComponent: React.FC<FallbackProps> = ({ error }) => {
   return (
