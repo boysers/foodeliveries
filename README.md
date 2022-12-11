@@ -40,13 +40,13 @@ npm run test:coverage
 
 To Start Development Server:
 
-```
-npm run dev
+``` 
+npm run dev -- --port 3000
 ```
 
 To Visit App:
 
-On your console if you have run command `npm run dev` and Ctrl-leftClick on `http://localhost:5173/`
+On your console if you have run command `npm run dev` and Ctrl-leftClick on `http://localhost:3000/`
 
 ## Main Libraries
 
