@@ -26,7 +26,12 @@ export default defineConfig({
       reporter: ['text', 'json', 'html'],
       all: true,
       src: ['src'],
-      exclude: ['**/*{.,-}test.{ts,tsx}', '**/*.d.ts', 'src/**/index.ts'],
+      exclude: [
+        '**/*{.,-}test.{ts,tsx}',
+        '**/*.d.ts',
+        'src/**/index.ts',
+        'src/tests'
+      ],
       include: ['src/*/**'],
       extension: ['.ts', '.tsx']
     }
