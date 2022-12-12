@@ -13,7 +13,13 @@ export const ReturnToHome: React.FC<FeedbackReturnToHomeProps> = ({
   children = 'Return to the home page'
 }) => {
   return (
-    <Button component={Link} to={to} sx={sx} endIcon={<KeyboardReturnIcon />}>
+    <Button
+      component={Link}
+      to={to}
+      sx={sx}
+      endIcon={<KeyboardReturnIcon />}
+      data-testid="button-home"
+    >
       {children}
     </Button>
   )

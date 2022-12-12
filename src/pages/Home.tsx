@@ -85,6 +85,7 @@ export const Home: React.FC = () => {
               variant="contained"
               color="primary"
               size="large"
+              data-testid="button"
             >
               Découvrir
             </Button>
@@ -93,10 +94,15 @@ export const Home: React.FC = () => {
       </Box>
       <Box>
         {categories.map((cate, idx) => (
-          <Box key={`${idx}-${cate}`} sx={{ margin: '50px 0' }}>
+          <Box
+            key={`${idx}-${cate}`}
+            sx={{ margin: '50px 0' }}
+            data-testid="category"
+          >
             <Typography
               component="h2"
               sx={{ fontSize: '1.5rem', margin: '25px 0', paddingLeft: '10px' }}
+              data-testid="cate-title"
             >
               {toUpperCaseFirstLetter(cate)}
             </Typography>
