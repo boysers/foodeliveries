@@ -58,5 +58,7 @@ export function singleProductLoader({
     )
     .slice(0, 5)
 
+  console.log({ product, similarCategoryProducts })
+
   return { product, similarCategoryProducts }
 }

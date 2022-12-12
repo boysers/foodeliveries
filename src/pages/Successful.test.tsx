@@ -1,8 +1,16 @@
-import { render, screen } from '@/tests/utils'
+import { renderRouter, screen } from '@/tests/utils'
+import { Successful } from './Successful'
 
 describe('The successful component', () => {
+  const routes = [
+    {
+      path: 'successful',
+      element: <Successful />
+    }
+  ]
+
   it('should show a successful message', () => {
-    render('/successful')
+    renderRouter('/successful', routes)
     expect(screen.getByText('Successfully Purchase')).toBeTruthy()
   })
 })

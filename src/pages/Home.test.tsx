@@ -1,38 +1,28 @@
 import {
-  AllProvider,
   fireEvent,
-  render,
-  rtlRender,
+  renderRouter,
   screen,
   TestComponent,
   waitFor
 } from '@/tests/utils'
 import { Home } from './Home'
 import dataHome from '@/tests/utils/data/home'
-import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 describe('The home component', () => {
+  const routes = [
+    {
+      path: '/',
+      element: <Home />,
+      loader: () => dataHome
+    },
+    {
+      path: '/products',
+      element: <TestComponent />
+    }
+  ]
+
   it('should display the "Découvrir" button and it should click on the button to go to the products page', async () => {
-    const routes = [
-      {
-        path: '/',
-        element: (
-          <AllProvider>
-            <Home />
-          </AllProvider>
-        ),
-        loader: () => dataHome
-      },
-      {
-        path: '/products',
-        element: <TestComponent />
-      }
-    ]
-    const router = createMemoryRouter(routes, {
-      initialEntries: ['/', '/products'],
-      initialIndex: 0
-    })
-    rtlRender(<RouterProvider router={router} />)
+    renderRouter('/', routes)
     await waitFor(() => {
       const button = screen.getByTestId('button')
       expect(button).toBeTruthy()
@@ -42,7 +32,7 @@ describe('The home component', () => {
   })
 
   it('should display title foods', async () => {
-    render('/')
+    renderRouter('/', routes)
     await waitFor(() => {
       expect(screen.getByText('Velouté De Courgette Aux Gratons')).toBeTruthy()
       expect(screen.getByText('Burger De Boeuf Et Frites')).toBeTruthy()
@@ -50,7 +40,7 @@ describe('The home component', () => {
   })
 
   it('should show all food categories select', async () => {
-    render('/')
+    renderRouter('/', routes)
     await waitFor(() => {
       expect(screen.getAllByTestId('category').length).toBe(2)
       expect(screen.getAllByTestId('cate-title')[0].textContent).toBe('Plat')

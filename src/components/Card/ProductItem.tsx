@@ -34,7 +34,12 @@ export const ProductItem: React.FC<ProductItemProps> = ({
   const newTitle = toUpperCaseFirstLetter(title)
 
   return (
-    <Card className="grid-item" variant="outlined" component={CardStyled}>
+    <Card
+      className="grid-item"
+      variant="outlined"
+      component={CardStyled}
+      data-testid="product-item"
+    >
       <Box
         component="img"
         onClick={onHandleClickNavigate}

@@ -1,21 +1,20 @@
-import React from 'react'
-import { ErrorBoundary } from 'react-error-boundary'
-import { FallbackErrorComponent, ProductsFilterable } from '@/components'
+import React, { useMemo } from 'react'
+import { ProductsFilterable } from '@/components'
 import { Category, ProductsLoaderData } from '@/types'
 import { useLoaderData } from '@/hooks'
 
 export const Products: React.FC = () => {
   const { products } = useLoaderData<ProductsLoaderData>()
 
-  const categoryList = products.reduce<Category[]>(
-    (acc, food) =>
-      acc.includes(food.category) ? acc : acc.concat(food.category),
-    []
+  const categories = useMemo(
+    () =>
+      products.reduce<Category[]>(
+        (acc, food) =>
+          acc.includes(food.category) ? acc : acc.concat(food.category),
+        []
+      ),
+    [products]
   )
 
-  return (
-    <ErrorBoundary FallbackComponent={FallbackErrorComponent}>
-      <ProductsFilterable products={products} categories={categoryList} />
-    </ErrorBoundary>
-  )
+  return <ProductsFilterable products={products} categories={categories} />
 }
