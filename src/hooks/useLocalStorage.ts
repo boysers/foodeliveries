@@ -6,6 +6,7 @@ export function useLocalStorage<V = unknown>(key: string, initialValue: V) {
     try {
       return item ? JSON.parse(item) : initialValue
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error)
       return initialValue
     }

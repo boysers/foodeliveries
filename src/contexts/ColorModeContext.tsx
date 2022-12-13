@@ -9,7 +9,6 @@ import {
   CssBaselineMui,
   ThemeProviderMui
 } from '@/lib/material-ui'
-import defaultTheme from '@/data/defaultTheme'
 import { ThemeTypes } from '@/types'
 import { useLocalStorage } from '@/hooks'
 
@@ -25,7 +24,7 @@ const ColorModeContext = createContext<ColorModeContextDefaultValue | null>(
 export const ColorModeProvider: React.FC<PropsWithChildren> = ({
   children
 }) => {
-  const [theme, setTheme] = useLocalStorage('theme', { mode: defaultTheme })
+  const [theme, setTheme] = useLocalStorage('theme', { mode: ThemeTypes.LIGHT })
 
   const colorMode = useMemo(
     () => ({
