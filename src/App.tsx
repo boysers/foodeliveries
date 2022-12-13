@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
-import { ColorModeProvider, ShoppingCartProvider } from './context'
+import { ColorModeProvider, ShoppingCartProvider } from './contexts'
 import { Container, SnackbarProvider } from './lib/material-ui'
 import { Footer, Header } from './components'
 

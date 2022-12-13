@@ -6,7 +6,7 @@ import {
   useSnackbar,
   SxPropsWithTheme
 } from '@/lib/material-ui'
-import { useShoppingCartContext } from '@/context'
+import { useShoppingCartContext } from '@/contexts'
 
 type AddCartProductProps = {
   id: number

@@ -10,7 +10,7 @@ import {
   RemoveIcon,
   AddIcon
 } from '@/lib/material-ui'
-import { useShoppingCartContext } from '@/context'
+import { useShoppingCartContext } from '@/contexts'
 import { Product } from '@/types'
 import foodList from '@/data/foodList.json'
 import { toConvertPrice, toUpperCaseFirstLetter } from '@/utils'

@@ -1,4 +1,4 @@
-import { ColorModeProvider, ShoppingCartProvider } from '@/context'
+import { ColorModeProvider, ShoppingCartProvider } from '@/contexts'
 import { SnackbarProvider } from 'notistack'
 import React, { PropsWithChildren } from 'react'
 

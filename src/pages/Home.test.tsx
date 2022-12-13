@@ -27,7 +27,7 @@ describe('The home component', () => {
       const button = screen.getByTestId('button')
       expect(button).toBeTruthy()
       fireEvent.click(button)
-      expect(screen.findByTestId('test-completed')).toBeTruthy()
+      expect(screen.getByTestId('test-completed')).toBeTruthy()
     })
   })
 

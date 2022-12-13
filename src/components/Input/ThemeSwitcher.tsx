@@ -1,17 +1,25 @@
 import React from 'react'
-import { useColorModeContext } from '@/context'
+import { useColorModeContext } from '@/contexts'
 import { ThemeTypes } from '@/types'
 import { MaterialUISwitch } from '@/lib/material-ui'
 
-export const ThemeSwitcher: React.FC = () => {
+type ThemeSwitcherProps = { isText?: boolean }
+
+export const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ isText }) => {
   const { mode, toggleColorMode } = useColorModeContext()
+
+  const checked = mode === ThemeTypes.DARK
+
   return (
-    <MaterialUISwitch
-      checked={mode === ThemeTypes.DARK}
-      onChange={() => {
-        toggleColorMode()
-      }}
-      sx={{ m: 1 }}
-    />
+    <div>
+      <MaterialUISwitch
+        checked={checked}
+        onChange={() => {
+          toggleColorMode()
+        }}
+        sx={{ m: 1 }}
+      />
+      {isText && <p>{checked ? 'Dark' : 'Light'} Theme</p>}
+    </div>
   )
 }

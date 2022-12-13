@@ -109,10 +109,10 @@ export const ShoppingCartProvider: React.FC<PropsWithChildren> = ({
 }
 
 export const useShoppingCartContext = () => {
-  const context = useContext(ShoppingCartContext)
+  const contexts = useContext(ShoppingCartContext)
 
-  if (!context)
+  if (!contexts)
     throw new Error('useShoppingCartContext was used outside of its Provider')
 
-  return context
+  return contexts
 }

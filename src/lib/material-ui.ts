@@ -20,7 +20,7 @@ type TypographyVariantType =
   | 'overline'
   | 'inherit'
 
-// for the theme context
+// for the theme contexts
 export {
   ThemeProvider as ThemeProviderMui,
   createTheme as createThemeMui

@@ -1,13 +1,22 @@
+import { NotFound } from '@/components'
 import { renderRouter, screen, waitFor } from '@/tests/utils'
 import singleProduct from '@/tests/utils/data/singleProduct'
+import { RouteObject } from 'react-router-dom'
 import { SingleProduct } from './SingleProduct'
 
 describe('The single product component', () => {
-  const routes = [
+  const expectedErrorMessage = 'Product Not Found'
+
+  const routes: RouteObject[] = [
     {
-      path: 'products/1',
+      path: 'products/:id',
       element: <SingleProduct />,
-      loader: () => singleProduct
+      errorElement: <NotFound />,
+      loader: ({ params }) => {
+        if (Number(params.id) !== 1) throw new Error(expectedErrorMessage)
+
+        return singleProduct
+      }
     }
   ]
 
@@ -21,6 +30,13 @@ describe('The single product component', () => {
         })
       ).toBeTruthy()
       expect(screen.getByText('Pizza')).toBeTruthy()
+    })
+  })
+
+  it('should display an error message product not found', async () => {
+    renderRouter('/products/not_found', routes)
+    await waitFor(() => {
+      expect(screen.getByText(expectedErrorMessage)).toBeTruthy()
     })
   })
 })

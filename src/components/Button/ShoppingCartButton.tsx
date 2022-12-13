@@ -1,6 +1,6 @@
 import React from 'react'
 import { IconButton, Badge, ShoppingBagOutlinedIcon } from '@/lib/material-ui'
-import { useShoppingCartContext } from '@/context'
+import { useShoppingCartContext } from '@/contexts'
 
 export const ShoppingCartButton: React.FC = () => {
   const { cartQuantity, onToggleDrawer } = useShoppingCartContext()
